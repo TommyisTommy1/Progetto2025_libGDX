@@ -4,8 +4,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -26,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
 
     Player player = new Player(this,gestioneTasti);
+    TileManager gestioneTiles = new TileManager(this);
 
     int playerX = 500;
     int playerY = 500;
@@ -34,10 +37,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(larghezzaSchermo, altezzaSchermo));
-        this.setBackground(Color.green);
+        this.setBackground(Color.gray);
         this.setDoubleBuffered(true);
         this.addKeyListener(gestioneTasti);
         this.setFocusable(true);
+        this.setBorder(new LineBorder(Color.black, 50));
+        
     }
 
     public void iniziaThreadGioco(){
@@ -56,9 +61,6 @@ public class GamePanel extends JPanel implements Runnable{
             update();
 
             repaint();
-            
-            
-            
             
             try {
                 double tempoRimanente = prossimaVisualizzazione  - System.nanoTime();
@@ -80,7 +82,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        gestioneTiles.draw(g2);
         player.draw(g2);
+
         g2.dispose();
     }
 }

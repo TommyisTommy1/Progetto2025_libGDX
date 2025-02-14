@@ -78,6 +78,42 @@ public class Player extends Entity{
                     spriteCounter=0;
                 }
             }
+            if (direction.equals("giu")) {
+                direction = "fermoGiu";
+                spriteCounter++;
+                if (spriteCounter > 24) {
+                    if (spriteNum == 1) {
+                        spriteNum=2;
+                    }else if(spriteNum == 2){
+                        spriteNum=1;
+                    }
+                    spriteCounter=0;
+                }
+            }
+            if (direction.equals("destra")) {
+                direction = "fermoGiu";
+                spriteCounter++;
+                if (spriteCounter > 24) {
+                    if (spriteNum == 1) {
+                        spriteNum=2;
+                    }else if(spriteNum == 2){
+                        spriteNum=1;
+                    }
+                    spriteCounter=0;
+                }
+            }
+            if (direction.equals("sinistra")) {
+                direction = "fermoGiu";
+                spriteCounter++;
+                if (spriteCounter > 24) {
+                    if (spriteNum == 1) {
+                        spriteNum=2;
+                    }else if(spriteNum == 2){
+                        spriteNum=1;
+                    }
+                    spriteCounter=0;
+                }
+            }
         }
         
     }
