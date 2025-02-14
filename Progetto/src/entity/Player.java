@@ -2,9 +2,6 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
-
 import Gioco.GamePanel;
 import Gioco.GestioneTasti;
 
