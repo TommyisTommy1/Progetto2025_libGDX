@@ -5,13 +5,15 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.swing.JPanel;
 
+import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable{
 
     //SCHERMO
     final int grandezzaCaselleOriginale = 16; //grandezza di un solo oggetto
     final int scala = 3;
 
-    final int grandezzaCaselle = grandezzaCaselleOriginale * scala;
+    public final int grandezzaCaselle = grandezzaCaselleOriginale * scala;
     final int massimaAltezzaCol=16;
     final int massimaAltezzaRig=12;
     final int larghezzaSchermo = grandezzaCaselle*massimaAltezzaCol;
@@ -19,8 +21,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     GestioneTasti gestioneTasti = new GestioneTasti();
     Thread threadGioco;
+    
 
     int FPS = 60;
+
+    Player player = new Player(this,gestioneTasti);
 
     int playerX = 500;
     int playerY = 500;
@@ -70,24 +75,12 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update(){
-        if (gestioneTasti.suPremuto == true) {
-            playerY -= playerSpeed;
-        }
-        if (gestioneTasti.giuPremuto == true) {
-            playerY += playerSpeed;
-        }
-        if (gestioneTasti.destraPremuto == true) {
-            playerX += playerSpeed;
-        }
-        if (gestioneTasti.sinistraPremuto == true) {
-            playerX -= playerSpeed;
-        }
+        player.update();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, grandezzaCaselle, grandezzaCaselle);
+        player.draw(g2);
         g2.dispose();
     }
 }
