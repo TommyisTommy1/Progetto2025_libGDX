@@ -10,7 +10,7 @@ import utils.Defines;
 public class TileManager {
     GamePanel gamePanel;
     Tile[] tile;
-    int[][] n = new int[18][12];
+    int[][] n = new int[Defines.MASSIMA_ALTEZZA_COL][Defines.MASSIMA_ALTEZZA_RIG];
 
     public TileManager(GamePanel g){
         this.gamePanel = g;
@@ -20,8 +20,8 @@ public class TileManager {
             getTileImage(tile[i], i);
         }
         
-        for (int i = 0; i < 18; i++) {
-            for (int j = 0; j < 12; j++) {
+        for (int i = 0; i < Defines.MASSIMA_ALTEZZA_COL; i++) {
+            for (int j = 0; j < Defines.MASSIMA_ALTEZZA_RIG; j++) {
                 n[i][j]=(int)(Math.random() * 3);
             }
         }
@@ -72,8 +72,8 @@ public class TileManager {
     }
     public void draw(Graphics2D g){
 
-        for (int i = 0; i < 18; i++) {
-            for (int j = 0; j < 12; j++) {
+        for (int i = 0; i < Defines.MASSIMA_ALTEZZA_COL; i++) {
+            for (int j = 0; j < Defines.MASSIMA_ALTEZZA_RIG; j++) {
                 if (n[i][j] == 0 || n[i][j] == 1) {
                     g.drawImage(tile[0].image, Defines.GRANDEZZA_CASELLE*i, Defines.GRANDEZZA_CASELLE*j, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
                 }else{

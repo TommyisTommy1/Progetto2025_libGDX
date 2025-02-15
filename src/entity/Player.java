@@ -15,8 +15,7 @@ public class Player extends Entity{
 
     public Player(GamePanel g1, GestioneTasti g2){
         this.panGioco = g1;
-        this.gestioneTasti = g2;
-
+        gestioneTasti = g2;
         setDefaultValues();
     }
     public void setDefaultValues(){
@@ -27,21 +26,22 @@ public class Player extends Entity{
         getPlayerImage();
     }
     public void update(){
-
         if (gestioneTasti.suPremuto || gestioneTasti.giuPremuto || gestioneTasti.destraPremuto || gestioneTasti.sinistraPremuto) {
-            if (gestioneTasti.suPremuto == true) {
+            System.out.println("AAAA");
+            if (gestioneTasti.suPremuto) {
                 direction = "su";
                 y -= speed;
+                System.out.println("ciao");
             }
-            if (gestioneTasti.giuPremuto == true) {
+            if (gestioneTasti.giuPremuto) {
                 direction = "giu";
                 y += speed;
             }
-            if (gestioneTasti.destraPremuto == true) {
+            if (gestioneTasti.destraPremuto) {
                 direction = "destra";
                 x += speed;
             }
-            if (gestioneTasti.sinistraPremuto == true) {
+            if (gestioneTasti.sinistraPremuto) {
                 direction = "sinistra";
                 x -= speed;
             }
