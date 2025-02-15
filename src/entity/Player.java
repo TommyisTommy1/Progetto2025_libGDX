@@ -27,11 +27,9 @@ public class Player extends Entity{
     }
     public void update(){
         if (gestioneTasti.suPremuto || gestioneTasti.giuPremuto || gestioneTasti.destraPremuto || gestioneTasti.sinistraPremuto) {
-            System.out.println("AAAA");
             if (gestioneTasti.suPremuto) {
                 direction = "su";
                 y -= speed;
-                System.out.println("ciao");
             }
             if (gestioneTasti.giuPremuto) {
                 direction = "giu";

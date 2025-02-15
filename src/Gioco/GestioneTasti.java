@@ -30,7 +30,7 @@ public class GestioneTasti implements KeyListener{
         }
         if (code==KeyEvent.VK_A) {
             sinistraPremuto = true;
-            System.out.println("Awdw premuto");
+            System.out.println("A premuto");
         }
     }
 

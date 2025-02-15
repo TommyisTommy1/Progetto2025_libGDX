@@ -29,10 +29,9 @@ public class Defines {
     public static final int MASSIMA_ALTEZZA_COL = ((int)toolkit.getScreenSize().getWidth())/GRANDEZZA_CASELLE; 
     public static final int MASSIMA_ALTEZZA_RIG = ((int)toolkit.getScreenSize().getWidth())/GRANDEZZA_CASELLE;
     
-
     public static final int FPS = 60;
 
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
-    public static Player PLAYER;
-    public static TileManager TILE_MANAGER = new TileManager(GAME_PANEL);
+    public static final Player PLAYER = new Player(GAME_PANEL, GamePanel.keyH);
+    public static final TileManager TILE_MANAGER = new TileManager(GAME_PANEL);
 }

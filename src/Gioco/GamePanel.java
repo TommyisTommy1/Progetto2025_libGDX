@@ -5,17 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
-import entity.Player;
 import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    public GestioneTasti keyH = new GestioneTasti();
-    
+    public final static GestioneTasti keyH = new GestioneTasti();
 
     public GamePanel(){
-        Defines.PLAYER = new Player(Defines.GAME_PANEL, keyH);
         this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
         this.setBackground(Color.gray);
         this.setDoubleBuffered(true);
@@ -32,14 +28,9 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         
-        
         double intervalloVisualizzazione = 1000000000/Defines.FPS; //0.016666 secondi
         double prossimaVisualizzazione = System.nanoTime() + intervalloVisualizzazione;
         while (Defines.THREAD_GIOCO != null) {
-            if (keyH.suPremuto) {
-                System.err.println("w");
-            }
-            
             update();
             repaint();
             
