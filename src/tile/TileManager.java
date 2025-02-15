@@ -71,18 +71,19 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g){
-
-        for (int i = 0; i < Defines.MASSIMA_ALTEZZA_COL; i++) {
-            for (int j = 0; j < Defines.MASSIMA_ALTEZZA_RIG; j++) {
-                if (n[i][j] == 0 || n[i][j] == 1) {
-                    g.drawImage(tile[0].image, Defines.GRANDEZZA_CASELLE*i, Defines.GRANDEZZA_CASELLE*j, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+        int posizioneX=0, posizioneY=0;
+        for (posizioneX = 0; posizioneX < Defines.MASSIMA_ALTEZZA_COL; posizioneX++) {
+            for (posizioneY = 0; posizioneY < Defines.MASSIMA_ALTEZZA_RIG; posizioneY++) {
+                if (n[posizioneX][posizioneY] == 0 || n[posizioneX][posizioneY] == 1) {
+                    g.drawImage(tile[0].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
                 }else{
-                    g.drawImage(tile[1].image, Defines.GRANDEZZA_CASELLE*i, Defines.GRANDEZZA_CASELLE*j, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+                    g.drawImage(tile[1].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
                 }
             }
         }
         
-        
-        g.drawImage(tile[2].image, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+        posizioneX=2;
+        posizioneY=2;
+        g.drawImage(tile[2].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
     }
 }

@@ -38,12 +38,13 @@ public class GamePanel extends JPanel implements Runnable{
             try {
                 double tempoRimanente = prossimaVisualizzazione  - System.nanoTime();
                 tempoRimanente = tempoRimanente/1000000;
-                if (tempoRimanente<0) {
-                    tempoRimanente=0;
-                }
+                
+                if (tempoRimanente<0) tempoRimanente=0;
+
                 Thread.sleep((long) tempoRimanente);
 
                 prossimaVisualizzazione+=intervalloVisualizzazione;
+                
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
