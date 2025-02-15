@@ -53,68 +53,49 @@ public class Player extends Entity{
                 spriteCounter=0;
             }
         }else{
-            if (direction.equals("su")) {
-                direction = "fermoSu";
-                spriteCounter++;
-                if (spriteCounter > 24) {
-                    if (spriteNum == 1) {
-                        spriteNum=2;
-                    }else if(spriteNum == 2){
-                        spriteNum=1;
+            switch (direction) {
+                case "giu":
+            
+                    direction = "fermoGiu";
+                    spriteCounter++;
+                    if (spriteCounter > 24) {
+                        if (spriteNum == 1) spriteNum=2;
+                        else if(spriteNum == 2) spriteNum=1;
+                        spriteCounter=0;
                     }
-                    spriteCounter=0;
-                }
-            }
-            if (direction.equals("giu")) {
-                direction = "fermoGiu";
-                spriteCounter++;
-                if (spriteCounter > 24) {
-                    if (spriteNum == 1) {
-                        spriteNum=2;
-                    }else if(spriteNum == 2){
-                        spriteNum=1;
+
+                    break;
+                case "su":
+                    direction = "fermoSu";
+                    spriteCounter++;
+                    if (spriteCounter > 24) {
+                        if (spriteNum == 1) spriteNum=2;
+                        else if(spriteNum == 2) spriteNum=1;
+                        spriteCounter=0;
                     }
-                    spriteCounter=0;
-                }
-            }
-            if (direction.equals("giu")) {
-                direction = "fermoGiu";
-                spriteCounter++;
-                if (spriteCounter > 24) {
-                    if (spriteNum == 1) {
-                        spriteNum=2;
-                    }else if(spriteNum == 2){
-                        spriteNum=1;
+                    break;
+                case "destra":
+                    direction = "fermoGiu";
+                    spriteCounter++;
+                    if (spriteCounter > 24) {
+                        if (spriteNum == 1) spriteNum=2;
+                        else if(spriteNum == 2) spriteNum=1;
+                        spriteCounter=0;
                     }
-                    spriteCounter=0;
-                }
-            }
-            if (direction.equals("destra")) {
-                direction = "fermoGiu";
-                spriteCounter++;
-                if (spriteCounter > 24) {
-                    if (spriteNum == 1) {
-                        spriteNum=2;
-                    }else if(spriteNum == 2){
-                        spriteNum=1;
+                    break;
+                case "sinistra":
+                    direction = "fermoGiu";
+                    spriteCounter++;
+                    if (spriteCounter > 24) {
+                        if (spriteNum == 1) spriteNum=2;
+                        else if(spriteNum == 2) spriteNum=1;
+                        spriteCounter=0;
                     }
-                    spriteCounter=0;
-                }
-            }
-            if (direction.equals("sinistra")) {
-                direction = "fermoGiu";
-                spriteCounter++;
-                if (spriteCounter > 24) {
-                    if (spriteNum == 1) {
-                        spriteNum=2;
-                    }else if(spriteNum == 2){
-                        spriteNum=1;
-                    }
-                    spriteCounter=0;
-                }
+                    break;
+                default:
+                    break;
             }
         }
-        
     }
     public void getPlayerImage(){
         try {
@@ -186,40 +167,33 @@ public class Player extends Entity{
             System.err.println("Errore caricamento sinistra2");
         }
     }
+
     public void draw(Graphics2D g){
         BufferedImage image = null;
         switch (direction) {
             case "su":
-                if (spriteNum==1) {
-                    image = su1;
-                }
-                if (spriteNum==2) {
-                    image = su2;
-                }
+                
+                if (spriteNum==1) image = su1;
+                else image = su2;
+
                 break;
             case "giu":
-            if (spriteNum==1) {
-                image = giu1;
-            }
-            if (spriteNum==2) {
-                image = giu2;
-            }
+
+                if (spriteNum==1) image = giu1;
+                else image = giu2;
+
                 break;
             case "destra":
-            if (spriteNum==1) {
-                image = destra1;
-            }
-            if (spriteNum==2) {
-                image = destra2;
-            }
+
+                if (spriteNum==1) image = destra1;
+                else image = destra2;
+
                 break;
             case "sinistra":
-            if (spriteNum==1) {
-                image = sinistra1;
-            }
-            if (spriteNum==2) {
-                image = sinistra2;
-            }    
+
+                if (spriteNum==1) image = sinistra1;
+                else image = sinistra2;  
+
                 break;
             case "fermoSu":
                 image = fermoSu;

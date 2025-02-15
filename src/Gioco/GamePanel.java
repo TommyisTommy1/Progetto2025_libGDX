@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
         this.setBackground(Color.gray);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(keyH); 
         this.requestFocus();
         this.setFocusable(true);
         this.setBorder(new LineBorder(Color.black, 50));
@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
         double intervalloVisualizzazione = 1000000000/Defines.FPS; //0.016666 secondi
         double prossimaVisualizzazione = System.nanoTime() + intervalloVisualizzazione;
         while (Defines.THREAD_GIOCO != null) {
+
             update();
             repaint();
             
@@ -49,14 +50,14 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update(){
-        Defines.PLAYER.update();
+        Defines.PLAYER.update(); //funzione per aggiornare il player
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
-        Defines.TILE_MANAGER.draw(g2);
+        Defines.TILE_MANAGER.draw(g2);  
         Defines.PLAYER.draw(g2);
 
         g2.dispose();
