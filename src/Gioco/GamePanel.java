@@ -6,57 +6,30 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import entity.Player;
-import tile.TileManager;
+import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    //SCHERMO
-    final int grandezzaCaselleOriginale = 16; //grandezza di un solo oggetto
-    final int scala = 3;
-
-    public final int grandezzaCaselle = grandezzaCaselleOriginale * scala;
-    final int massimaAltezzaCol=16;
-    final int massimaAltezzaRig=12;
-    final int larghezzaSchermo = grandezzaCaselle*massimaAltezzaCol;
-    final int altezzaSchermo = grandezzaCaselle*massimaAltezzaRig;
-
-    GestioneTasti gestioneTasti = new GestioneTasti();
-    Thread threadGioco;
-    
-
-    int FPS = 60;
-
-    Player player = new Player(this,gestioneTasti);
-    TileManager gestioneTiles = new TileManager(this);
-
-    int playerX = 500;
-    int playerY = 500;
-    int playerSpeed = 4;
-
-
     public GamePanel(){
-        this.setPreferredSize(new Dimension(larghezzaSchermo, altezzaSchermo));
+        this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
         this.setBackground(Color.gray);
         this.setDoubleBuffered(true);
-        this.addKeyListener(gestioneTasti);
+        this.addKeyListener(Defines.GESTIONE_TASTI);
         this.setFocusable(true);
         this.setBorder(new LineBorder(Color.black, 50));
-        
     }
 
     public void iniziaThreadGioco(){
-        threadGioco = new Thread(this);
-        threadGioco.start();
+        Defines.THREAD_GIOCO.start();
     }
 
     @Override
     public void run() {
         
         
-        double intervalloVisualizzazione = 1000000000/FPS; //0.016666 secondi
+        double intervalloVisualizzazione = 1000000000/Defines.FPS; //0.016666 secondi
         double prossimaVisualizzazione = System.nanoTime() + intervalloVisualizzazione;
-        while (threadGioco != null) {
+        while (Defines.THREAD_GIOCO != null) {
 
             update();
 
@@ -77,14 +50,14 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update(){
-        player.update();
+        Defines.PLAYER.update();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
-        gestioneTiles.draw(g2);
-        player.draw(g2);
+        Defines.TILE_MANAGER.draw(g2);
+        Defines.PLAYER.draw(g2);
 
         g2.dispose();
     }

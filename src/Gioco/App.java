@@ -2,33 +2,32 @@ package Gioco;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.JFrame;
 import javax.swing.border.LineBorder;
+
+import utils.Defines;
 
 public class App {
     public static void main(String[] args) throws Exception {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setUndecorated(true);
+        Defines.MAINFRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Defines.MAINFRAME.setResizable(false);
+        Defines.MAINFRAME.setUndecorated(true);
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        Defines.MAINFRAME.add(Defines.GAME_PANEL);
 
-        JPanel content = new JPanel(new BorderLayout());
-        content.setBorder(new LineBorder(Color.black, 10));
-        content.add(gamePanel, BorderLayout.CENTER);
+        Defines.CONTENT_PANEL.setBorder(new LineBorder(Color.black, 10));
+        Defines.CONTENT_PANEL.add(Defines.GAME_PANEL, BorderLayout.CENTER);
 
-        window.setContentPane(content);
-        window.pack();
+        // DA SPIEGARE
+        Defines.MAINFRAME.setContentPane(Defines.CONTENT_PANEL);
+        Defines.MAINFRAME.pack();
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        Defines.MAINFRAME.setLocationRelativeTo(null);
+        Defines.MAINFRAME.setVisible(true);
         
-        gamePanel.iniziaThreadGioco();
+        Defines.GAME_PANEL.iniziaThreadGioco();
     }
 }

@@ -7,6 +7,9 @@ public class GestioneTasti implements KeyListener{
 
     public boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto;
 
+
+    public GestioneTasti(){}
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -14,9 +17,10 @@ public class GestioneTasti implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        
+        System.out.println("W premuto");
         if (code==KeyEvent.VK_W) {
             suPremuto = true;
+            System.out.println("W premuto");
         }
         if (code==KeyEvent.VK_S) {
             giuPremuto = true;
