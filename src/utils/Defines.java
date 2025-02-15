@@ -21,14 +21,14 @@ public class Defines {
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
 
+    public static final int MASSIMA_ALTEZZA_COL = 20; //modificabile per cambiare la dimensione della mappa
+    public static final int MASSIMA_ALTEZZA_RIG = (int) Math.ceil((double) MASSIMA_ALTEZZA_COL/1.778) ; //si modifica a seconda della prima per avere la risuluzione in 16:9
     //VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
-    public static final int SCALA = 3;
+    public static final int SCALA = (int) Math.ceil(((double) SCREEN_WIDTH/(GRANDEZZA_CASELLE_ORIGINALE*MASSIMA_ALTEZZA_COL)));
 
     public static final int GRANDEZZA_CASELLE = GRANDEZZA_CASELLE_ORIGINALE * SCALA;
-    public static final int MASSIMA_ALTEZZA_COL = ((int)toolkit.getScreenSize().getWidth())/GRANDEZZA_CASELLE; 
-    public static final int MASSIMA_ALTEZZA_RIG = ((int)toolkit.getScreenSize().getWidth())/GRANDEZZA_CASELLE;
-    
+
     public static final int FPS = 60;
 
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);

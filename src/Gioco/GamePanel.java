@@ -9,7 +9,7 @@ import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    public final static GestioneTasti keyH = new GestioneTasti();
+    public final static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
