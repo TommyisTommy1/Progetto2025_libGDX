@@ -27,7 +27,7 @@ public class TileManager {
         }
     }
 
-    public void getTileImage(Tile tile, int i){
+    public void getTileImage(Tile tile, int i){ //metodo per assegnare un immagine a un tile
         switch (i)
         {
             case 0: 
