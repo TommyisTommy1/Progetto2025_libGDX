@@ -5,9 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import javax.imageio.ImageIO;
-
 import utils.Defines;
 
 public class TileManager {
@@ -78,7 +76,10 @@ public class TileManager {
             int worldY = worldRow * Defines.GRANDEZZA_CASELLE;
             int screenX = worldX - Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX();
             int screenY = worldY - Defines.PLAYER.getWorldY()  + Defines.PLAYER.getScreenY();
-            g.drawImage(tile[tileNum].image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
+            
+            if (worldX + Defines.GRANDEZZA_CASELLE > Defines.PLAYER.getWorldX() - Defines.PLAYER.getScreenX() && worldX - Defines.GRANDEZZA_CASELLE < Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX() && worldY + Defines.GRANDEZZA_CASELLE > Defines.PLAYER.getWorldY() - Defines.PLAYER.getScreenY() && worldY - Defines.GRANDEZZA_CASELLE< Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY())
+                g.drawImage(tile[tileNum].image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
+            
             worldCol++;  
             if (worldCol == Defines.MASSIMA_ALTEZZA_COL) {
                     worldCol=0;
