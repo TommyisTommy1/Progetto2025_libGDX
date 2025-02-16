@@ -1,7 +1,10 @@
 package Gioco;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.sound.sampled.Line;
 import javax.swing.JFrame;
 
 
@@ -18,7 +21,7 @@ public class App {
         Defines.MAINFRAME.add(Defines.GAME_PANEL);
 
         Defines.CONTENT_PANEL.add(Defines.GAME_PANEL, BorderLayout.CENTER);
-
+        Defines.CONTENT_PANEL.setBorder(new LineBorder(Color.black, 10));
         // DA SPIEGARE
         Defines.MAINFRAME.setContentPane(Defines.CONTENT_PANEL);
         Defines.MAINFRAME.pack();
