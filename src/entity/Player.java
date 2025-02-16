@@ -1,15 +1,14 @@
 package entity;
 
+import Gioco.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
+import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import Gioco.GestioneTasti;
 import utils.Defines;
 
 public class Player extends Entity {
-    private GestioneTasti gestioneTasti;
+    private final GestioneTasti gestioneTasti;
 
     private final int screenX;
     private final int screenY;
@@ -34,7 +33,7 @@ public class Player extends Entity {
     private BufferedImage loadPlayerImage(String percorso) {
         try {
             return ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(percorso)));
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Immagine non trovata in: " + percorso);
             return null;
         }
@@ -48,9 +47,7 @@ public class Player extends Entity {
     }
 
     private boolean getPremuto(String key){
-        boolean stato=false;
-        stato = gestioneTasti.getPremuto(key);
-        return stato;
+        return gestioneTasti.getPremuto(key);
     }
 
     private void spriteCounter(){
@@ -128,12 +125,10 @@ public class Player extends Entity {
                     spostaY("fermoSu", "");
                     break;
                 case "destra":
-                    spostaX("fermoGiu", "");
-                    break;
                 case "sinistra":
                     spostaX("fermoGiu", "");
                     break;
-                default:
+                default: 
                     break;
             }
         }
@@ -143,28 +138,20 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (getDirezione()) {
             case "su":
-
                 if (spriteNum == 1)image = su1;
                 else image = su2;
-
                 break;
             case "giu":
-
                 if (spriteNum == 1) image = giu1;
                 else image = giu2;
-
                 break;
             case "destra":
-
                 if (spriteNum == 1) image = destra1;
                 else image = destra2;
-
                 break;
             case "sinistra":
-
                 if (spriteNum == 1) image = sinistra1;
                 else image = sinistra2;
-
                 break;
             case "fermoSu":
                 image = fermoSu;
