@@ -1,6 +1,7 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,41 +46,21 @@ public class TileManager {
         }
     }
     public void getTileImage(){ //metodo per assegnare un immagine a un tile 
-                try {
-                    tile[0] = new Tile();
-                    tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass1.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
                 
-                try {
-                    tile[1] = new Tile();
-                    tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass2.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
+                tile[0].image = loadImage("/res/tile/grass1.png");
                 
-                try {
-                    tile[2] = new Tile();
-                    tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass3.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
+                tile[1].image = loadImage("/res/tile/grass2.png");
                 
-                try {
-                    tile[3] = new Tile();
-                    tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass4.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
-                
-                try {
-                    tile[3] = new Tile();
-                    tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass4.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
+                tile[2].image = loadImage("/res/tile/grass3.png");
         }
+    private BufferedImage loadImage(String percorso){
+        try {
+            return ImageIO.read(getClass().getResourceAsStream(percorso));
+        } catch (Exception e) {
+            System.err.println("Tile non trovato in: "+percorso);
+            return null;
+        }
+    }
     public void draw(Graphics2D g){
         int posizioneX=0, posizioneY=0;
         int col=0, row=0;
