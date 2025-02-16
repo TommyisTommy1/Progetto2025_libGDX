@@ -30,6 +30,15 @@ public class Player extends Entity {
         setDirezione("su");
         getPlayerImage();
     }
+    
+    private BufferedImage loadPlayerImage(String percorso) {
+        try {
+            return ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(percorso)));
+        } catch (Exception e) {
+            System.err.println("Immagine non trovata in: " + percorso);
+            return null;
+        }
+    }
 
     public int getScreenX(){
         return this.screenX;
@@ -37,7 +46,6 @@ public class Player extends Entity {
     public int getScreenY(){
         return this.screenY;
     }
-
 
     private boolean getPremuto(String key){
         boolean stato=false;
@@ -56,6 +64,33 @@ public class Player extends Entity {
             this.spriteCounter = 0;
         }
     }
+                        
+    private void spostaX(String direction, String operazione) {
+        spriteCounter();
+        setDirezione(direction);
+        if (operazione.equals("aggiungi")) worldX+=speed;
+        if (operazione.equals("sottrai")) worldX-=speed;
+    }
+    private void spostaY(String direction, String operazione) {
+        spriteCounter();
+        setDirezione(direction);
+        if (operazione.equals("aggiungi")) worldY+=speed;
+        if (operazione.equals("sottrai")) worldY-=speed;
+    }
+                    
+    private void getPlayerImage() {
+        fermoSu = loadPlayerImage("playerFermoSu.png");
+        fermoGiu = loadPlayerImage("playerFermoGiu.png");
+        su1 = loadPlayerImage("player_up_1.png");
+        su2 = loadPlayerImage("player_up_2.png");
+        giu1 = loadPlayerImage("player_down_1.png");
+        giu2 = loadPlayerImage("player_down_2.png");
+        destra1 = loadPlayerImage("player_right_1.png");
+        destra2 = loadPlayerImage("player_right_2.png");
+        sinistra1 = loadPlayerImage("player_left_1.png");
+        sinistra2 = loadPlayerImage("player_left_2.png");
+    }
+
 
     public void update() {
         boolean w = getPremuto("W");
@@ -65,106 +100,42 @@ public class Player extends Entity {
 
         if (w || s || d || a) {
             if (a && d) {
+
                 setDirezione("fermoGiu");
-                if (w) {
-                    spriteCounter();
-                    setDirezione("su");
-                    worldY -= speed;
-                }
-                if (s) {
-                    spriteCounter();
-                    setDirezione("giu");
-                    worldY += speed;
-                }
+
+                if (w) spostaY("su", "sottrai");
+                if (s) spostaY("giu", "aggiungi");
+
             }else if (w && s) {
                 setDirezione("fermoGiu");
-                if (d) {
-                    spriteCounter();
-                    setDirezione("destra");
-                    worldX += speed;
-                }
-                if (a) {
-                    setDirezione("sinistra");
-                    worldX -= speed;
-                }
-            }else{
-                spriteCounter();
-                if (w) {
-                    setDirezione("su");
-                    worldY -= speed;
-                }
-                if (s) {
-                    setDirezione("giu");
-                    worldY += speed;
-                }
-                if (d) {
-                    setDirezione("destra");
-                    worldX += speed;
-                }
-                if (a) {
-                    setDirezione("sinistra");
-                    worldX -= speed;
-                }
-                
-            }
+                if (d) spostaX("destra", "aggiungi");
+                if (a) spostaX("sinistra", "sottrai");
 
+        }else{
+
+            if (w) spostaY("su", "sottrai");
+            if (s) spostaY("giu", "aggiungi");
+            if (d) spostaX("destra", "aggiungi");
+            if (a)spostaX("sinistra", "sottrai");
+
+        }
         } else {
-            spriteCounter();
             switch (getDirezione()) {
                 case "giu":
-
-                    setDirezione("fermoGiu");
-
+                    spostaY("fermoGiu", "");
                     break;
                 case "su":
-
-                    setDirezione("fermoSu");
-                    
+                    spostaY("fermoSu", "");
                     break;
                 case "destra":
-
-                    setDirezione("fermoGiu");
-                    
+                    spostaX("fermoGiu", "");
                     break;
                 case "sinistra":
-
-                    setDirezione("fermoGiu");
-                    
+                    spostaX("fermoGiu", "");
                     break;
                 default:
                     break;
             }
-        }
-    }
-
-    private void getPlayerImage() {
-        fermoSu = loadImage("/res/player/playerFermoSu.png");
-
-        fermoGiu = loadImage("/res/player/playerFermoGiu.png");
-
-        su1 = loadImage("/res/player/player_up_1.png");
-
-        su2 = loadImage("/res/player/player_up_2.png");
-
-        giu1 = loadImage("/res/player/player_down_1.png");
-
-        giu2 = loadImage("/res/player/player_down_2.png");
-
-        destra1 = loadImage("/res/player/player_right_1.png");
-
-        destra2 = loadImage("/res/player/player_right_2.png");
-
-        sinistra1 = loadImage("/res/player/player_left_1.png");
-
-        sinistra2 = loadImage("/res/player/player_left_2.png");
-    }
-
-    private BufferedImage loadImage(String percorso) {
-        try {
-            return ImageIO.read(getClass().getResourceAsStream(percorso));
-        } catch (Exception e) {
-            System.err.println("Immagine non trovata in: " + percorso);
-            return null;
         }
     }
 

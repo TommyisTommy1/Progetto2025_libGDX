@@ -49,19 +49,19 @@ public class TileManager {
     }
     public void getTileImage(){ //metodo per assegnare un immagine a un tile 
                 
-                tile[0].image = loadImage("/res/tile/grass1.png");
+                tile[0].image = loadTileImage("grass1.png");
                 
-                tile[1].image = loadImage("/res/tile/grass2.png");
+                tile[1].image = loadTileImage("grass2.png");
                 
-                tile[2].image = loadImage("/res/tile/water_top_left.png");
+                tile[2].image = loadTileImage("water_top_left.png");
                 
-                tile[3].image = loadImage("/res/tile/water_top.png");
+                tile[3].image = loadTileImage("water_top.png");
                 
-                tile[4].image = loadImage("/res/tile/water_top_right.png");
+                tile[4].image = loadTileImage("water_top_right.png");
         }
-    private BufferedImage loadImage(String percorso){
+    private BufferedImage loadTileImage(String percorso){
         try {
-            return ImageIO.read(getClass().getResourceAsStream(percorso));
+            return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso)));
         } catch (Exception e) {
             System.err.println("Tile non trovato in: "+percorso);
             return null;
