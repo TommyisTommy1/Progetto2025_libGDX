@@ -23,7 +23,7 @@ public class Player extends Entity {
         setDefaultValues();
     }
 
-    public void setDefaultValues() {
+    private void setDefaultValues() {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
         speed = 4;
@@ -39,13 +39,13 @@ public class Player extends Entity {
     }
 
 
-    public boolean getPremuto(String key){
+    private boolean getPremuto(String key){
         boolean stato=false;
         stato = gestioneTasti.getPremuto(key);
         return stato;
     }
 
-    public void spriteCounter(){
+    private void spriteCounter(){
         this.spriteCounter++;
         if (this.spriteCounter > 12) {
             if (this.spriteNum == 1) {
@@ -84,7 +84,6 @@ public class Player extends Entity {
                     worldX += speed;
                 }
                 if (a) {
-                    spriteCounter();
                     setDirezione("sinistra");
                     worldX -= speed;
                 }
@@ -138,7 +137,7 @@ public class Player extends Entity {
         }
     }
 
-    public void getPlayerImage() {
+    private void getPlayerImage() {
         fermoSu = loadImage("/res/player/playerFermoSu.png");
 
         fermoGiu = loadImage("/res/player/playerFermoGiu.png");

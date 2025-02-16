@@ -3,20 +3,27 @@ package entity;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int worldX, worldY;
-    public int speed;
+    protected int worldX;
+    protected int worldY;
+    protected int speed;
 
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    protected int spriteCounter = 0;
+    protected int spriteNum = 1;
 
     private String direction;
-    public BufferedImage su1, su2, giu1, giu2, destra1, destra2, sinistra1, sinistra2, fermoSu, fermoGiu, fermoDestra,
+    protected BufferedImage su1, su2, giu1, giu2, destra1, destra2, sinistra1, sinistra2, fermoSu, fermoGiu, fermoDestra,
             fermoSinistra;
 
-    public void setDirezione(String d){
+    protected void setDirezione(String d){
         this.direction=d;
     }
-    public String getDirezione(){
+    protected String getDirezione(){
         return this.direction;
+    }
+    public int getWorldX(){
+        return worldX;
+    }
+    public int getWorldY(){
+        return worldY;
     }
 }

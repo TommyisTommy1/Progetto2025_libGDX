@@ -19,7 +19,9 @@ public class TileManager {
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
-        n = new int[Defines.MASSIMA_ALTEZZA_MONDO_COL][Defines.MASSIMA_ALTEZZA_MONDO_RIG];
+        Defines.GAME_PANEL.setMaxWorldCol(50);
+        Defines.GAME_PANEL.setMaxWorldRow(50);
+        n = new int[Defines.GAME_PANEL.getMaxWorldCol()][Defines.GAME_PANEL.getMaxWorldRow()];
         loadMap("/res/map/map01.txt");
         getTileImage();
     }
@@ -30,12 +32,12 @@ public class TileManager {
 
             int row = 0;
 
-            while (row < Defines.MASSIMA_ALTEZZA_MONDO_RIG){
+            while (row < Defines.GAME_PANEL.getMaxWorldRow()){
                 String line = br.readLine();
 
                 String numbers[] = line.split(" ");
 
-                for (int col = 0; col < Defines.MASSIMA_ALTEZZA_MONDO_COL; col++) {
+                for (int col = 0; col < Defines.GAME_PANEL.getMaxWorldCol(); col++) {
                     n[col][row] = Integer.parseInt(numbers[col]);
                 }
                 row++;
@@ -68,14 +70,14 @@ public class TileManager {
     public void draw(Graphics2D g){
         int worldCol=0, worldRow=0;
         
-        while (worldCol < Defines.MASSIMA_ALTEZZA_MONDO_COL && worldRow < Defines.MASSIMA_ALTEZZA_MONDO_RIG) {
+        while (worldCol < Defines.GAME_PANEL.getMaxWorldCol() && worldRow < Defines.GAME_PANEL.getMaxWorldRow()) {
 
             int tileNum = n[worldCol][worldRow];
 
             int worldX = worldCol * Defines.GRANDEZZA_CASELLE;
             int worldY = worldRow * Defines.GRANDEZZA_CASELLE;
-            int screenX = worldX - Defines.PLAYER.worldX + Defines.PLAYER.getScreenX();
-            int screenY = worldY - Defines.PLAYER.worldY + Defines.PLAYER.getScreenY();
+            int screenX = worldX - Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX();
+            int screenY = worldY - Defines.PLAYER.getWorldY()  + Defines.PLAYER.getScreenY();
             g.drawImage(tile[tileNum].image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
             worldCol++;  
             if (worldCol == Defines.MASSIMA_ALTEZZA_COL) {

@@ -10,10 +10,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
 
-    private final int maxWorldCol = 50;
-    private final int maxWorldRow = 50;
-    public final int worldWidth = Defines.GRANDEZZA_CASELLE *  maxWorldCol;
-    public final int worldHeight = Defines.GRANDEZZA_CASELLE *  maxWorldRow;
+    private int maxWorldCol;
+    private int maxWorldRow;
+    private int worldWidth;
+    private int worldHeight;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
@@ -65,5 +65,31 @@ public class GamePanel extends JPanel implements Runnable{
         Defines.PLAYER.draw(g2);
 
         g2.dispose();
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public void setMaxWorldCol(int maxWorldCol) {
+        this.maxWorldCol = maxWorldCol;
+        this.worldWidth = Defines.GRANDEZZA_CASELLE*this.maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public void setMaxWorldRow(int maxWorldRow) {
+        this.maxWorldRow = maxWorldRow;
+        this.worldHeight = Defines.GRANDEZZA_CASELLE*this.maxWorldRow;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
     }
 }

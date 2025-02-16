@@ -28,9 +28,6 @@ public class Defines {
     public static int MASSIMA_ALTEZZA_COL = 50; //modificabile per cambiare la dimensione della visuale
     public static int MASSIMA_ALTEZZA_RIG = (int) Math.ceil((double) MASSIMA_ALTEZZA_COL/1.778) ; //si modifica a seconda della prima per avere la risuluzione in 16:9
 
-    public static int MASSIMA_ALTEZZA_MONDO_COL = 50; //modificabile per cambiare la dimensione della mappa
-    public static int MASSIMA_ALTEZZA_MONDO_RIG = 50; //si modifica a seconda della prima per avere la risuluzione in 16:9
-
     //VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
     public static final int SCALA = (int) Math.ceil(((double) SCREEN_WIDTH/(GRANDEZZA_CASELLE_ORIGINALE*MASSIMA_ALTEZZA_COL)));
