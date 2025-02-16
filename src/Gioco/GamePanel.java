@@ -4,12 +4,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable{
 
     public final static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
+
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = Defines.GRANDEZZA_CASELLE *  maxWorldCol;
+    public final int worldHeight = Defines.GRANDEZZA_CASELLE *  maxWorldRow;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(Defines.SCREEN_WIDTH, Defines.SCREEN_HEIGHT));
@@ -18,7 +22,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyH); 
         this.requestFocus();
         this.setFocusable(true);
-        this.setBorder(new LineBorder(Color.black, 50));
     }
 
     public void iniziaThreadGioco(){

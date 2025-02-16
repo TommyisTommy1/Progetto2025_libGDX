@@ -13,15 +13,15 @@ public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
 
     // VARIABILI SCHERMO 
-    public static final int SCREEN_WIDTH = (int)toolkit.getScreenSize().getWidth();
-    public static final int SCREEN_HEIGHT = (int)toolkit.getScreenSize().getHeight();
+    public static final int SCREEN_WIDTH = 1920; //(int)toolkit.getScreenSize().getWidth();
+    public static final int SCREEN_HEIGHT = 1080; //(int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
     
     //VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
 
-    public static final int MASSIMA_ALTEZZA_COL = 20; //modificabile per cambiare la dimensione della mappa
+    public static final int MASSIMA_ALTEZZA_COL = 15; //modificabile per cambiare la dimensione della mappa
     public static final int MASSIMA_ALTEZZA_RIG = (int) Math.ceil((double) MASSIMA_ALTEZZA_COL/1.778) ; //si modifica a seconda della prima per avere la risuluzione in 16:9
     //VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;

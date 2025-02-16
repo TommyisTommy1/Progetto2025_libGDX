@@ -13,14 +13,22 @@ public class Player extends Entity{
         GamePanel panGioco;
         GestioneTasti gestioneTasti;
 
+        public final int screenX;
+        public final int screenY;
+
+
     public Player(GamePanel g1, GestioneTasti g2){
         this.panGioco = g1;
         gestioneTasti = g2;
+
+        screenX = Defines.SCREEN_WIDTH/2 - Defines.GRANDEZZA_CASELLE;
+        screenY = Defines.SCREEN_HEIGHT/2 - Defines.GRANDEZZA_CASELLE;
+
         setDefaultValues();
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100; 
+        worldX = Defines.GRANDEZZA_CASELLE*8;
+        worldY = Defines.GRANDEZZA_CASELLE*5; 
         speed = 4;
         direction = "su";
         getPlayerImage();
@@ -29,19 +37,19 @@ public class Player extends Entity{
         if (gestioneTasti.suPremuto || gestioneTasti.giuPremuto || gestioneTasti.destraPremuto || gestioneTasti.sinistraPremuto) {
             if (gestioneTasti.suPremuto) {
                 direction = "su";
-                y -= speed;
+                worldY -= speed;
             }
             if (gestioneTasti.giuPremuto) {
                 direction = "giu";
-                y += speed;
+                worldY += speed;
             }
             if (gestioneTasti.destraPremuto) {
                 direction = "destra";
-                x += speed;
+                worldX += speed;
             }
             if (gestioneTasti.sinistraPremuto) {
                 direction = "sinistra";
-                x -= speed;
+                worldX -= speed;
             }
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -202,6 +210,6 @@ public class Player extends Entity{
                 image = fermoGiu;
                 break;
         }
-        g.drawImage(image, x, y, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+        g.drawImage(image, worldX, worldY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
     }
 }

@@ -1,6 +1,9 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
@@ -10,80 +13,90 @@ import utils.Defines;
 public class TileManager {
     GamePanel gamePanel;
     Tile[] tile;
-    int[][] n = new int[Defines.MASSIMA_ALTEZZA_COL][Defines.MASSIMA_ALTEZZA_RIG];
+    int[][] n;
 
     public TileManager(GamePanel g){
         this.gamePanel = g;
         tile = new Tile[10];
-        for (int i = 0; i < 5; i++) {
-            tile[i] = new Tile();
-            getTileImage(tile[i], i);
-        }
-        
-        for (int i = 0; i < Defines.MASSIMA_ALTEZZA_COL; i++) {
-            for (int j = 0; j < Defines.MASSIMA_ALTEZZA_RIG; j++) {
-                n[i][j]=(int)(Math.random() * 3);
-            }
-        }
+        n = new int[Defines.MASSIMA_ALTEZZA_COL][Defines.MASSIMA_ALTEZZA_RIG];
+        loadMap("/res/map/map01.txt");
+        getTileImage();
     }
+    public void loadMap(String s){
+        try {
+            InputStream is = getClass().getResourceAsStream(s);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-    public void getTileImage(Tile tile, int i){ //metodo per assegnare un immagine a un tile
-        switch (i)
-        {
-            case 0: 
-                try {
-                    tile.image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass1.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
+            int row = 0;
+
+            while (row < Defines.MASSIMA_ALTEZZA_RIG){
+                String line = br.readLine();
+
+                String numbers[] = line.split(" ");
+
+                for (int col = 0; col < Defines.MASSIMA_ALTEZZA_COL; col++) {
+                    n[col][row] = Integer.parseInt(numbers[col]);
                 }
-                break;
-            case 1:
-                try {
-                    tile.image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass2.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
-                break;
-            case 2:
-                try {
-                    tile.image = ImageIO.read(getClass().getResourceAsStream("/res/tile/water_top_left.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
-                break;
-            case 3:
-                try {
-                    tile.image = ImageIO.read(getClass().getResourceAsStream("/res/tile/water_top.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
-                break;
-            case 4:
-                try {
-                    tile.image = ImageIO.read(getClass().getResourceAsStream("/res/tile/water_top_right.png"));
-                } catch (Exception e) {
-                    System.err.println("tile non trovato");
-                }
-                break;
-            default:
-                System.err.println("Tile non valido");
-                break;
+                row++;
+            }
+
+        } catch (Exception e) {
+           
         }
     }
+    public void getTileImage(){ //metodo per assegnare un immagine a un tile 
+                try {
+                    tile[0] = new Tile();
+                    tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass1.png"));
+                } catch (Exception e) {
+                    System.err.println("tile non trovato");
+                }
+                
+                try {
+                    tile[1] = new Tile();
+                    tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass2.png"));
+                } catch (Exception e) {
+                    System.err.println("tile non trovato");
+                }
+                
+                try {
+                    tile[2] = new Tile();
+                    tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass3.png"));
+                } catch (Exception e) {
+                    System.err.println("tile non trovato");
+                }
+                
+                try {
+                    tile[3] = new Tile();
+                    tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass4.png"));
+                } catch (Exception e) {
+                    System.err.println("tile non trovato");
+                }
+                
+                try {
+                    tile[3] = new Tile();
+                    tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tile/grass4.png"));
+                } catch (Exception e) {
+                    System.err.println("tile non trovato");
+                }
+        }
     public void draw(Graphics2D g){
         int posizioneX=0, posizioneY=0;
-        for (posizioneX = 0; posizioneX < Defines.MASSIMA_ALTEZZA_COL; posizioneX++) {
-            for (posizioneY = 0; posizioneY < Defines.MASSIMA_ALTEZZA_RIG; posizioneY++) {
-                if (n[posizioneX][posizioneY] == 0 || n[posizioneX][posizioneY] == 1) {
-                    g.drawImage(tile[0].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
-                }else{
-                    g.drawImage(tile[1].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
-                }
-            }
-        }
+        int col=0, row=0;
         
-        posizioneX=2;
-        posizioneY=2;
-        g.drawImage(tile[2].image, Defines.GRANDEZZA_CASELLE*posizioneX, Defines.GRANDEZZA_CASELLE*posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+        while (col < Defines.MASSIMA_ALTEZZA_COL && row < Defines.MASSIMA_ALTEZZA_RIG) {
+
+            int tileNum = n[col][row];
+
+            g.drawImage(tile[tileNum].image, posizioneX, posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
+            col++;  
+            posizioneX+=Defines.GRANDEZZA_CASELLE;
+            if (col == Defines.MASSIMA_ALTEZZA_COL) {
+                    col=0;
+                    posizioneX=0;
+                    row++;  
+                    posizioneY+=Defines.GRANDEZZA_CASELLE;
+                }
+        }
     }
 }
