@@ -26,13 +26,45 @@ public class MP3Player implements Runnable {
             System.out.println("Folder not found: " + folder.getAbsolutePath());
             return;
         }
-
-        for (File file : folder.listFiles()) {
-            if (file.getName().toLowerCase().endsWith(".mp3")) {
-                playlist.add(file);
+        for (int i = 0; i < 8; i++) {
+            String path = "";
+            switch (i) {
+                case 0:
+                    path = relativePath + "/PBC/WLR";
+                    break;
+                case 1:
+                    path = relativePath + "/PBC/DieLit";
+                    break;
+                case 2:
+                    path = relativePath + "/PBC/rand";
+                    break;
+                case 3:
+                    path = relativePath + "/PBC/SelfNamed";
+                    break;
+                case 4:
+                    path = relativePath + "/Future/PLUTO";
+                    break;
+                case 5:
+                    path = relativePath + "/Future/WDTY";
+                    break;
+                case 6:
+                    path = relativePath + "/Yeat/2093";
+                    break;
+                case 7:
+                    path = relativePath + "/Yeat/LYFESTYLE";
+                    break;
+                default:
+                    break;
             }
-        }
-
+            
+            File tempFolder = new File(path);
+            for (File file : tempFolder.listFiles()) {
+                if (file.getName().toLowerCase().endsWith(".mp3")) {
+                    playlist.add(file);
+                    System.out.println("Added: " + file.getName());
+                }
+            }
+        }   
         if (playlist.isEmpty()) {
             System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
         }
