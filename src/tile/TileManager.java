@@ -54,6 +54,11 @@ public class TileManager {
                 
                 tile[1].image = loadImage("/res/tile/grass2.png");
                 
+                tile[2].image = loadImage("/res/tile/water_top_left.png");
+                
+                tile[3].image = loadImage("/res/tile/water_top.png");
+                
+                tile[4].image = loadImage("/res/tile/water_top_right.png");
         }
     private BufferedImage loadImage(String percorso){
         try {
