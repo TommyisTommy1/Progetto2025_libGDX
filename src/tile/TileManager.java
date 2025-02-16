@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 import utils.Defines;
 
 public class TileManager {
-    private Tile[] tile;
-    private int[][] n;
+    public Tile[] tile;
+    public int[][] n;
 
     public TileManager(){
         tile = new Tile[10];
@@ -23,7 +23,7 @@ public class TileManager {
         loadMap("/res/map/map01.txt");
         getTileImage();
     }
-    public void loadMap(String s){
+    private void loadMap(String s){
         try {
             InputStream is = getClass().getResourceAsStream(s);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -45,17 +45,23 @@ public class TileManager {
            
         }
     }
-    public void getTileImage(){ //metodo per assegnare un immagine a un tile 
+    private void getTileImage(){ //metodo per assegnare un immagine a un tile 
                 
                 tile[0].image = loadTileImage("grass1.png");
                 
                 tile[1].image = loadTileImage("grass2.png");
                 
                 tile[2].image = loadTileImage("water_top_left.png");
+                tile[2].collision = true;
                 
                 tile[3].image = loadTileImage("water_top.png");
-                
+                tile[3].collision = true;
+
                 tile[4].image = loadTileImage("water_top_right.png");
+                tile[4].collision = true;
+
+                tile[5].image = loadTileImage("stonebrick.png");
+                tile[5].collision = true;
         }
     private BufferedImage loadTileImage(String percorso){
         try {

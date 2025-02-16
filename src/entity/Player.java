@@ -2,6 +2,7 @@ package entity;
 
 import Gioco.GestioneTasti;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -19,6 +20,11 @@ public class Player extends Entity {
         screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE/2;
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE/2;
 
+        areaCollisione= new Rectangle();
+        areaCollisione.x = 6;
+        areaCollisione.y = 12;
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE-12;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE-16;
         setDefaultValues();
     }
 
@@ -95,45 +101,74 @@ public class Player extends Entity {
         boolean d = getPremuto("D");
         boolean a = getPremuto("A");
 
-        if (w || s || d || a) {
-            if (a && d) {
-
-                setDirezione("fermoGiu");
-
-                if (w) spostaY("su", "sottrai");
-                if (s) spostaY("giu", "aggiungi");
-
-            }else if (w && s) {
-                setDirezione("fermoGiu");
-                if (d) spostaX("destra", "aggiungi");
-                if (a) spostaX("sinistra", "sottrai");
-
-        }else{
-
-            if (w) spostaY("su", "sottrai");
-            if (s) spostaY("giu", "aggiungi");
-            if (d) spostaX("destra", "aggiungi");
-            if (a)spostaX("sinistra", "sottrai");
-
-        }
-        } else {
+        if (!w && !s && !d && !a) {
             switch (getDirezione()) {
                 case "giu":
                     spostaY("fermoGiu", "");
-                    break;
+                    return;
                 case "su":
                     spostaY("fermoSu", "");
-                    break;
+                    return;
                 case "destra":
                 case "sinistra":
                     spostaX("fermoGiu", "");
-                    break;
+                    return;
                 default: 
-                    break;
+                    return;
+            }
+        }
+
+        if (w || s || d || a) {
+            if (a && d) {
+                setDirezione("fermoGiu");
+                if (w) setDirezione("su");
+                if (s) setDirezione("giu");
+                controllaCollisioniY(w, s);
+            }else if (w && s) {
+                setDirezione("fermoGiu");
+                if (d) setDirezione("destra");
+                if (a) setDirezione("sinistra");
+                controllaCollisioniX(a, d);
+            }else{
+                if (w) setDirezione("su");
+                if (s) setDirezione("giu");
+                controllaCollisioniY(w, s);
+                if (d) setDirezione("destra");
+                if (a) setDirezione("sinistra");
+                //CONTROLLA COLLISIONI
+                controllaCollisioniX(a, d);
             }
         }
     }
 
+    public void controllaCollisioni(boolean w, boolean s, boolean a, boolean d){
+        inCollisione=false;
+        Defines.GAME_PANEL.collisioni.controllaCasella(this);
+        if (!inCollisione) {
+            if (w) spostaY(getDirezione(), "sottrai");
+            if (s) spostaY(getDirezione(), "aggiungi");
+            if (d) spostaX(getDirezione(), "aggiungi");
+            if (a) spostaX(getDirezione(), "sottrai");
+        }
+    }
+    public void controllaCollisioniX(boolean a, boolean d){
+        inCollisione=false;
+        Defines.GAME_PANEL.collisioni.controllaCasella(this);
+        if (!inCollisione) {
+            
+            if (d) spostaX("destra", "aggiungi");
+            if (a) spostaX("sinistra", "sottrai");
+
+        }
+    }
+    public void controllaCollisioniY(boolean w, boolean s){
+        inCollisione=false;
+        Defines.GAME_PANEL.collisioni.controllaCasella(this);
+        if (!inCollisione) {
+            if (w) spostaY("su", "sottrai");
+            if (s) spostaY("giu", "aggiungi");
+        }
+    }
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         switch (getDirezione()) {

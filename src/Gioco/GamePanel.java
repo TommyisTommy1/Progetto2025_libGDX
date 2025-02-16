@@ -9,7 +9,7 @@ import utils.Defines;
 public class GamePanel extends JPanel implements Runnable{
 
     public static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
-
+    public RilevatoreCollisioni collisioni = new RilevatoreCollisioni();
     private int maxWorldCol;
     private int maxWorldRow;
     private int worldWidth;
