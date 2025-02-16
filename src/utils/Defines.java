@@ -8,10 +8,14 @@ import java.awt.BorderLayout;
 import Gioco.GamePanel;
 import entity.Player;
 import tile.TileManager;
+import mp3PlayerPkg.MP3Player;
+
 public class Defines {
 
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
-
+    // MP3 AUDIO CONTROL
+    public static final MP3Player AUDIO_PLAYER = new MP3Player();
+    public static final Thread MP3_PLAYER = new Thread(AUDIO_PLAYER);
     // VARIABILI SCHERMO 
     public static final int SCREEN_WIDTH = 1920; //(int)toolkit.getScreenSize().getWidth();
     public static final int SCREEN_HEIGHT = 1080; //(int)toolkit.getScreenSize().getHeight();
