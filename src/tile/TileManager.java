@@ -19,6 +19,9 @@ public class TileManager {
     public TileManager(GamePanel g){
         this.gamePanel = g;
         tile = new Tile[10];
+        for (int i = 0; i < tile.length; i++) {
+            tile[i] = new Tile();
+        }
         n = new int[Defines.MASSIMA_ALTEZZA_COL][Defines.MASSIMA_ALTEZZA_RIG];
         loadMap("/res/map/map01.txt");
         getTileImage();
@@ -51,7 +54,6 @@ public class TileManager {
                 
                 tile[1].image = loadImage("/res/tile/grass2.png");
                 
-                tile[2].image = loadImage("/res/tile/grass3.png");
         }
     private BufferedImage loadImage(String percorso){
         try {
