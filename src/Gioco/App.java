@@ -9,7 +9,7 @@ import utils.Defines;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         Defines.MAINFRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Defines.MAINFRAME.setResizable(false);
