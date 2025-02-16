@@ -8,10 +8,10 @@ import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    public final static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
+    public static GestioneTasti keyH = new GestioneTasti(); //KeyHandler
 
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
+    private final int maxWorldCol = 50;
+    private final int maxWorldRow = 50;
     public final int worldWidth = Defines.GRANDEZZA_CASELLE *  maxWorldCol;
     public final int worldHeight = Defines.GRANDEZZA_CASELLE *  maxWorldRow;
 
@@ -35,8 +35,8 @@ public class GamePanel extends JPanel implements Runnable{
         double prossimaVisualizzazione = System.nanoTime() + intervalloVisualizzazione;
         while (Defines.THREAD_GIOCO != null) {
 
-            update();
-            repaint();
+            this.update();
+            this.repaint();
             
             try {
                 double tempoRimanente = prossimaVisualizzazione  - System.nanoTime();

@@ -8,21 +8,18 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
-import Gioco.GamePanel;
 import utils.Defines;
 
 public class TileManager {
-    GamePanel gamePanel;
-    Tile[] tile;
-    int[][] n;
+    private Tile[] tile;
+    private int[][] n;
 
-    public TileManager(GamePanel g){
-        this.gamePanel = g;
+    public TileManager(){
         tile = new Tile[10];
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
-        n = new int[Defines.MASSIMA_ALTEZZA_COL][Defines.MASSIMA_ALTEZZA_RIG];
+        n = new int[Defines.MASSIMA_ALTEZZA_MONDO_COL][Defines.MASSIMA_ALTEZZA_MONDO_RIG];
         loadMap("/res/map/map01.txt");
         getTileImage();
     }
@@ -33,12 +30,12 @@ public class TileManager {
 
             int row = 0;
 
-            while (row < Defines.MASSIMA_ALTEZZA_RIG){
+            while (row < Defines.MASSIMA_ALTEZZA_MONDO_RIG){
                 String line = br.readLine();
 
                 String numbers[] = line.split(" ");
 
-                for (int col = 0; col < Defines.MASSIMA_ALTEZZA_COL; col++) {
+                for (int col = 0; col < Defines.MASSIMA_ALTEZZA_MONDO_COL; col++) {
                     n[col][row] = Integer.parseInt(numbers[col]);
                 }
                 row++;
@@ -69,21 +66,21 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g){
-        int posizioneX=0, posizioneY=0;
-        int col=0, row=0;
+        int worldCol=0, worldRow=0;
         
-        while (col < Defines.MASSIMA_ALTEZZA_COL && row < Defines.MASSIMA_ALTEZZA_RIG) {
+        while (worldCol < Defines.MASSIMA_ALTEZZA_MONDO_COL && worldRow < Defines.MASSIMA_ALTEZZA_MONDO_RIG) {
 
-            int tileNum = n[col][row];
+            int tileNum = n[worldCol][worldRow];
 
-            g.drawImage(tile[tileNum].image, posizioneX, posizioneY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
-            col++;  
-            posizioneX+=Defines.GRANDEZZA_CASELLE;
-            if (col == Defines.MASSIMA_ALTEZZA_COL) {
-                    col=0;
-                    posizioneX=0;
-                    row++;  
-                    posizioneY+=Defines.GRANDEZZA_CASELLE;
+            int worldX = worldCol * Defines.GRANDEZZA_CASELLE;
+            int worldY = worldRow * Defines.GRANDEZZA_CASELLE;
+            int screenX = worldX - Defines.PLAYER.worldX + Defines.PLAYER.getScreenX();
+            int screenY = worldY - Defines.PLAYER.worldY + Defines.PLAYER.getScreenY();
+            g.drawImage(tile[tileNum].image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);    
+            worldCol++;  
+            if (worldCol == Defines.MASSIMA_ALTEZZA_COL) {
+                    worldCol=0;
+                    worldRow++;  
                 }
         }
     }

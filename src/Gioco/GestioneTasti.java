@@ -5,9 +5,57 @@ import java.awt.event.KeyListener;
 
 public class GestioneTasti implements KeyListener{
 
-    public boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto;
+    private boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto;
 
     public GestioneTasti(){}
+
+    private void setPremuto(String key){
+        switch (key) {
+            case "W":
+                this.suPremuto=true;
+                break;
+            case "S":
+                this.giuPremuto=true;
+                break;
+            case "D":
+                this.destraPremuto=true;
+                break;
+            case "A":
+                this.sinistraPremuto=true;
+                break;
+        }
+    }
+    private void setRilasciato(String key){
+        switch (key) {
+            case "W":
+                this.suPremuto=false;
+                break;
+            case "S":
+                this.giuPremuto=false;
+                break;
+            case "D":
+                this.destraPremuto=false;
+                break;
+            case "A":
+                this.sinistraPremuto=false;
+                break;
+        }
+    }
+
+    public boolean getPremuto(String key){
+        switch (key) {
+            case "W":
+                return this.suPremuto;
+            case "S":
+                return this.giuPremuto;
+            case "D":
+                return this.destraPremuto;
+            case "A":
+                return this.sinistraPremuto;
+            default:
+             return false;
+        }
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -18,19 +66,19 @@ public class GestioneTasti implements KeyListener{
         int code = e.getKeyCode();
         switch (code) {
             case KeyEvent.VK_W:
-                suPremuto = true;
+                setPremuto("W");
                 System.out.println("W premuto");
                 break;
             case KeyEvent.VK_S:
-                giuPremuto = true;
+                setPremuto("S");
                 System.out.println("S premuto");
                 break;
             case KeyEvent.VK_D:
-                destraPremuto = true;
+                setPremuto("D");
                 System.out.println("D premuto");
                 break;
             case KeyEvent.VK_A:
-                sinistraPremuto = true;
+                setPremuto("A");
                 System.out.println("A premuto");
                 break;
 
@@ -44,19 +92,19 @@ public class GestioneTasti implements KeyListener{
         int code = e.getKeyCode();
         switch (code) {
             case KeyEvent.VK_W:
-                suPremuto = false;
+                setRilasciato("W");
                 System.out.println("W rilasciato");
                 break;
             case KeyEvent.VK_S:
-                giuPremuto = false;
+                setRilasciato("S");
                 System.out.println("S rilasciato");
                 break;
             case KeyEvent.VK_D:
-                destraPremuto = false;
+                setRilasciato("D");
                 System.out.println("D rilasciato");
                 break;
             case KeyEvent.VK_A:
-                sinistraPremuto = false;
+                setRilasciato("A");
                 System.out.println("A rilasciato");
                 break;
 

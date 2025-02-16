@@ -5,23 +5,20 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-import Gioco.GamePanel;
 import Gioco.GestioneTasti;
 import utils.Defines;
 
 public class Player extends Entity {
-    GamePanel panGioco;
-    GestioneTasti gestioneTasti;
+    private GestioneTasti gestioneTasti;
 
-    public final int screenX;
-    public final int screenY;
+    private final int screenX;
+    private final int screenY;
 
-    public Player(GamePanel g1, GestioneTasti g2) {
-        this.panGioco = g1;
+    public Player(GestioneTasti g2) {
         gestioneTasti = g2;
 
-        screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE;
-        screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE;
+        screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE/2;
+        screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE/2;
 
         setDefaultValues();
     }
@@ -30,85 +27,83 @@ public class Player extends Entity {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
         speed = 4;
-        direction = "su";
+        setDirezione("su");
         getPlayerImage();
     }
 
+    public int getScreenX(){
+        return this.screenX;
+    }
+    public int getScreenY(){
+        return this.screenY;
+    }
+
+
+    public boolean getPremuto(String key){
+        boolean stato=false;
+        stato = gestioneTasti.getPremuto(key);
+        return stato;
+    }
+
+    public void spriteCounter(){
+        this.spriteCounter++;
+        if (this.spriteCounter > 12) {
+            if (this.spriteNum == 1) {
+                this.spriteNum = 2;
+            } else if (spriteNum == 2) {
+                this.spriteNum = 1;
+            }
+            this.spriteCounter = 0;
+        }
+    }
+
     public void update() {
-        if (gestioneTasti.suPremuto || gestioneTasti.giuPremuto || gestioneTasti.destraPremuto
-                || gestioneTasti.sinistraPremuto) {
-            if (gestioneTasti.suPremuto) {
-                direction = "su";
+        boolean w = getPremuto("W");
+        boolean s = getPremuto("S");
+        boolean d = getPremuto("D");
+        boolean a = getPremuto("A");
+
+        if (w || s || d || a) {
+            spriteCounter();
+            if (w) {
+                setDirezione("su");
                 worldY -= speed;
             }
-            if (gestioneTasti.giuPremuto) {
-                direction = "giu";
+            if (s) {
+                setDirezione("giu");
                 worldY += speed;
             }
-            if (gestioneTasti.destraPremuto) {
-                direction = "destra";
+            if (d) {
+                setDirezione("destra");
                 worldX += speed;
             }
-            if (gestioneTasti.sinistraPremuto) {
-                direction = "sinistra";
+            if (a) {
+                setDirezione("sinistra");
                 worldX -= speed;
             }
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+            
         } else {
-            switch (direction) {
+            spriteCounter();
+            switch (getDirezione()) {
                 case "giu":
 
-                    direction = "fermoGiu";
-                    spriteCounter++;
-                    if (spriteCounter > 24) {
-                        if (spriteNum == 1)
-                            spriteNum = 2;
-                        else if (spriteNum == 2)
-                            spriteNum = 1;
-                        spriteCounter = 0;
-                    }
+                    setDirezione("fermoGiu");
 
                     break;
                 case "su":
-                    direction = "fermoSu";
-                    spriteCounter++;
-                    if (spriteCounter > 24) {
-                        if (spriteNum == 1)
-                            spriteNum = 2;
-                        else if (spriteNum == 2)
-                            spriteNum = 1;
-                        spriteCounter = 0;
-                    }
+
+                    setDirezione("fermoSu");
+                    
                     break;
                 case "destra":
-                    direction = "fermoGiu";
-                    spriteCounter++;
-                    if (spriteCounter > 24) {
-                        if (spriteNum == 1)
-                            spriteNum = 2;
-                        else if (spriteNum == 2)
-                            spriteNum = 1;
-                        spriteCounter = 0;
-                    }
+
+                    setDirezione("fermoGiu");
+                    
                     break;
                 case "sinistra":
-                    direction = "fermoGiu";
-                    spriteCounter++;
-                    if (spriteCounter > 24) {
-                        if (spriteNum == 1)
-                            spriteNum = 2;
-                        else if (spriteNum == 2)
-                            spriteNum = 1;
-                        spriteCounter = 0;
-                    }
+
+                    setDirezione("fermoGiu");
+                    
                     break;
                 default:
                     break;
@@ -149,37 +144,29 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g) {
         BufferedImage image = null;
-        switch (direction) {
+        switch (getDirezione()) {
             case "su":
 
-                if (spriteNum == 1)
-                    image = su1;
-                else
-                    image = su2;
+                if (spriteNum == 1)image = su1;
+                else image = su2;
 
                 break;
             case "giu":
 
-                if (spriteNum == 1)
-                    image = giu1;
-                else
-                    image = giu2;
+                if (spriteNum == 1) image = giu1;
+                else image = giu2;
 
                 break;
             case "destra":
 
-                if (spriteNum == 1)
-                    image = destra1;
-                else
-                    image = destra2;
+                if (spriteNum == 1) image = destra1;
+                else image = destra2;
 
                 break;
             case "sinistra":
 
-                if (spriteNum == 1)
-                    image = sinistra1;
-                else
-                    image = sinistra2;
+                if (spriteNum == 1) image = sinistra1;
+                else image = sinistra2;
 
                 break;
             case "fermoSu":
@@ -189,6 +176,6 @@ public class Player extends Entity {
                 image = fermoGiu;
                 break;
         }
-        g.drawImage(image, worldX, worldY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
+        g.drawImage(image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
     }
 }
