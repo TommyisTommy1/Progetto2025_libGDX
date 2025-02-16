@@ -64,24 +64,51 @@ public class Player extends Entity {
         boolean a = getPremuto("A");
 
         if (w || s || d || a) {
-            spriteCounter();
-            if (w) {
-                setDirezione("su");
-                worldY -= speed;
+            if (a && d) {
+                setDirezione("fermoGiu");
+                if (w) {
+                    spriteCounter();
+                    setDirezione("su");
+                    worldY -= speed;
+                }
+                if (s) {
+                    spriteCounter();
+                    setDirezione("giu");
+                    worldY += speed;
+                }
+            }else if (w && s) {
+                setDirezione("fermoGiu");
+                if (d) {
+                    spriteCounter();
+                    setDirezione("destra");
+                    worldX += speed;
+                }
+                if (a) {
+                    spriteCounter();
+                    setDirezione("sinistra");
+                    worldX -= speed;
+                }
+            }else{
+                spriteCounter();
+                if (w) {
+                    setDirezione("su");
+                    worldY -= speed;
+                }
+                if (s) {
+                    setDirezione("giu");
+                    worldY += speed;
+                }
+                if (d) {
+                    setDirezione("destra");
+                    worldX += speed;
+                }
+                if (a) {
+                    setDirezione("sinistra");
+                    worldX -= speed;
+                }
+                
             }
-            if (s) {
-                setDirezione("giu");
-                worldY += speed;
-            }
-            if (d) {
-                setDirezione("destra");
-                worldX += speed;
-            }
-            if (a) {
-                setDirezione("sinistra");
-                worldX -= speed;
-            }
-            
+
         } else {
             spriteCounter();
             switch (getDirezione()) {

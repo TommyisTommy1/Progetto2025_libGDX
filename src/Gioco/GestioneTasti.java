@@ -66,20 +66,28 @@ public class GestioneTasti implements KeyListener{
         int code = e.getKeyCode();
         switch (code) {
             case KeyEvent.VK_W:
+               
                 setPremuto("W");
                 System.out.println("W premuto");
+                
                 break;
             case KeyEvent.VK_S:
+                
                 setPremuto("S");
                 System.out.println("S premuto");
+        
                 break;
             case KeyEvent.VK_D:
+
                 setPremuto("D");
                 System.out.println("D premuto");
+
                 break;
             case KeyEvent.VK_A:
+
                 setPremuto("A");
                 System.out.println("A premuto");
+                
                 break;
 
             default:
