@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-import javax.sound.sampled.Line;
 import javax.swing.JFrame;
 
 
