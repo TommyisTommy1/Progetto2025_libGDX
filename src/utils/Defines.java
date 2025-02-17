@@ -33,7 +33,7 @@ public class Defines {
     public static final int SCALA = (int) Math
             .ceil(((double) SCREEN_WIDTH / (GRANDEZZA_CASELLE_ORIGINALE * NUM_COLONNE)));
 
-    public static final int GRANDEZZA_CASELLE = GRANDEZZA_CASELLE_ORIGINALE * SCALA;
+    public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA / 0.8); //L'ultimo numero è il moltiplicatore della telecamera
 
     public static final int FPS = 60;
 
