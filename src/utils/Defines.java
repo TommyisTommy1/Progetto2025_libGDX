@@ -14,8 +14,8 @@ public class Defines {
     public static final int SCREEN_WIDTH = 854; // (int)toolkit.getScreenSize().getWidth();
     public static final int SCREEN_HEIGHT = 480; // (int)toolkit.getScreenSize().getHeight();
 
-    public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
-    public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
+    public static int NUM_COLONNE = 50; //DIMENSIONE MONDO
+    public static int NUM_RIGHE = 50; //DIMENSIONE MONDO
 
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
@@ -37,9 +37,6 @@ public class Defines {
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
 
-    
-
-    
     public static final int FPS = 60;
 
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
