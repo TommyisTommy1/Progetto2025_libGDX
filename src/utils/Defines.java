@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
-import Gioco.GamePanel;
 import entity.Player;
+import gioco.GamePanel;
 import tile.TileManager;
 import mp3PlayerPkg.MP3Player;
 

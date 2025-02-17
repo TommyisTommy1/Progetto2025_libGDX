@@ -70,7 +70,7 @@ public class MP3Player implements Runnable {
         }
     }
 
-    /* 
+   /*
     public static void main(String[] args) {
         MP3Player player = new MP3Player(1);
         Thread playerThread = new Thread(player);
@@ -82,5 +82,5 @@ public class MP3Player implements Runnable {
         wait.run();
         player.stop();
     }
-    */
+     */
 }

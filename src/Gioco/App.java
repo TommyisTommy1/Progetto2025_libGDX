@@ -1,4 +1,4 @@
-package Gioco;
+package gioco;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,6 +27,6 @@ public class App {
         Defines.MAINFRAME.setVisible(true);
 
         Defines.GAME_PANEL.iniziaThreadGioco();
-        Defines.MP3_PLAYER.start();
+        //Defines.MP3_PLAYER.start();
     }
 }
