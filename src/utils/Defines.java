@@ -14,9 +14,6 @@ public class Defines {
     public static final int SCREEN_WIDTH = 854; // (int)toolkit.getScreenSize().getWidth();
     public static final int SCREEN_HEIGHT = 480; // (int)toolkit.getScreenSize().getHeight();
 
-    public static int NUM_COLONNE = 50; //DIMENSIONE MONDO
-    public static int NUM_RIGHE = 50; //DIMENSIONE MONDO
-
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
     public static final int SCALA = 3;

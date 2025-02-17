@@ -11,8 +11,8 @@ public class RilevatoreCollisioni {
     public void controllaCasella(Entity entity) {
 
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        int numColonne = Defines.NUM_COLONNE - 1;
-        int numRighe = Defines.NUM_RIGHE - 1;
+        int numColonne = Defines.GAME_PANEL.getMaxWorldCol() - 1;
+        int numRighe = Defines.GAME_PANEL.getMaxWorldRow() - 1;
         int speed = Defines.PLAYER.getSpeed();
 
         int entityDestraWorldX = entity.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;

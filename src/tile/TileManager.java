@@ -18,7 +18,7 @@ public class TileManager {
             tile[i] = new Tile();
         }
         Defines.GAME_PANEL.setMaxWorldCol(50);
-        Defines.GAME_PANEL.setMaxWorldRow(50);
+        Defines.GAME_PANEL.setMaxWorldRow(200);
         n = new int[Defines.GAME_PANEL.getMaxWorldCol()][Defines.GAME_PANEL.getMaxWorldRow()];
         loadMap("/res/map/map01.txt");
         getTileImage();
@@ -96,7 +96,7 @@ public class TileManager {
                         null);
 
             worldCol++;
-            if (worldCol == Defines.NUM_COLONNE) {
+            if (worldCol == Defines.GAME_PANEL.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }
