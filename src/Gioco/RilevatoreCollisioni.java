@@ -28,7 +28,12 @@ public class RilevatoreCollisioni {
         int tile1, tile2;
 
         int larghezzaMappa = grandezzaCaselle * numColonne;
-        int altezzaMappa = grandezzaCaselle * numRighe;
+        int altezzaMappa = grandezzaCaselle * numRighe - 5;
+        System.out.println(grandezzaCaselle);
+        System.out.println(numRighe);
+        System.out.println(altezzaMappa);
+        System.out.println(entity.getWorldY());
+
 
         if (entity.getWorldX() <= 0 || entity.getWorldX() >= larghezzaMappa) {
             switch (entity.getDirezione()) {
@@ -46,14 +51,14 @@ public class RilevatoreCollisioni {
                     break;
             }
         }
-        if (entity.getWorldY() >= 0 || entity.getWorldY() <= altezzaMappa) {
+        if (entity.getWorldY() < 0 || entity.getWorldY() > altezzaMappa) {
             switch (entity.getDirezione()) {
                 case "su":
-                    if (entity.getWorldY() <= 0)
+                    if (entity.getWorldY() < 0)
                         entity.inCollisione = true;
                     break;
                 case "giu":
-                    if (entity.getWorldY() >= altezzaMappa)
+                    if (entity.getWorldY() > altezzaMappa)
                         entity.inCollisione = true;
                     break;
                 default:

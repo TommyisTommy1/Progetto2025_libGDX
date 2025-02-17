@@ -22,10 +22,10 @@ public class Player extends Entity {
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
 
         areaCollisione = new Rectangle();
-        areaCollisione.x = 6;
-        areaCollisione.y = 12;
-        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 12;
-        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 16;
+        areaCollisione.x = 10;
+        areaCollisione.y = 20;
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         setDefaultValues();
     }
 
