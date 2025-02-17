@@ -29,7 +29,7 @@ public class Defines {
     public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
 
     // VARIABILI GAMEPANEL
-    public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
+    public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
     public static final int SCALA = (int) Math
             .ceil(((double) SCREEN_WIDTH / (GRANDEZZA_CASELLE_ORIGINALE * NUM_COLONNE)));
 

@@ -77,21 +77,22 @@ public class TileManager {
 
     public void draw(Graphics2D g) {
         int worldCol = 0, worldRow = 0;
+        int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
 
         while (worldCol < Defines.GAME_PANEL.getMaxWorldCol() && worldRow < Defines.GAME_PANEL.getMaxWorldRow()) {
 
             int tileNum = n[worldCol][worldRow];
 
-            int worldX = worldCol * Defines.GRANDEZZA_CASELLE;
-            int worldY = worldRow * Defines.GRANDEZZA_CASELLE;
+            int worldX = worldCol * grandezzaCaselle;
+            int worldY = worldRow * grandezzaCaselle;
             int screenX = worldX - Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX();
             int screenY = worldY - Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY();
 
-            if (worldX + Defines.GRANDEZZA_CASELLE > Defines.PLAYER.getWorldX() - Defines.PLAYER.getScreenX()
-                    && worldX - Defines.GRANDEZZA_CASELLE < Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX()
-                    && worldY + Defines.GRANDEZZA_CASELLE > Defines.PLAYER.getWorldY() - Defines.PLAYER.getScreenY()
-                    && worldY - Defines.GRANDEZZA_CASELLE < Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY())
-                g.drawImage(tile[tileNum].image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE,
+            if (worldX + grandezzaCaselle > Defines.PLAYER.getWorldX() - Defines.PLAYER.getScreenX()
+                    && worldX - grandezzaCaselle < Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX()
+                    && worldY + grandezzaCaselle > Defines.PLAYER.getWorldY() - Defines.PLAYER.getScreenY()
+                    && worldY - grandezzaCaselle < Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY())
+                g.drawImage(tile[tileNum].image, screenX, screenY, grandezzaCaselle, grandezzaCaselle,
                         null);
 
             worldCol++;
