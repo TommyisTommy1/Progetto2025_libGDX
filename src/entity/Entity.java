@@ -19,7 +19,7 @@ public class Entity {
     protected BufferedImage giu[] = new BufferedImage[4];
     protected BufferedImage destra[] = new BufferedImage[4];
     protected BufferedImage sinistra[] = new BufferedImage[4];
-    protected BufferedImage fermo[] = new BufferedImage[4];
+    protected BufferedImage fermo[] = new BufferedImage[8];
 
     protected void setDirezione(String d) {
         this.direction = d;

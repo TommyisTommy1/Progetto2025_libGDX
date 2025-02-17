@@ -61,9 +61,9 @@ public class Player extends Entity {
         return gestioneTasti.getPremuto(key);
     }
 
-    private void spriteCounter(int n) {
+    private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
-        if (this.spriteCounter > 12) {
+        if (this.spriteCounter > wait) {
             if (spriteNum<n) {
                 spriteNum++;
             }else{
@@ -94,6 +94,10 @@ public class Player extends Entity {
         fermo[1] = loadPlayerImage(1, 0);
         fermo[2] = loadPlayerImage(0, 2);
         fermo[3] = loadPlayerImage(1, 2);
+        fermo[4] = loadPlayerImage(0, 1);
+        fermo[5] = loadPlayerImage(1, 1);
+        fermo[6] = flipImmagine(loadPlayerImage(0, 1));
+        fermo[7] = flipImmagine(loadPlayerImage(1, 1));
         su[0] = loadPlayerImage(0, 5);
         su[1] = loadPlayerImage(1, 5);
         su[2] = loadPlayerImage(2, 5);
@@ -119,7 +123,7 @@ public class Player extends Entity {
         boolean a = getPremuto("A");
 
         if (!w && !s && !d && !a) {
-            spriteCounter(1);
+            spriteCounter(1, 27);
             switch (getDirezione()) {
                 case "giu":
                     spostaY("fermoGiu", "");
@@ -127,9 +131,11 @@ public class Player extends Entity {
                 case "su":
                     spostaY("fermoSu", "");
                     return;
-                case "destra":
+                case "destra": 
+                    spostaX("fermoDestra","");
+                    return;
                 case "sinistra":
-                    spostaX("fermoGiu", "");
+                    spostaX("fermoSinistra", "");
                     return;
                 default:
                     return;
@@ -137,7 +143,7 @@ public class Player extends Entity {
         }
 
         if (w || s || d || a) {
-            spriteCounter(3);
+            spriteCounter(3, 8);
             if (a && d) {
                 setDirezione("fermoGiu");
                 if (w)
@@ -229,18 +235,24 @@ public class Player extends Entity {
             case "sinistra":
                 image = sinistra[spriteNum];
                 break;
+            case "fermoDestra":
+                if (spriteNum == 1) image = fermo[4];
+                else image = fermo[5];
+                break;
+            case "fermoSinistra":
+                if (spriteNum == 1) image = flipImmagine(fermo[4]);
+                else image = flipImmagine(fermo[5]);
+                break;
             case "fermoSu":
-                if (spriteNum == 1)
-                    image = fermo[2];
-                else
-                    image = fermo[3];
+                if (spriteNum == 1) image = fermo[2];
+                else image = fermo[3];
                 break;
             case "fermoGiu":
-                if (spriteNum == 1)
-                    image = fermo[0];
-                else
-                    image = fermo[1];
+                if (spriteNum == 1) image = fermo[0];
+                else image = fermo[1];
                 break;
+            
+                
         }
         g.drawImage(image, screenX-Defines.GRANDEZZA_CASELLE/2, screenY-Defines.GRANDEZZA_CASELLE/2, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
         //g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
