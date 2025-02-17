@@ -16,21 +16,22 @@ public class Defines {
     // MP3 AUDIO CONTROL
     public static final MP3Player AUDIO_PLAYER = new MP3Player();
     public static final Thread MP3_PLAYER = new Thread(AUDIO_PLAYER);
-    // VARIABILI SCHERMO 
-    public static final int SCREEN_WIDTH =  854; //(int)toolkit.getScreenSize().getWidth();
-    public static final int SCREEN_HEIGHT = 480; //(int)toolkit.getScreenSize().getHeight();
+    // VARIABILI SCHERMO
+    public static final int SCREEN_WIDTH = 854; // (int)toolkit.getScreenSize().getWidth();
+    public static final int SCREEN_HEIGHT = 480; // (int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
-    
-    //VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
+
+    // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
 
-    public static int MASSIMA_ALTEZZA_COL = 50; //modificabile per cambiare la dimensione della visuale
-    public static int MASSIMA_ALTEZZA_RIG = (int) Math.ceil((double) MASSIMA_ALTEZZA_COL/1.778) ; //si modifica a seconda della prima per avere la risuluzione in 16:9
+    public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
+    public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
 
-    //VARIABILI GAMEPANEL
+    // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
-    public static final int SCALA = (int) Math.ceil(((double) SCREEN_WIDTH/(GRANDEZZA_CASELLE_ORIGINALE*MASSIMA_ALTEZZA_COL)));
+    public static final int SCALA = (int) Math
+            .ceil(((double) SCREEN_WIDTH / (GRANDEZZA_CASELLE_ORIGINALE * NUM_COLONNE)));
 
     public static final int GRANDEZZA_CASELLE = GRANDEZZA_CASELLE_ORIGINALE * SCALA;
 

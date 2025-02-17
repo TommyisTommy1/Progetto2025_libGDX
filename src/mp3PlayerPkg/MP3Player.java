@@ -18,9 +18,7 @@ public class MP3Player implements Runnable {
         loadPlaylist();
     }
 
-    public void loadPlaylist ()
-    {
-        
+    public void loadPlaylist() {
 
         if (!folder.exists() || !folder.isDirectory()) {
             System.out.println("Folder not found: " + folder.getAbsolutePath());
@@ -56,7 +54,7 @@ public class MP3Player implements Runnable {
                 default:
                     break;
             }
-            
+
             File tempFolder = new File(path);
             for (File file : tempFolder.listFiles()) {
                 if (file.getName().toLowerCase().endsWith(".mp3")) {
@@ -64,7 +62,7 @@ public class MP3Player implements Runnable {
                     System.out.println("Added: " + file.getName());
                 }
             }
-        }   
+        }
         if (playlist.isEmpty()) {
             System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
         }
@@ -72,19 +70,20 @@ public class MP3Player implements Runnable {
 
     @Override
     public void run() {
-        while (!stop){
+        while (!stop) {
             if (playlist.isEmpty()) {
                 System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
                 return;
             }
 
-            try (FileInputStream fileInputStream = new FileInputStream(playlist.get((int)(Math.random()*playlist.size())))) {
+            try (FileInputStream fileInputStream = new FileInputStream(
+                    playlist.get((int) (Math.random() * playlist.size())))) {
                 player = new AdvancedPlayer(fileInputStream);
-                System.out.println("Playing: " + playlist.get((int)(Math.random()*playlist.size())));
+                System.out.println("Playing: " + playlist.get((int) (Math.random() * playlist.size())));
                 player.play();
-            } catch (Exception e) { 
+            } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Error playing: " + playlist.get((int)(Math.random()*playlist.size())));
+                System.out.println("Error playing: " + playlist.get((int) (Math.random() * playlist.size())));
             }
             i++;
             if (i == playlist.size()) {
@@ -104,7 +103,7 @@ public class MP3Player implements Runnable {
         MP3Player player = new MP3Player();
         Thread playerThread = new Thread(player);
         playerThread.start();
-        if(playerThread.isAlive()){
+        if (playerThread.isAlive()) {
             System.out.println("Il thread è attivo");
         }
         Waitress wait = new Waitress(50000);

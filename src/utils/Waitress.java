@@ -7,9 +7,10 @@ public class Waitress implements Runnable {
     public Waitress(int waitTime) {
         this.waitTime = waitTime;
     }
+
     @Override
     public void run() {
-        try{
+        try {
             System.out.println("La waitress è in attesa");
             Thread.sleep(waitTime);
             System.out.println("La waitress è pronta");

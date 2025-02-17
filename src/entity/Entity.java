@@ -14,25 +14,31 @@ public class Entity {
     public boolean inCollisione = false;
 
     private String direction;
-    protected BufferedImage su1, su2, giu1, giu2, destra1, destra2, sinistra1, sinistra2, fermoSu, fermoGiu, fermoDestra,
+    protected BufferedImage su1, su2, giu1, giu2, destra1, destra2, sinistra1, sinistra2, fermoSu, fermoGiu,
+            fermoDestra,
             fermoSinistra;
 
-    protected void setDirezione(String d){
-        this.direction=d;
+    protected void setDirezione(String d) {
+        this.direction = d;
     }
-    public String getDirezione(){
+
+    public String getDirezione() {
         return this.direction;
     }
-    public int getWorldX(){
+
+    public int getWorldX() {
         return this.worldX;
     }
-    public int getWorldY(){
+
+    public int getWorldY() {
         return this.worldY;
     }
-    public int getSpeed(){
+
+    public int getSpeed() {
         return this.speed;
     }
-    protected void setSpeed(int speed){
+
+    protected void setSpeed(int speed) {
         this.speed = speed;
     }
 }

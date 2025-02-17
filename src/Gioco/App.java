@@ -1,4 +1,5 @@
 package Gioco;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -24,8 +25,8 @@ public class App {
 
         Defines.MAINFRAME.setLocationRelativeTo(null);
         Defines.MAINFRAME.setVisible(true);
-        
+
         Defines.GAME_PANEL.iniziaThreadGioco();
-        //Defines.MP3_PLAYER.start();
+        // Defines.MP3_PLAYER.start();
     }
 }

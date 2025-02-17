@@ -3,46 +3,48 @@ package Gioco;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GestioneTasti implements KeyListener{
+public class GestioneTasti implements KeyListener {
 
     private boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto;
 
-    public GestioneTasti(){}
-
-    private void setPremuto(String key){
-        switch (key) {
-            case "W":
-                this.suPremuto=true;
-                break;
-            case "S":
-                this.giuPremuto=true;
-                break;
-            case "D":
-                this.destraPremuto=true;
-                break;
-            case "A":
-                this.sinistraPremuto=true;
-                break;
-        }
+    public GestioneTasti() {
     }
-    private void setRilasciato(String key){
+
+    private void setPremuto(String key) {
         switch (key) {
             case "W":
-                this.suPremuto=false;
+                this.suPremuto = true;
                 break;
             case "S":
-                this.giuPremuto=false;
+                this.giuPremuto = true;
                 break;
             case "D":
-                this.destraPremuto=false;
+                this.destraPremuto = true;
                 break;
             case "A":
-                this.sinistraPremuto=false;
+                this.sinistraPremuto = true;
                 break;
         }
     }
 
-    public boolean getPremuto(String key){
+    private void setRilasciato(String key) {
+        switch (key) {
+            case "W":
+                this.suPremuto = false;
+                break;
+            case "S":
+                this.giuPremuto = false;
+                break;
+            case "D":
+                this.destraPremuto = false;
+                break;
+            case "A":
+                this.sinistraPremuto = false;
+                break;
+        }
+    }
+
+    public boolean getPremuto(String key) {
         switch (key) {
             case "W":
                 return this.suPremuto;
@@ -53,7 +55,7 @@ public class GestioneTasti implements KeyListener{
             case "A":
                 return this.sinistraPremuto;
             default:
-             return false;
+                return false;
         }
     }
 
@@ -67,27 +69,31 @@ public class GestioneTasti implements KeyListener{
         switch (code) {
             case KeyEvent.VK_W:
 
-                if (!getPremuto("W")) System.out.println("W premuto");
+                if (!getPremuto("W"))
+                    System.out.println("W premuto");
                 setPremuto("W");
-                
+
                 break;
             case KeyEvent.VK_S:
-                
-                if (!getPremuto("S")) System.out.println("S premuto");
+
+                if (!getPremuto("S"))
+                    System.out.println("S premuto");
                 setPremuto("S");
-        
+
                 break;
             case KeyEvent.VK_D:
 
-                if (!getPremuto("D")) System.out.println("D premuto");
+                if (!getPremuto("D"))
+                    System.out.println("D premuto");
                 setPremuto("D");
 
                 break;
             case KeyEvent.VK_A:
 
-                if (!getPremuto("A")) System.out.println("A premuto");
+                if (!getPremuto("A"))
+                    System.out.println("A premuto");
                 setPremuto("A");
-                
+
                 break;
 
             default:
@@ -121,4 +127,4 @@ public class GestioneTasti implements KeyListener{
         }
     }
 
-}   
+}
