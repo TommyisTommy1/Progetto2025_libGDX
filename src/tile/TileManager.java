@@ -6,38 +6,47 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
+
+import Gioco.GamePanel;
 import utils.Defines;
 
 public class TileManager {
     public Tile[] tile;
     public int[][] n;
+    public int misurax, misuray;
 
     public TileManager() {
         tile = new Tile[10];
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
-        Defines.GAME_PANEL.setMaxWorldCol(50);
-        Defines.GAME_PANEL.setMaxWorldRow(200);
-        n = new int[Defines.GAME_PANEL.getMaxWorldCol()][Defines.GAME_PANEL.getMaxWorldRow()];
-        loadMap("/res/map/map01.txt");
+        loadMap("/res/map/map02.txt", "/res/map/misureMap02.txt");
         getTileImage();
     }
 
-    private void loadMap(String s) {
+    private void loadMap(String mappa, String misure) {
         try {
-            InputStream is = getClass().getResourceAsStream(s);
+            InputStream is = getClass().getResourceAsStream(misure);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = br.readLine();
+            String numbers1[] = line.split(" ");
+            misurax = Integer.parseInt(numbers1[0]);
+            misuray = Integer.parseInt(numbers1[1]);
+            Defines.GAME_PANEL.setMaxWorldCol(misurax);
+            Defines.GAME_PANEL.setMaxWorldRow(misuray);
+            n = new int[Defines.GAME_PANEL.getMaxWorldCol()][Defines.GAME_PANEL.getMaxWorldRow()];
+            is = getClass().getResourceAsStream(mappa);
+            br = new BufferedReader(new InputStreamReader(is));
 
             int row = 0;
 
             while (row < Defines.GAME_PANEL.getMaxWorldRow()) {
-                String line = br.readLine();
+                line = br.readLine();
 
-                String numbers[] = line.split(" ");
+                String numbers2[] = line.split(" ");
 
                 for (int col = 0; col < Defines.GAME_PANEL.getMaxWorldCol(); col++) {
-                    n[col][row] = Integer.parseInt(numbers[col]);
+                    n[col][row] = Integer.parseInt(numbers2[col]);
                 }
                 row++;
             }
@@ -78,7 +87,9 @@ public class TileManager {
     public void draw(Graphics2D g) {
         int worldCol = 0, worldRow = 0;
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-
+        if (GamePanel.keyH.getPremuto("F")) {
+            loadMap("/res/map/map01.txt", "/res/map/misureMap01.txt");
+        }
         while (worldCol < Defines.GAME_PANEL.getMaxWorldCol() && worldRow < Defines.GAME_PANEL.getMaxWorldRow()) {
 
             int tileNum = n[worldCol][worldRow];
