@@ -27,7 +27,7 @@ public class Defines {
 
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
     // MP3 AUDIO CONTROL
-    public static final MP3Player AUDIO_PLAYER = new MP3Player();
+    public static final MP3Player AUDIO_PLAYER = new MP3Player(0);
     public static final Thread MP3_PLAYER = new Thread(AUDIO_PLAYER);
     // VARIABILI SCHERMO
     

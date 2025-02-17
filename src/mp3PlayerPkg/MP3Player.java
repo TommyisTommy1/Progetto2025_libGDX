@@ -2,92 +2,63 @@ package mp3PlayerPkg;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.io.File;
-import utils.Waitress;
 
 public class MP3Player implements Runnable {
     private AdvancedPlayer player;
-    private ArrayList<File> playlist = new ArrayList<>();
-    private int i = 0;
+    private File audioFile;
     private boolean stop = false;
     private String relativePath = "src/res/audio";
     private File folder = new File(relativePath);
+    private String[] theme = {"circustheme.mp3", "combattheme.mp3", "darktheme.mp3", "hostiletheme.mp3", "wintertheme.mp3"};
 
-    public MP3Player() {
-        loadPlaylist();
+    public MP3Player(int themeInt) {
+        loadPlaylist(themeInt);
     }
 
-    public void loadPlaylist() {
-
-        if (!folder.exists() || !folder.isDirectory()) {
+    public void loadPlaylist (int themeInt)
+    {
+        if (!folder.exists() || !folder.isDirectory()) 
+        {
             System.out.println("Folder not found: " + folder.getAbsolutePath());
             return;
         }
-        for (int i = 0; i < 8; i++) {
-            String path = "";
-            switch (i) {
-                case 0:
-                    path = relativePath + "/PBC/WLR";
-                    break;
-                case 1:
-                    path = relativePath + "/PBC/DieLit";
-                    break;
-                case 2:
-                    path = relativePath + "/PBC/rand";
-                    break;
-                case 3:
-                    path = relativePath + "/PBC/SelfNamed";
-                    break;
-                case 4:
-                    path = relativePath + "/Future/PLUTO";
-                    break;
-                case 5:
-                    path = relativePath + "/Future/WDTY";
-                    break;
-                case 6:
-                    path = relativePath + "/Yeat/2093";
-                    break;
-                case 7:
-                    path = relativePath + "/Yeat/LYFESTYLE";
-                    break;
-                default:
-                    break;
-            }
-
-            File tempFolder = new File(path);
-            for (File file : tempFolder.listFiles()) {
-                if (file.getName().toLowerCase().endsWith(".mp3")) {
-                    playlist.add(file);
-                    System.out.println("Added: " + file.getName());
+        
+        for (File file : folder.listFiles())
+        {
+            if (file.getName().toLowerCase().endsWith(".mp3"))
+            {
+                if (file.getName().toLowerCase().equals(theme[themeInt]))
+                {
+                    this.audioFile = file;
+                    System.out.println("Added: " + this.audioFile.getName());
+                } else {
+                    if (!file.exists())
+                    {
+                        System.out.println("File not found: " + file.getName());
+                    }
                 }
+            } else {
+                System.out.println("Not an mp3 file: " + file.getName());
             }
         }
-        if (playlist.isEmpty()) {
-            System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
-        }
+
     }
 
     @Override
-    public void run() {
-        while (!stop) {
-            if (playlist.isEmpty()) {
-                System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
-                return;
-            }
-
-            try (FileInputStream fileInputStream = new FileInputStream(
-                    playlist.get((int) (Math.random() * playlist.size())))) {
+    public void run() 
+    {
+        while (!stop)
+        {
+            try (FileInputStream fileInputStream = new FileInputStream(this.audioFile))
+            {
                 player = new AdvancedPlayer(fileInputStream);
-                System.out.println("Playing: " + playlist.get((int) (Math.random() * playlist.size())));
+                System.out.println("Playing: " + audioFile.getName());
                 player.play();
-            } catch (Exception e) {
+            } catch (Exception e)
+            { 
                 e.printStackTrace();
-                System.out.println("Error playing: " + playlist.get((int) (Math.random() * playlist.size())));
-            }
-            i++;
-            if (i == playlist.size()) {
-                i = 0;
+                System.out.println("Error playing: " + audioFile.getName());
             }
         }
     }
@@ -99,8 +70,9 @@ public class MP3Player implements Runnable {
         }
     }
 
+    /* 
     public static void main(String[] args) {
-        MP3Player player = new MP3Player();
+        MP3Player player = new MP3Player(1);
         Thread playerThread = new Thread(player);
         playerThread.start();
         if (playerThread.isAlive()) {
@@ -110,4 +82,5 @@ public class MP3Player implements Runnable {
         wait.run();
         player.stop();
     }
+    */
 }
