@@ -32,7 +32,7 @@ public class Player extends Entity {
     private void setDefaultValues() {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
-        speed = 6;
+        speed = 4;
         setDirezione("su");
         getPlayerImage();
     }
