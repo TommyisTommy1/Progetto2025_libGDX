@@ -1,4 +1,4 @@
-package gioco;
+package Gioco;
 
 import entity.Entity;
 import utils.Defines;

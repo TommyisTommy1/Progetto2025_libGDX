@@ -14,9 +14,12 @@ public class Entity {
     public boolean inCollisione = false;
 
     private String direction;
-    protected BufferedImage su1, su2, giu1, giu2, destra1, destra2, sinistra1, sinistra2, fermoSu, fermoGiu,
-            fermoDestra,
-            fermoSinistra;
+    
+    protected BufferedImage su[] = new BufferedImage[4];
+    protected BufferedImage giu[] = new BufferedImage[4];
+    protected BufferedImage destra[] = new BufferedImage[4];
+    protected BufferedImage sinistra[] = new BufferedImage[4];
+    protected BufferedImage fermo[] = new BufferedImage[4];
 
     protected void setDirezione(String d) {
         this.direction = d;

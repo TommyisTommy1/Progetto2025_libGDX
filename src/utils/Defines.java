@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
 import entity.Player;
-import gioco.GamePanel;
+import Gioco.GamePanel;
 import tile.TileManager;
 import mp3PlayerPkg.MP3Player;
 
@@ -18,11 +18,10 @@ public class Defines {
     public static int NUM_RIGHE = 50; //DIMENSIONE MONDO
 
     // VARIABILI GAMEPANEL
-    public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
-    public static final int SCALA = (int) Math
-            .ceil(((double) SCREEN_WIDTH / (GRANDEZZA_CASELLE_ORIGINALE * NUM_COLONNE)));
+    public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
+    public static final int SCALA = 3;
 
-    public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA / 0.8); //L'ultimo numero è il moltiplicatore della telecamera
+    public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
 
 
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
