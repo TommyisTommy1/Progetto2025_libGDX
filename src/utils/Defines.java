@@ -13,9 +13,19 @@ import mp3PlayerPkg.MP3Player;
 public class Defines {
 
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
+    
     // MP3 AUDIO CONTROL
-    public static final MP3Player AUDIO_PLAYER = new MP3Player();
-    public static final Thread MP3_PLAYER = new Thread(AUDIO_PLAYER);
+    public static final MP3Player CIRCUSTHEME_CLASS = new MP3Player(0);
+    public static final Thread CIRCUSTHEME_PLAYER = new Thread(CIRCUSTHEME_CLASS);
+    public static final MP3Player COMBATTHEME_CLASS = new MP3Player(1);
+    public static final Thread COMBATTHEME_PLAYER = new Thread(COMBATTHEME_CLASS);
+    public static final MP3Player DARKTHEME_CLASS = new MP3Player(2);
+    public static final Thread DARKTHEME_PLAYER = new Thread(DARKTHEME_CLASS);
+    public static final MP3Player HOSTILETHEME_CLASS = new MP3Player(3);
+    public static final Thread HOSTILETHEME_PLAYER = new Thread(HOSTILETHEME_CLASS);
+    public static final MP3Player WINTERTHEME_CLASS = new MP3Player(4);
+    public static final Thread WINTERTHEME_PLAYER = new Thread(WINTERTHEME_CLASS);
+
     // VARIABILI SCHERMO 
     public static final int SCREEN_WIDTH =  854; //(int)toolkit.getScreenSize().getWidth();
     public static final int SCREEN_HEIGHT = 480; //(int)toolkit.getScreenSize().getHeight();
