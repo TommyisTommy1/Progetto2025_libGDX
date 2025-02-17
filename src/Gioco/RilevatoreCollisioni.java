@@ -29,10 +29,6 @@ public class RilevatoreCollisioni {
 
         int larghezzaMappa = grandezzaCaselle * numColonne;
         int altezzaMappa = grandezzaCaselle * numRighe - 5;
-        System.out.println(grandezzaCaselle);
-        System.out.println(numRighe);
-        System.out.println(altezzaMappa);
-        System.out.println(entity.getWorldY());
 
 
         if (entity.getWorldX() <= 0 || entity.getWorldX() >= larghezzaMappa) {
