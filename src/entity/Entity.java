@@ -37,6 +37,14 @@ public class Entity {
         return this.worldY;
     }
 
+    public void setWorldX(int worldX) {
+        this.worldX=worldX;
+    }
+
+    public void setWorldY(int worldY) {
+        this.worldY=worldY;
+    }
+
     public int getSpeed() {
         return this.speed;
     }

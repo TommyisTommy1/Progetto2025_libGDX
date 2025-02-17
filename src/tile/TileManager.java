@@ -14,13 +14,15 @@ public class TileManager {
     public Tile[] tile;
     public int[][] n;
     public int misurax, misuray;
+    int mappa = -1;
+    boolean flag=false;
 
     public TileManager() {
         tile = new Tile[10];
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
-        loadMap("/res/map/map02.txt", "/res/map/misureMap02.txt");
+        
         getTileImage();
     }
 
@@ -87,9 +89,40 @@ public class TileManager {
     public void draw(Graphics2D g) {
         int worldCol = 0, worldRow = 0;
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        if (GamePanel.keyH.getPremuto("F")) {
-            loadMap("/res/map/map01.txt", "/res/map/misureMap01.txt");
+        if (mappa==-1) {
+            loadMap("/res/map/map02.txt", "/res/map/misureMap02.txt");
+            mappa=2;
         }
+
+        if (GamePanel.keyH.getPremuto("F") && !flag) {
+            flag=true;
+            switch (mappa) {
+                case 1:
+                    loadMap("/res/map/map02.txt", "/res/map/misureMap02.txt");
+                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*8);
+                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*5);
+                    mappa=2;
+
+                    break;
+                case 2:
+                    loadMap("/res/map/map01.txt", "/res/map/misureMap01.txt");
+                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*8);
+                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*5);
+                    mappa=1;
+                    
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        if (!GamePanel.keyH.getPremuto("F") && flag) {
+            flag=false;
+            
+            
+        }
+
         while (worldCol < Defines.GAME_PANEL.getMaxWorldCol() && worldRow < Defines.GAME_PANEL.getMaxWorldRow()) {
 
             int tileNum = n[worldCol][worldRow];

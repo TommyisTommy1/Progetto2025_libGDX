@@ -30,7 +30,7 @@ public class GestioneTasti implements KeyListener {
         }
     }
 
-    private void setRilasciato(String key) {
+    public void setRilasciato(String key) {
         switch (key) {
             case "W":
                 this.suPremuto = false;
@@ -50,6 +50,25 @@ public class GestioneTasti implements KeyListener {
         }
     }
 
+    
+    public boolean getRilasciato(String key) {
+        switch (key) {
+            case "W":
+                return suPremuto;
+            case "S":
+                return giuPremuto;
+            case "D":
+                return destraPremuto;
+            case "A":
+                return sinistraPremuto;
+            case "F":
+                return cambioMappa;
+            default:
+                return false;
+        }
+    }
+
+
     public boolean getPremuto(String key) {
         switch (key) {
             case "W":
@@ -63,8 +82,9 @@ public class GestioneTasti implements KeyListener {
             case "F":
                 return this.cambioMappa;
             default:
-                return false;
+                break;
         }
+        return false;
     }
 
     @Override
@@ -104,12 +124,12 @@ public class GestioneTasti implements KeyListener {
 
                 break;
             case KeyEvent.VK_F:
-
+                
                 if (!getPremuto("F"))
                     System.out.println("F premuto");
                 setPremuto("F");
-
                 break;
+
             default:
                 break;
         }
