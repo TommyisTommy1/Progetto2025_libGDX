@@ -243,7 +243,7 @@ public class Player extends Entity {
                 break;
         }
         g.drawImage(image, screenX-Defines.GRANDEZZA_CASELLE/2, screenY-Defines.GRANDEZZA_CASELLE/2, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
-        g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        //g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
         ;
     }
 }
