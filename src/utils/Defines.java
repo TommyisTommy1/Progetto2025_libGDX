@@ -1,0 +1,45 @@
+package utils;
+
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+
+import Gioco.GamePanel;
+import entity.Player;
+import tile.TileManager;
+
+
+public class Defines {
+    public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
+    // VARIABILI SCHERMO 
+    public static final int SCREEN_WIDTH = 854;//(int)toolkit.getScreenSize().getWidth();
+    public static final int SCREEN_HEIGHT = 480;//(int)toolkit.getScreenSize().getHeight();
+    public static final JFrame MAINFRAME = new JFrame("GameScreen");
+    public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
+    public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
+
+    // VARIABILI GAMEPANEL
+    public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
+    public static final double SCALA = 2;
+
+    public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+    
+ 
+
+    
+
+
+    // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
+    public static final GamePanel GAME_PANEL = new GamePanel();
+    public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
+
+    
+
+    
+    public static final int FPS = 60;
+
+    public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
+    public static final Player PLAYER = new Player(GamePanel.keyH);
+    public static final TileManager TILE_MANAGER = new TileManager();
+}
