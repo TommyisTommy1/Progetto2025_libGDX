@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
 import Gioco.GestioneTasti;
 import utils.Defines;
 
@@ -124,10 +123,10 @@ public class Player extends Entity {
 
         boolean shift = getPremuto("SHIFT");
 
-        if (shift) {
-            setSpeed(8);
+        if (shift ) {
+            setSpeed(4, 1.5);
         }else{
-            setSpeed(4);
+            setSpeed(4,1);
         }
 
         if (!w && !s && !d && !a) {

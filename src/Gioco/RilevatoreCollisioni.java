@@ -1,6 +1,7 @@
 package Gioco;
 
 import entity.Entity;
+import entity.Player;
 import utils.Defines;
 
 public class RilevatoreCollisioni {
@@ -13,12 +14,12 @@ public class RilevatoreCollisioni {
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int numColonne = Defines.GAME_PANEL.getMaxWorldCol() - 1;
         int numRighe = Defines.GAME_PANEL.getMaxWorldRow() - 1;
-        int speed = Defines.PLAYER.getSpeed();
+        int speed = entity.getSpeed();
 
-        int entityDestraWorldX = entity.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;
-        int entitySinistraWorldX = entity.getWorldX() + entity.areaCollisione.x;
-        int entitySuWorldY = entity.getWorldY() + entity.areaCollisione.y;
-        int entityGiuWorldY = entity.getWorldY() + entity.areaCollisione.y + entity.areaCollisione.height;
+        int entityDestraWorldX = Player.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;
+        int entitySinistraWorldX = Player.getWorldX() + entity.areaCollisione.x;
+        int entitySuWorldY = Player.getWorldY() + entity.areaCollisione.y;
+        int entityGiuWorldY = Player.getWorldY() + entity.areaCollisione.y + entity.areaCollisione.height;
 
         int entitySinistraCol = entitySinistraWorldX / grandezzaCaselle;
         int entityDestraCol = entityDestraWorldX / grandezzaCaselle;
@@ -31,15 +32,15 @@ public class RilevatoreCollisioni {
         int altezzaMappa = grandezzaCaselle * numRighe - 5;
 
 
-        if (entity.getWorldX() <= 0 || entity.getWorldX() >= larghezzaMappa) {
+        if (Player.getWorldX() <= 0 || Player.getWorldX() >= larghezzaMappa) {
             switch (entity.getDirezione()) {
                 case "sinistra":
-                    if (entity.getWorldX() <= 0)
+                    if (Player.getWorldX() <= 0)
                         entity.inCollisione = true;
 
                     break;
                 case "destra":
-                    if (entity.getWorldX() >= larghezzaMappa)
+                    if (Player.getWorldX() >= larghezzaMappa)
                         entity.inCollisione = true;
 
                     break;
@@ -47,14 +48,14 @@ public class RilevatoreCollisioni {
                     break;
             }
         }
-        if (entity.getWorldY() < 0 || entity.getWorldY() > altezzaMappa) {
+        if (Player.getWorldY() < 0 || Player.getWorldY() > altezzaMappa) {
             switch (entity.getDirezione()) {
                 case "su":
-                    if (entity.getWorldY() < 0)
+                    if (Player.getWorldY() < 0)
                         entity.inCollisione = true;
                     break;
                 case "giu":
-                    if (entity.getWorldY() > altezzaMappa)
+                    if (Player.getWorldY() > altezzaMappa)
                         entity.inCollisione = true;
                     break;
                 default:
