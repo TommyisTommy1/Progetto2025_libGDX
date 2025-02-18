@@ -56,8 +56,7 @@ public class MP3Player implements Runnable {
                 System.out.println("Playing: " + audioFile.getName());
                 player.play();
             } catch (Exception e)
-            { 
-                e.printStackTrace();
+            {
                 System.out.println("Error playing: " + audioFile.getName());
             }
         }
@@ -70,7 +69,7 @@ public class MP3Player implements Runnable {
         }
     }
 
-   /*
+    /* 
     public static void main(String[] args) {
         MP3Player player = new MP3Player(1);
         Thread playerThread = new Thread(player);
@@ -82,5 +81,5 @@ public class MP3Player implements Runnable {
         wait.run();
         player.stop();
     }
-     */
+    */
 }
