@@ -13,7 +13,7 @@ import utils.Defines;
 public class TileManager {
     public Tile[] tile;
     public int[][] n;
-    public int misurax, misuray;
+    public int misurax, misuray, uscitaCasellaX, uscitaCasellaY;
     int mappa = -1;
     boolean flag=false;
 
@@ -34,6 +34,8 @@ public class TileManager {
             String numbers1[] = line.split(" ");
             misurax = Integer.parseInt(numbers1[0]);
             misuray = Integer.parseInt(numbers1[1]);
+            uscitaCasellaX = Integer.parseInt(numbers1[2]);
+            uscitaCasellaY = Integer.parseInt(numbers1[3]);
             Defines.GAME_PANEL.setMaxWorldCol(misurax);
             Defines.GAME_PANEL.setMaxWorldRow(misuray);
             n = new int[Defines.GAME_PANEL.getMaxWorldCol()][Defines.GAME_PANEL.getMaxWorldRow()];
@@ -94,20 +96,20 @@ public class TileManager {
             mappa=2;
         }
 
-        if (GamePanel.keyH.getPremuto("F") && !flag) {
+        if ((Defines.PLAYER.getWorldX()/grandezzaCaselle) == uscitaCasellaX -1 && (Defines.PLAYER.getWorldY()/grandezzaCaselle) == uscitaCasellaY && !flag) {
             flag=true;
             switch (mappa) {
                 case 1:
                     loadMap("/res/map/map02.txt", "/res/map/misureMap02.txt");
-                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*8);
-                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*5);
+                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*7);
+                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*14);
                     mappa=2;
 
                     break;
                 case 2:
                     loadMap("/res/map/map01.txt", "/res/map/misureMap01.txt");
-                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*8);
-                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*5);
+                    Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*7);
+                    Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*1);
                     mappa=1;
                     
                     break;

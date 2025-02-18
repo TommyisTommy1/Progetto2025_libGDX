@@ -122,6 +122,14 @@ public class Player extends Entity {
         boolean d = getPremuto("D");
         boolean a = getPremuto("A");
 
+        boolean shift = getPremuto("SHIFT");
+
+        if (shift) {
+            setSpeed(8);
+        }else{
+            setSpeed(4);
+        }
+
         if (!w && !s && !d && !a) {
             spriteCounter(1, 27);
             switch (getDirezione()) {

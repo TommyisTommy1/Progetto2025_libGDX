@@ -2,6 +2,7 @@ package Gioco;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
