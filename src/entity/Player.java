@@ -33,7 +33,7 @@ public class Player extends Entity {
     private void setDefaultValues() {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
-        speed = 4;
+        setSpeed(4, 1);
         setDirezione("su");
         getPlayerImage();
     }
@@ -64,7 +64,7 @@ public class Player extends Entity {
 
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
-        if (this.spriteCounter > wait) {
+        if (this.spriteCounter > wait / delta) {
             if (spriteNum<n) {
                 spriteNum++;
             }else{
@@ -139,7 +139,7 @@ public class Player extends Entity {
         boolean shift = getPremuto("SHIFT");
 
         if (shift && !lontanoDaiBordi()) {
-            setSpeed(4, 1.5);
+            setSpeed(4, 1.1);
         }else{
             setSpeed(4,1);
         }

@@ -16,7 +16,7 @@ public class TileManager {
     public Tile[] tile;
     public int[][] n;
     public int misurax, misuray, uscitaNum;
-    Casella[] uscita;
+    Casella[] uscita, spawn;
     int mappa = -1;
     boolean flag=false;
 
@@ -39,6 +39,7 @@ public class TileManager {
             misuray = Integer.parseInt(numbers1[1]);
             uscitaNum = Integer.parseInt(numbers1[2]);
             uscita = new Casella[uscitaNum];
+            spawn = new Casella[uscitaNum];
 
             System.out.println(uscitaNum);
 
@@ -46,9 +47,13 @@ public class TileManager {
                 uscita[i] = new Casella();
                 uscita[i].setCol(Integer.parseInt(numbers1[3 + (i * 2)]));
                 uscita[i].setRow(Integer.parseInt(numbers1[4 + (i * 2)])); //ASSEGNO COORDINATE USCITA
-
-                System.out.println(uscita[i].getCol());
-                System.out.println(uscita[i].getRow());
+            }
+            for (int i = 0; i < uscitaNum; i++) {
+                spawn[i] = new Casella();
+                spawn[i].setCol(Integer.parseInt(numbers1[3 + uscitaNum*2 + (i * 2)]));
+                spawn[i].setRow(Integer.parseInt(numbers1[4 + uscitaNum*2 + (i * 2)]));
+                System.out.println(spawn[i].getCol());
+                System.out.println(spawn[i].getRow());
             }
             Defines.GAME_PANEL.setMaxWorldCol(misurax);
             Defines.GAME_PANEL.setMaxWorldRow(misuray); //MISURE MASSIMO MONDO
@@ -96,7 +101,7 @@ public class TileManager {
         tile[5].collision = true;
     }
 
-    private BufferedImage loadTileImage(String percorso) {
+    private BufferedImage loadTileImage(String percorso) { //restituisce l'immagine del tile secondo il nome del file
         try {
             return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso)));
         } catch (Exception e) {
@@ -105,7 +110,7 @@ public class TileManager {
         }
     }
 
-    public void draw(Graphics2D g) {
+    public void draw(Graphics2D g) { //disegna i singoli tile all'interno della telecamera
         int worldCol = 0, worldRow = 0;
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int playerCol = (Player.getWorldX()/grandezzaCaselle);
@@ -131,15 +136,15 @@ public class TileManager {
                 switch (mappa) {
                     case 1:
                         loadMap("map02.txt", "misureMap02.txt");
-                        Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*7);
-                        Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*12);
+                        Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*spawn[i].getCol());
+                        Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*spawn[i].getRow());
                         mappa=2;
     
                         break;
                     case 2:
                         loadMap("map01.txt", "misureMap01.txt");
-                        Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*8);
-                        Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*3);
+                        Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*spawn[i].getCol());
+                        Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*spawn[i].getRow());
                         mappa=1;
                         
                         break;
@@ -172,7 +177,7 @@ public class TileManager {
                     && worldY - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY())
                     g.drawImage(tile[tileNum].image, screenX, screenY, grandezzaCaselle, grandezzaCaselle,
                         null);
-                        
+                    
             worldCol++;
             if (worldCol == GamePanel.getMaxWorldCol()) {
                 worldCol = 0;
