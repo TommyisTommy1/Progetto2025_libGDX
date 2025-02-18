@@ -15,7 +15,7 @@ public class Defines {
     public static final int SCREEN_HEIGHT = 480; // (int)toolkit.getScreenSize().getHeight();
 
     // VARIABILI GAMEPANEL
-    public static final int GRANDEZZA_CASELLE_ORIGINALE = 16;
+    public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
     public static final int SCALA = 3;
 
     public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
