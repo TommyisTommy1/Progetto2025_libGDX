@@ -157,7 +157,7 @@ public class TileManager {
         
         
 
-        while (worldCol < Defines.GAME_PANEL.getMaxWorldCol() && worldRow < Defines.GAME_PANEL.getMaxWorldRow()) {
+        while (worldCol < GamePanel.getMaxWorldCol() && worldRow < GamePanel.getMaxWorldRow()) {
 
             int tileNum = n[worldCol][worldRow];
 
@@ -174,7 +174,7 @@ public class TileManager {
                         null);
                         
             worldCol++;
-            if (worldCol == Defines.GAME_PANEL.getMaxWorldCol()) {
+            if (worldCol == GamePanel.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }

@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import Gioco.GamePanel;
 import Gioco.GestioneTasti;
 import utils.Defines;
 
@@ -115,6 +117,19 @@ public class Player extends Entity {
         sinistra[3] = flipImmagine(destra[3]);
     }
 
+    private boolean lontanoDaiBordi(){
+        boolean stato=false;
+        System.out.println(getCol());
+        int offset=2;
+        if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol()-2-offset) {  
+            stato = true;
+        }
+        if (getRow() < offset || getRow() > GamePanel.getMaxWorldRow()-2-offset) {  
+            stato = true;
+        }
+        return stato;
+    }
+
     public void update() {
         boolean w = getPremuto("W");
         boolean s = getPremuto("S");
@@ -123,7 +138,7 @@ public class Player extends Entity {
 
         boolean shift = getPremuto("SHIFT");
 
-        if (shift ) {
+        if (shift && !lontanoDaiBordi()) {
             setSpeed(4, 1.5);
         }else{
             setSpeed(4,1);

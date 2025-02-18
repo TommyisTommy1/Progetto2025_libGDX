@@ -3,6 +3,8 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import utils.Defines;
+
 public class Entity {
     protected static int worldX;
     protected static int worldY;
@@ -40,6 +42,13 @@ public class Entity {
 
     public void setWorldX(int n) {
         worldX = n;
+    }
+
+    protected int getCol(){
+        return worldX/Defines.GRANDEZZA_CASELLE;
+    }
+    protected int getRow(){
+        return worldY/Defines.GRANDEZZA_CASELLE;
     }
 
     public void setWorldY(int n) {

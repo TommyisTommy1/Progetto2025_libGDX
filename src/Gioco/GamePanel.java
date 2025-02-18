@@ -11,8 +11,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static GestioneTasti keyH = new GestioneTasti(); // KeyHandler
     public RilevatoreCollisioni collisioni = new RilevatoreCollisioni();
-    private int maxWorldCol;
-    private int maxWorldRow;
+    private static int maxWorldCol;
+    private static int maxWorldRow;
     private int worldWidth;
     private int worldHeight;
 
@@ -70,22 +70,22 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    public int getMaxWorldCol() {
+    public static int getMaxWorldCol() {
         return maxWorldCol;
     }
 
     public void setMaxWorldCol(int maxWorldCol) {
-        this.maxWorldCol = maxWorldCol;
-        this.worldWidth = Defines.GRANDEZZA_CASELLE * this.maxWorldCol;
+        GamePanel.maxWorldCol = maxWorldCol;
+        this.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
     }
 
-    public int getMaxWorldRow() {
+    public static int getMaxWorldRow() {
         return maxWorldRow;
     }
 
     public void setMaxWorldRow(int maxWorldRow) {
-        this.maxWorldRow = maxWorldRow;
-        this.worldHeight = Defines.GRANDEZZA_CASELLE * this.maxWorldRow;
+        GamePanel.maxWorldRow = maxWorldRow;
+        this.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
     }
 
     public int getWorldWidth() {
