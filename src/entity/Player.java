@@ -38,7 +38,7 @@ public class Player extends Entity {
     }
 
     private BufferedImage loadPlayerImage(int x, int y) {
-        String percorso = new String("Prototype_character.png");
+        String percorso = new String("Finn.png");
         x=x*32;
         y=y*32;
         try {

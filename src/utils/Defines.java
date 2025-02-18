@@ -11,22 +11,19 @@ import tile.TileManager;
 import mp3PlayerPkg.MP3Player;
 
 public class Defines {
-    
+    public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
     // VARIABILI SCHERMO 
-    public static final int SCREEN_WIDTH =  854; //(int)toolkit.getScreenSize().getWidth();
-    public static final int SCREEN_HEIGHT = 480; //(int)toolkit.getScreenSize().getHeight();
+    public static final int SCREEN_WIDTH = (int)toolkit.getScreenSize().getWidth();
+    public static final int SCREEN_HEIGHT = (int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
     public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
     public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
 
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
-    public static final double SCALA = 1;
+    public static final double SCALA = 4;
 
     public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
-
-
-    public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
     
     // MP3 AUDIO CONTROL
     public static final MP3Player CIRCUSTHEME_CLASS = new MP3Player(0);
