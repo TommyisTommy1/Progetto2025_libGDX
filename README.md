@@ -15,7 +15,7 @@
 -creare delle immagini per i nemici, il luogo e il player
 -aggiungere Getter, Setter e toSting
 
-##IN POCHE PAROLE RIFARE TUTTO SEGUENDO L'UML DI TOMMY E QUESTA PROVA PER FARLO PIU' COMPRENSIBILE, LEGGIBILE E USARE MEGLIO LA MEMORIA.
+##IN POCHE PAROLE RIFARE TUTTO SEGUENDO L'UML DI TOMMY E QUESTA PROVA PER FARLO PIU' COMPRENSIBILE, LEGGIBILE.
 
 In più si possono aggiungere:
 -semafori per la gestione dei nemici (Spawn dei nemici)
