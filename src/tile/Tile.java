@@ -6,5 +6,7 @@ public class Tile {
     protected BufferedImage image;
     protected boolean collision = false;
 
-    public boolean getCollision(){ return collision;}
+    public boolean getCollision() {
+        return collision;
+    }
 }

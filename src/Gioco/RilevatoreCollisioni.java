@@ -5,78 +5,94 @@ import utils.Defines;
 
 public class RilevatoreCollisioni {
 
-    public RilevatoreCollisioni(){}
+    public RilevatoreCollisioni() {
+    }
 
-    public void controllaCasella(Entity entity){
+    public void controllaCasella(Entity entity) {
+
+        int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
+        int numColonne = Defines.NUM_COLONNE - 1;
+        int numRighe = Defines.NUM_RIGHE - 1;
+        int speed = Defines.PLAYER.getSpeed();
 
         int entityDestraWorldX = entity.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;
         int entitySinistraWorldX = entity.getWorldX() + entity.areaCollisione.x;
         int entitySuWorldY = entity.getWorldY() + entity.areaCollisione.y;
         int entityGiuWorldY = entity.getWorldY() + entity.areaCollisione.y + entity.areaCollisione.height;
-        
-        int entitySinistraCol = entitySinistraWorldX/Defines.GRANDEZZA_CASELLE;
-        int entityDestraCol = entityDestraWorldX/Defines.GRANDEZZA_CASELLE;
-        int entitySuRow = entitySuWorldY/Defines.GRANDEZZA_CASELLE;
-        int entityGiuRow = entityGiuWorldY/Defines.GRANDEZZA_CASELLE;
+
+        int entitySinistraCol = entitySinistraWorldX / grandezzaCaselle;
+        int entityDestraCol = entityDestraWorldX / grandezzaCaselle;
+        int entitySuRow = entitySuWorldY / grandezzaCaselle;
+        int entityGiuRow = entityGiuWorldY / grandezzaCaselle;
 
         int tile1, tile2;
-        
-        if (entity.getWorldX() <= 50 || entity.getWorldX()>=Defines.GRANDEZZA_CASELLE*(Defines.MASSIMA_ALTEZZA_COL-1)) {
+
+        int larghezzaMappa = grandezzaCaselle * numColonne;
+        int altezzaMappa = grandezzaCaselle * numRighe;
+
+        if (entity.getWorldX() <= 0 || entity.getWorldX() >= larghezzaMappa) {
             switch (entity.getDirezione()) {
                 case "sinistra":
-                    entitySinistraCol = (entitySinistraWorldX - 37)/Defines.GRANDEZZA_CASELLE;
-                    if(entitySinistraCol<0){
+                    if (entity.getWorldX() <= 0)
                         entity.inCollisione = true;
-                    }
+
                     break;
                 case "destra":
-                    entityDestraCol = (entityDestraWorldX)/Defines.GRANDEZZA_CASELLE;
-                    if(entityDestraCol<Defines.MASSIMA_ALTEZZA_RIG-1){
+                    if (entity.getWorldX() >= larghezzaMappa)
                         entity.inCollisione = true;
-                    }
+
                     break;
                 default:
                     break;
             }
-            return;
         }
-        if (entity.getWorldY() <= 0 || entity.getWorldY()>=Defines.GRANDEZZA_CASELLE*(Defines.MASSIMA_ALTEZZA_RIG-1)) {
-            return;
+        if (entity.getWorldY() >= 0 || entity.getWorldY() <= altezzaMappa) {
+            switch (entity.getDirezione()) {
+                case "su":
+                    if (entity.getWorldY() <= 0)
+                        entity.inCollisione = true;
+                    break;
+                case "giu":
+                    if (entity.getWorldY() >= altezzaMappa)
+                        entity.inCollisione = true;
+                    break;
+                default:
+                    break;
+            }
         }
-
 
         switch (entity.getDirezione()) {
             case "su":
-                entitySuRow = (entitySuWorldY - entity.getSpeed())/Defines.GRANDEZZA_CASELLE;
+                entitySuRow = (entitySuWorldY - speed) / grandezzaCaselle;
                 tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
                 tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
-                if(Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision()){
+                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
                     entity.inCollisione = true;
-                }
                 break;
             case "giu":
-                entityGiuRow = (entityGiuWorldY + entity.getSpeed())/Defines.GRANDEZZA_CASELLE;
+                entityGiuRow = (entityGiuWorldY + speed) / grandezzaCaselle;
                 tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
                 tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if(Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision()){
+                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
                     entity.inCollisione = true;
-                }
                 break;
             case "sinistra":
-                entitySinistraCol = (entitySinistraWorldX - entity.getSpeed())/Defines.GRANDEZZA_CASELLE;
+                entitySinistraCol = (entitySinistraWorldX - speed) / grandezzaCaselle;
                 tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
                 tile2 = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
-                if(Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision()){
+                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
                     entity.inCollisione = true;
-                }
+
                 break;
             case "destra":
-                entityDestraCol = (entityDestraWorldX + entity.getSpeed())/Defines.GRANDEZZA_CASELLE;
+                entityDestraCol = (entityDestraWorldX + speed) / grandezzaCaselle;
                 tile1 = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
                 tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if(Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision()){
+                if (Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision())
                     entity.inCollisione = true;
-                }
                 break;
             default:
                 break;
