@@ -1,11 +1,12 @@
 package entity;
 
-import Gioco.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import Gioco.GestioneTasti;
 import utils.Defines;
 
 public class Player extends Entity {
@@ -21,24 +22,27 @@ public class Player extends Entity {
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
 
         areaCollisione = new Rectangle();
-        areaCollisione.x = 6;
-        areaCollisione.y = 12;
-        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 12;
-        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 16;
+        areaCollisione.x = 10;
+        areaCollisione.y = 20;
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         setDefaultValues();
     }
 
     private void setDefaultValues() {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
-        speed = 6;
+        speed = 4;
         setDirezione("su");
         getPlayerImage();
     }
 
-    private BufferedImage loadPlayerImage(String percorso) {
+    private BufferedImage loadPlayerImage(int x, int y) {
+        String percorso = new String("Finn.png");
+        x=x*32;
+        y=y*32;
         try {
-            return ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(percorso)));
+            return ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(percorso))).getSubimage(x, y, 32, 32);
         } catch (IOException e) {
             System.err.println("Immagine non trovata in: " + percorso);
             return null;
@@ -57,20 +61,19 @@ public class Player extends Entity {
         return gestioneTasti.getPremuto(key);
     }
 
-    private void spriteCounter() {
+    private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
-        if (this.spriteCounter > 12) {
-            if (this.spriteNum == 1) {
-                this.spriteNum = 2;
-            } else if (spriteNum == 2) {
-                this.spriteNum = 1;
+        if (this.spriteCounter > wait) {
+            if (spriteNum<n) {
+                spriteNum++;
+            }else{
+                spriteNum=0;
             }
             this.spriteCounter = 0;
         }
     }
 
     private void spostaX(String direction, String operazione) {
-        spriteCounter();
         setDirezione(direction);
         if (operazione.equals("aggiungi"))
             worldX += speed;
@@ -79,7 +82,6 @@ public class Player extends Entity {
     }
 
     private void spostaY(String direction, String operazione) {
-        spriteCounter();
         setDirezione(direction);
         if (operazione.equals("aggiungi"))
             worldY += speed;
@@ -88,16 +90,30 @@ public class Player extends Entity {
     }
 
     private void getPlayerImage() {
-        fermoSu = loadPlayerImage("playerFermoSu.png");
-        fermoGiu = loadPlayerImage("playerFermoGiu.png");
-        su1 = loadPlayerImage("player_up_1.png");
-        su2 = loadPlayerImage("player_up_2.png");
-        giu1 = loadPlayerImage("player_down_1.png");
-        giu2 = loadPlayerImage("player_down_2.png");
-        destra1 = loadPlayerImage("player_right_1.png");
-        destra2 = loadPlayerImage("player_right_2.png");
-        sinistra1 = loadPlayerImage("player_left_1.png");
-        sinistra2 = loadPlayerImage("player_left_2.png");
+        fermo[0] = loadPlayerImage(0, 0);
+        fermo[1] = loadPlayerImage(1, 0);
+        fermo[2] = loadPlayerImage(0, 2);
+        fermo[3] = loadPlayerImage(1, 2);
+        fermo[4] = loadPlayerImage(0, 1);
+        fermo[5] = loadPlayerImage(1, 1);
+        fermo[6] = flipImmagine(loadPlayerImage(0, 1));
+        fermo[7] = flipImmagine(loadPlayerImage(1, 1));
+        su[0] = loadPlayerImage(0, 5);
+        su[1] = loadPlayerImage(1, 5);
+        su[2] = loadPlayerImage(2, 5);
+        su[3] = loadPlayerImage(3, 5);
+        giu[0] = loadPlayerImage(0, 3);
+        giu[1] = loadPlayerImage(1, 3);
+        giu[2] = loadPlayerImage(2, 3);
+        giu[3] = loadPlayerImage(3, 3);
+        destra[0] = loadPlayerImage(0, 4);
+        destra[1] = loadPlayerImage(1, 4);
+        destra[2] = loadPlayerImage(2, 4);
+        destra[3] = loadPlayerImage(3, 4);
+        sinistra[0] = flipImmagine(destra[0]);
+        sinistra[1] = flipImmagine(destra[1]);
+        sinistra[2] = flipImmagine(destra[2]);
+        sinistra[3] = flipImmagine(destra[3]);
     }
 
     public void update() {
@@ -106,7 +122,16 @@ public class Player extends Entity {
         boolean d = getPremuto("D");
         boolean a = getPremuto("A");
 
+        boolean shift = getPremuto("SHIFT");
+
+        if (shift) {
+            setSpeed(8);
+        }else{
+            setSpeed(4);
+        }
+
         if (!w && !s && !d && !a) {
+            spriteCounter(1, 27);
             switch (getDirezione()) {
                 case "giu":
                     spostaY("fermoGiu", "");
@@ -114,9 +139,11 @@ public class Player extends Entity {
                 case "su":
                     spostaY("fermoSu", "");
                     return;
-                case "destra":
+                case "destra": 
+                    spostaX("fermoDestra","");
+                    return;
                 case "sinistra":
-                    spostaX("fermoGiu", "");
+                    spostaX("fermoSinistra", "");
                     return;
                 default:
                     return;
@@ -124,6 +151,7 @@ public class Player extends Entity {
         }
 
         if (w || s || d || a) {
+            spriteCounter(3, 8);
             if (a && d) {
                 setDirezione("fermoGiu");
                 if (w)
@@ -143,7 +171,7 @@ public class Player extends Entity {
                     setDirezione("su");
                 if (s)
                     setDirezione("giu");
-                controllaCollisioniY(w, s);
+                    controllaCollisioniY(w, s);
                 if (d)
                     setDirezione("destra");
                 if (a)
@@ -158,6 +186,7 @@ public class Player extends Entity {
         inCollisione = false;
         Defines.GAME_PANEL.collisioni.controllaCasella(this);
         if (!inCollisione) {
+            
             if (w)
                 spostaY(getDirezione(), "sottrai");
             if (s)
@@ -173,7 +202,6 @@ public class Player extends Entity {
         inCollisione = false;
         Defines.GAME_PANEL.collisioni.controllaCasella(this);
         if (!inCollisione) {
-
             if (d)
                 spostaX("destra", "aggiungi");
             if (a)
@@ -192,43 +220,50 @@ public class Player extends Entity {
                 spostaY("giu", "aggiungi");
         }
     }
+    public BufferedImage flipImmagine(BufferedImage image){
+        BufferedImage immagineFlippata = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        Graphics2D g = immagineFlippata.createGraphics();
 
+        g.drawImage(image, image.getWidth(), 0 , -image.getWidth(), image.getHeight(), null);
+        g.dispose();
+        return immagineFlippata;
+    }
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         switch (getDirezione()) {
             case "su":
-                if (spriteNum == 1)
-                    image = su1;
-                else
-                    image = su2;
+                image = su[spriteNum];
                 break;
             case "giu":
-                if (spriteNum == 1)
-                    image = giu1;
-                else
-                    image = giu2;
+                image = giu[spriteNum];
                 break;
             case "destra":
-                if (spriteNum == 1)
-                    image = destra1;
-                else
-                    image = destra2;
+                image = destra[spriteNum];
                 break;
             case "sinistra":
-                if (spriteNum == 1)
-                    image = sinistra1;
-                else
-                    image = sinistra2;
+                image = sinistra[spriteNum];
+                break;
+            case "fermoDestra":
+                if (spriteNum == 1) image = fermo[4];
+                else image = fermo[5];
+                break;
+            case "fermoSinistra":
+                if (spriteNum == 1) image = flipImmagine(fermo[4]);
+                else image = flipImmagine(fermo[5]);
                 break;
             case "fermoSu":
-                image = fermoSu;
+                if (spriteNum == 1) image = fermo[2];
+                else image = fermo[3];
                 break;
             case "fermoGiu":
-                image = fermoGiu;
+                if (spriteNum == 1) image = fermo[0];
+                else image = fermo[1];
                 break;
+            
+                
         }
-        g.drawImage(image, screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE, null);
-        g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        g.drawImage(image, screenX-Defines.GRANDEZZA_CASELLE/2, screenY-Defines.GRANDEZZA_CASELLE/2, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
+        //g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
         ;
     }
 }

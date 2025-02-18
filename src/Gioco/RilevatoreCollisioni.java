@@ -11,8 +11,8 @@ public class RilevatoreCollisioni {
     public void controllaCasella(Entity entity) {
 
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        int numColonne = Defines.NUM_COLONNE - 1;
-        int numRighe = Defines.NUM_RIGHE - 1;
+        int numColonne = Defines.GAME_PANEL.getMaxWorldCol() - 1;
+        int numRighe = Defines.GAME_PANEL.getMaxWorldRow() - 1;
         int speed = Defines.PLAYER.getSpeed();
 
         int entityDestraWorldX = entity.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;
@@ -28,7 +28,8 @@ public class RilevatoreCollisioni {
         int tile1, tile2;
 
         int larghezzaMappa = grandezzaCaselle * numColonne;
-        int altezzaMappa = grandezzaCaselle * numRighe;
+        int altezzaMappa = grandezzaCaselle * numRighe - 5;
+
 
         if (entity.getWorldX() <= 0 || entity.getWorldX() >= larghezzaMappa) {
             switch (entity.getDirezione()) {
@@ -46,14 +47,14 @@ public class RilevatoreCollisioni {
                     break;
             }
         }
-        if (entity.getWorldY() >= 0 || entity.getWorldY() <= altezzaMappa) {
+        if (entity.getWorldY() < 0 || entity.getWorldY() > altezzaMappa) {
             switch (entity.getDirezione()) {
                 case "su":
-                    if (entity.getWorldY() <= 0)
+                    if (entity.getWorldY() < 0)
                         entity.inCollisione = true;
                     break;
                 case "giu":
-                    if (entity.getWorldY() >= altezzaMappa)
+                    if (entity.getWorldY() > altezzaMappa)
                         entity.inCollisione = true;
                     break;
                 default:

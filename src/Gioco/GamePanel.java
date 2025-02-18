@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
         double intervalloVisualizzazione = 1000000000 / Defines.FPS; // 0.016666 secondi
         double prossimaVisualizzazione = System.nanoTime() + intervalloVisualizzazione;
         while (Defines.THREAD_GIOCO != null) {
-
+            Defines.toolkit.sync();
             this.update();
             this.repaint();
 

@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class GestioneTasti implements KeyListener {
 
-    private boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto;
+    private boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto, cambioMappa, sprint;
 
     public GestioneTasti() {
     }
@@ -24,10 +24,16 @@ public class GestioneTasti implements KeyListener {
             case "A":
                 this.sinistraPremuto = true;
                 break;
+            case "F":
+                this.cambioMappa = true;
+                break;
+            case "SHIFT":
+                this.sprint = true;
+                break;
         }
     }
 
-    private void setRilasciato(String key) {
+    public void setRilasciato(String key) {
         switch (key) {
             case "W":
                 this.suPremuto = false;
@@ -41,8 +47,16 @@ public class GestioneTasti implements KeyListener {
             case "A":
                 this.sinistraPremuto = false;
                 break;
+            case "F":
+                this.cambioMappa = false;
+                break;
+            case "SHIFT":
+                this.sprint = false;
+                break;
         }
     }
+
+
 
     public boolean getPremuto(String key) {
         switch (key) {
@@ -54,9 +68,14 @@ public class GestioneTasti implements KeyListener {
                 return this.destraPremuto;
             case "A":
                 return this.sinistraPremuto;
+            case "F":
+                return this.cambioMappa;
+            case "SHIFT":
+                return this.sprint;
             default:
-                return false;
+                break;
         }
+        return false;
     }
 
     @Override
@@ -95,7 +114,18 @@ public class GestioneTasti implements KeyListener {
                 setPremuto("A");
 
                 break;
-
+            case KeyEvent.VK_F:
+                
+                if (!getPremuto("F"))
+                    System.out.println("F premuto");
+                setPremuto("F");
+                break;
+            case KeyEvent.VK_SHIFT:
+                
+                if (!getPremuto("SHIFT"))
+                    System.out.println("SHIFT premuto");
+                    setPremuto("SHIFT");
+                break;
             default:
                 break;
         }
@@ -121,7 +151,14 @@ public class GestioneTasti implements KeyListener {
                 setRilasciato("A");
                 System.out.println("A rilasciato");
                 break;
-
+            case KeyEvent.VK_F:
+                setRilasciato("F");
+                System.out.println("F rilasciato");
+                break;
+            case KeyEvent.VK_SHIFT:
+                setRilasciato("SHIFT");
+                System.out.println("SHIFT rilasciato");
+                break;
             default:
                 break;
         }
