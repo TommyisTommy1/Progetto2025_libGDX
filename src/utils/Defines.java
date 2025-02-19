@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 import Gioco.GamePanel;
 import entity.Player;
 import tile.TileManager;
-
+import mp3PlayerPkg.MP3Player;
 
 public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -27,7 +27,18 @@ public class Defines {
     
  
 
+    public static final MP3Player MP3_PLAYER1 = new MP3Player(0);
+    public static final Thread CIRCUSTHEME_PLAYER = new Thread(MP3_PLAYER1);
+    public static final MP3Player MP3_PLAYER = new MP3Player(1);
+    public static final Thread COMBATTHEME_PLAYER = new Thread(MP3_PLAYER);
+    public static final MP3Player MP3_PLAYER2 = new MP3Player(2);
+    public static final Thread DARKTHEME_PLAYER = new Thread(MP3_PLAYER2);
+    public static final MP3Player MP3_PLAYER3 = new MP3Player(3);
+    public static final Thread HOSTILETHEME_PLAYER = new Thread(MP3_PLAYER3);
+    public static final MP3Player MP3_PLAYER4 = new MP3Player(4);
+    public static final Thread WINTERTHEME_PLAYER = new Thread(MP3_PLAYER4);
     
+
 
 
     // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)

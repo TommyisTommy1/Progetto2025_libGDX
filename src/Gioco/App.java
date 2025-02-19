@@ -28,5 +28,6 @@ public class App {
         Defines.MAINFRAME.setVisible(true);
 
         Defines.GAME_PANEL.iniziaThreadGioco();  
+        Defines.CIRCUSTHEME_PLAYER.start();
     }
 }
