@@ -14,9 +14,9 @@ public class MP3Player implements Runnable {
     public MP3Player(int traccia) {
         tracce[0] = "circusTheme.mp3";
         tracce[1] = "combatTheme.mp3";
-        tracce[2] = "darkTheme2.mp3";
-        tracce[3] = "hostileTheme3.mp3";
-        tracce[4] = "winterTheme4.mp3";
+        tracce[2] = "darkTheme.mp3";
+        tracce[3] = "hostileTheme.mp3";
+        tracce[4] = "winterTheme.mp3";
         System.out.println("Loading: " + tracce[traccia]);
         loadPlaylist(traccia);
     }
