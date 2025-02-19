@@ -13,8 +13,8 @@ import tile.TileManager;
 public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
     // VARIABILI SCHERMO 
-    public static final int SCREEN_WIDTH = 854;//(int)toolkit.getScreenSize().getWidth();
-    public static final int SCREEN_HEIGHT = 480;//(int)toolkit.getScreenSize().getHeight();
+    public static final int SCREEN_WIDTH =1280;//(int)toolkit.getScreenSize().getWidth();
+    public static final int SCREEN_HEIGHT = 720;//(int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
     public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
     public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
