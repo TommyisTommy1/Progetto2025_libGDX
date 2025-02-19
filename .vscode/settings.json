@@ -3,6 +3,7 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "lib/jil.0.jar"
+        "lib/jil.0.jar",
+        "lib/gson-2.12.1.jar"
     ]
 }
