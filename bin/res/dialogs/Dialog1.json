@@ -1,0 +1,14 @@
+{
+    "D1" : 
+    {
+        "text": "Hello, I am Dialog 1",
+        "characterName": "Dialog 1",
+        "characterImage": "dialog1.png"
+    },
+    "D2" :
+    {
+        "text": "STUPID NIGGER",
+        "characterName": "Dialog 2",
+        "characterImage": "dialog2.png"
+    }
+}
