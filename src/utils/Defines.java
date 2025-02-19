@@ -9,6 +9,7 @@ import Gioco.GamePanel;
 import entity.Player;
 import tile.TileManager;
 import mp3PlayerPkg.MP3Player;
+import DialogPkg.DialogMngr;
 
 public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -26,7 +27,7 @@ public class Defines {
     public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
     
  
-
+    //COLONNE SONORE
     public static final MP3Player MP3_PLAYER1 = new MP3Player(0);
     public static final Thread CIRCUSTHEME_PLAYER = new Thread(MP3_PLAYER1);
     public static final MP3Player MP3_PLAYER = new MP3Player(1);
@@ -38,7 +39,8 @@ public class Defines {
     public static final MP3Player MP3_PLAYER4 = new MP3Player(4);
     public static final Thread WINTERTHEME_PLAYER = new Thread(MP3_PLAYER4);
     
-
+    //DIALOGHI
+    public static final DialogMngr mngrDialog = new DialogMngr();
 
 
     // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
