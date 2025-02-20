@@ -31,11 +31,7 @@ public class App {
 
         Defines.GAME_PANEL.iniziaThreadGioco();  
         
-        /*Defines.CIRCUSTHEME_PLAYER.start();
-        Defines.COMBATTHEME_PLAYER.start();
-        Defines.DARKTHEME_PLAYER.start();
-        Defines.HOSTILETHEME_PLAYER.start();
-        Defines.WINTERTHEME_PLAYER.start();
-        */
+        Defines.CIRCUSTHEME_PLAYER.start();
+        
     }
 }

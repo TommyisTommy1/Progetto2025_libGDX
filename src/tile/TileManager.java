@@ -148,6 +148,10 @@ public class TileManager {
                 mappa = 1;
                 break;
         }
+        for (int i = 0; i < Defines.TRACCE.length; i++) 
+        {
+            Defines.PLAYERS[i].stopPlayer();
+        }
         Defines.TRACCE[mappa].start();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length) {
             Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getCol());

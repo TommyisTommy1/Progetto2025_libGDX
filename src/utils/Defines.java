@@ -40,7 +40,9 @@ public class Defines {
     public static final Thread HOSTILETHEME_PLAYER = new Thread(MP3_PLAYER3);
     public static final MP3Player MP3_PLAYER4 = new MP3Player(4);
     public static final Thread WINTERTHEME_PLAYER = new Thread(MP3_PLAYER4);
-    public static final Thread TRACCE[] = new Thread[]{CIRCUSTHEME_PLAYER, COMBATTHEME_PLAYER, DARKTHEME_PLAYER, HOSTILETHEME_PLAYER, WINTERTHEME_PLAYER};
+
+    public static final MP3Player[] PLAYERS = new MP3Player[]{MP3_PLAYER1, MP3_PLAYER, MP3_PLAYER2, MP3_PLAYER3, MP3_PLAYER4};
+    public static final Thread TRACCE[] = new Thread[]{DARKTHEME_PLAYER, CIRCUSTHEME_PLAYER, DARKTHEME_PLAYER, HOSTILETHEME_PLAYER, WINTERTHEME_PLAYER};
     //DIALOGHI
     public static final DialogMngr mngrDialog = new DialogMngr();
 

@@ -59,7 +59,7 @@ public class MP3Player implements Runnable {
         }
     }
 
-    public void stop() {
+    public void stopPlayer() {
         if (player != null) {
             stop = true;
             player.close();
