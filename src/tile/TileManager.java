@@ -101,9 +101,13 @@ public class TileManager {
         boolean e = GamePanel.keyH.getPremuto("E");
 
         for (int i = 0; i < uscita.length; i++) {
-            if (playerCol == uscita[i].getCol() && playerRow == uscita[i].getRow() && e) {
+            if (playerCol == uscita[i].getCol() && playerRow == uscita[i].getRow() && e && !flag) {
                 cambiaMappa(i);  // Passiamo l'indice dell'uscita usata
+                flag=true;
                 break;
+            }
+            if (!e && flag==true) {
+                flag=false;
             }
         }
         

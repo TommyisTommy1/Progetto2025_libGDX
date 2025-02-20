@@ -17,6 +17,7 @@ public class App {
         Defines.MAINFRAME.setUndecorated(true);
 
         Defines.MAINFRAME.add(Defines.GAME_PANEL);
+        Defines.MAINFRAME.setIconImage(Defines.ICONIMG.getImage());
 
         Defines.CONTENT_PANEL.add(Defines.GAME_PANEL, BorderLayout.CENTER);
         Defines.CONTENT_PANEL.setBorder(new LineBorder(Color.black, 10));

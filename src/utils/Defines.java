@@ -10,6 +10,7 @@ import entity.Player;
 import tile.TileManager;
 import mp3PlayerPkg.MP3Player;
 import DialogPkg.DialogMngr;
+import javax.swing.ImageIcon;
 
 public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -17,6 +18,7 @@ public class Defines {
     public static final int SCREEN_WIDTH =1280;//(int)toolkit.getScreenSize().getWidth();
     public static final int SCREEN_HEIGHT = 720;//(int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
+    public static final ImageIcon ICONIMG = new ImageIcon("src/res/images/icon.png");
     public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
     public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
 
