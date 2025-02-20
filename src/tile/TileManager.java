@@ -83,7 +83,7 @@ public class TileManager {
         tile[8].image = loadTileImage("bottom_left.png"); tile[8].collision = true;
         tile[9].image = loadTileImage("bottom_right.png"); tile[9].collision = true;
         tile[10].image = loadTileImage("acqua.png"); tile[10].collision = true;
-        tile[11].image = loadTileImage("mattons.png"); tile[11].collision = true;
+        tile[11].image = loadTileImage("mattons.png"); tile[11].collision = false;
     }
 
     private BufferedImage loadTileImage(String percorso) {
