@@ -112,72 +112,91 @@ public class Player extends Entity {
         boolean shift = getPremuto("SHIFT");
 
         boolean k = getPremuto("K");
-
+        boolean e = getPremuto("E");
         if (isAlive && k) {
             isAlive = false;
+            isAliveAnimation=false;
         }
 
-        
-
-        if (shift) {
-            if (!lontanoDaiBordi()) {
-                setSpeed(4, 1.5);
-            }else setSpeed(4, 1);
-            
-        }else if (!shift) {
-            setSpeed(4, 1);
+        if (e && !isAlive) {
+            spriteCounter(0, 0);
+            isAlive=true;
+            isAliveAnimation=true;
         }
-            
-        
 
-        if (!w && !s && !d && !a) {
-            spriteCounter(1, 27);
-            switch (getDirezione()) {
-                case "giu":
-                    spostaY("fermoGiu", "");
-                    return;
-                case "su":
-                    spostaY("fermoSu", "");
-                    return;
-                case "destra":
-                    spostaX("fermoDestra", "");
-                    return;
-                case "sinistra":
-                    spostaX("fermoSinistra", "");
-                    return;
-                default:
-                    return;
+        if (!isAlive && !isAliveAnimation) {
+            spriteCounter(5, 10);
+            if (spriteNum==5) {
+                spriteNum=4;
             }
+            
         }
 
-        if (w || s || d || a) {
-            spriteCounter(3, 8);
-            if (a && d) {
-                setDirezione("fermoGiu");
-                if (w)
-                    setDirezione("su");
-                if (s)
-                    setDirezione("giu");
-                controllaCollisioniY(w, s);
-            } else if (w && s) {
-                setDirezione("fermoGiu");
-                if (d)
-                    setDirezione("destra");
-                if (a)
-                    setDirezione("sinistra");
-                controllaCollisioniX(a, d);
-            } else {
-                if (w)
-                    setDirezione("su");
-                if (s)
-                    setDirezione("giu");
-                controllaCollisioniY(w, s);
-                if (d)
-                    setDirezione("destra");
-                if (a)
-                    setDirezione("sinistra");
-                // CONTROLLA COLLISIONI
-                controllaCollisioniX(a, d);
+        if (isAliveAnimation) {
+            
+        }
+        
+        if (isAlive) {
+            if (shift) {
+                if (!lontanoDaiBordi()) {
+                    setSpeed(4, 1.5);
+                }else setSpeed(4, 1);
+                
+            }else if (!shift) {
+                setSpeed(4, 1);
+            }
+                
+            
+    
+            if (!w && !s && !d && !a) {
+                spriteCounter(1, 27);
+                switch (getDirezione()) {
+                    case "giu":
+                        spostaY("fermoGiu", "");
+                        return;
+                    case "su":
+                        spostaY("fermoSu", "");
+                        return;
+                    case "destra":
+                        spostaX("fermoDestra", "");
+                        return;
+                    case "sinistra":
+                        spostaX("fermoSinistra", "");
+                        return;
+                    default:
+                        return;
+                }
+            }
+    
+            if (w || s || d || a) {
+                spriteCounter(3, 8);
+                if (a && d) {
+                    setDirezione("fermoGiu");
+                    if (w)
+                        setDirezione("su");
+                    if (s)
+                        setDirezione("giu");
+                    controllaCollisioniY(w, s);
+                } else if (w && s) {
+                    setDirezione("fermoGiu");
+                    if (d)
+                        setDirezione("destra");
+                    if (a)
+                        setDirezione("sinistra");
+                    controllaCollisioniX(a, d);
+                } else {
+                    if (w)
+                        setDirezione("su");
+                    if (s)
+                        setDirezione("giu");
+                    controllaCollisioniY(w, s);
+                    if (d)
+                        setDirezione("destra");
+                    if (a)
+                        setDirezione("sinistra");
+                    // CONTROLLA COLLISIONI
+                    controllaCollisioniX(a, d);
+                }
             }
         }
     }
@@ -207,44 +226,48 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g) {
         BufferedImage image = null;
-        switch (getDirezione()) {
-            case "su":
-                image = moving.getUp().getSpriteSheet(spriteNum);
-                break;
-            case "giu":
-                image = moving.getDown().getSpriteSheet(spriteNum);
-                break;
-            case "destra":
-                image = moving.getRight().getSpriteSheet(spriteNum);
-                break;
-            case "sinistra":
-                image = moving.getLeft().getSpriteSheet(spriteNum);
-                break;
-            case "fermoDestra":
-                if (spriteNum == 1)
-                    image = notMoving.getRight().getSpriteSheet(0);
-                else
-                    image = notMoving.getRight().getSpriteSheet(1);
-                break;
-            case "fermoSinistra":
-                if (spriteNum == 1)
-                    image = notMoving.getLeft().getSpriteSheet(0);
-                else
-                    image = notMoving.getLeft().getSpriteSheet(1);
-                break;
-            case "fermoSu":
-                if (spriteNum == 1)
-                    image = notMoving.getUp().getSpriteSheet(0);
-                else
-                    image = notMoving.getUp().getSpriteSheet(1);
-                break;
-            case "fermoGiu":
-                if (spriteNum == 1)
-                    image = notMoving.getDown().getSpriteSheet(0);
-                else
-                    image = notMoving.getDown().getSpriteSheet(1);
-                break;
-
+        if (isAlive) {
+            switch (getDirezione()) {
+                case "su":
+                    image = moving.getUp().getSpriteSheet(spriteNum);
+                    break;
+                case "giu":
+                    image = moving.getDown().getSpriteSheet(spriteNum);
+                    break;
+                case "destra":
+                    image = moving.getRight().getSpriteSheet(spriteNum);
+                    break;
+                case "sinistra":
+                    image = moving.getLeft().getSpriteSheet(spriteNum);
+                    break;
+                case "fermoDestra":
+                    if (spriteNum == 1)
+                        image = notMoving.getRight().getSpriteSheet(0);
+                    else
+                        image = notMoving.getRight().getSpriteSheet(1);
+                    break;
+                case "fermoSinistra":
+                    if (spriteNum == 1)
+                        image = notMoving.getLeft().getSpriteSheet(0);
+                    else
+                        image = notMoving.getLeft().getSpriteSheet(1);
+                    break;
+                case "fermoSu":
+                    if (spriteNum == 1)
+                        image = notMoving.getUp().getSpriteSheet(0);
+                    else
+                        image = notMoving.getUp().getSpriteSheet(1);
+                    break;
+                case "fermoGiu":
+                    if (spriteNum == 1)
+                        image = notMoving.getDown().getSpriteSheet(0);
+                    else
+                        image = notMoving.getDown().getSpriteSheet(1);
+                    break;
+    
+            }
+        }else{
+            image = dying.getSpriteSheet(spriteNum);
         }
         g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,
                 Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);

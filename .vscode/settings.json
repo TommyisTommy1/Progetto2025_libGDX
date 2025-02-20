@@ -2,8 +2,6 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "lib/jl1.0.jar",
-        "lib/gson-2.12.1.jar"
+        "lib/**/*.jar"
     ]
 }

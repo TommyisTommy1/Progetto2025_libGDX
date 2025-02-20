@@ -59,7 +59,7 @@ public class GestioneTasti implements KeyListener {
                 this.sprint = false;
                 break;
             case "K":
-                this.kill = true;
+                this.kill = false;
                 break;
         }
     }

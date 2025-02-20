@@ -100,6 +100,8 @@ public class TileManager {
         if (currentMappa == -1) {
             currentMappa = 0;
             cambiaMappa(currentMappa);
+            Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*7);
+            Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*7);
         }
         
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
@@ -155,7 +157,7 @@ public class TileManager {
                 Defines.GAME_PANEL.setBackground(Color.gray);
                 break;
         }
-        updateMusic();
+        //updateMusic();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length) {
             Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getCol());
             Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getRow());
