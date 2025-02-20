@@ -162,32 +162,46 @@ public class TileManager {
         }
     }
     
-    public void updateMusic () {
-
-        try{
-            if (Defines.BGMUSIC_PLAYER.isAlive())
-            {
-                Defines.MP3_PLAYER_SETTER.stopPlayer(true);
+    public void updateMusic() {
+        System.out.println("Updating music for map: " + currentMappa);
+        try {
+            if (Defines.BGMUSIC_PLAYER != null && Defines.BGMUSIC_PLAYER.isAlive()) {
+                System.out.println("Stopping previous music");
+                try {
+                    Defines.MP3_PLAYER_SETTER.stopPlayer(true);
+                } catch (Exception e) {
+                    System.err.println("Error stopping player: " + e.getMessage());
+                }
                 Defines.BGMUSIC_PLAYER.interrupt();
                 try {
-                    Defines.BGMUSIC_PLAYER.join();
+                    Defines.BGMUSIC_PLAYER.join(250); // Wait for up to 1 second
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.err.println("Interrupted while waiting for thread to join: " + e.getMessage());
                 }
             }
-            Defines.MP3_PLAYER_SETTER.changeTrack(currentMappa - 1);
+    
+            System.out.println("Changing track to: " + (currentMappa - 1));
+            try {
+                Defines.MP3_PLAYER_SETTER.changeTrack(currentMappa - 1);
+            } catch (Exception e) {
+                System.err.println("Error changing track: " + e.getMessage());
+                return; // Exit the method if we can't change the track
+            }
+    
+            System.out.println("Creating new music thread");
             Defines.BGMUSIC_PLAYER = new Thread(Defines.MP3_PLAYER_SETTER);
+    
+            System.out.println("Starting new music");
             try {
                 Defines.MP3_PLAYER_SETTER.stopPlayer(false);
                 Defines.BGMUSIC_PLAYER.start();
-                System.out.println("Musica cambiata");
+                System.out.println("Music changed successfully");
             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Errore durante la riproduzione del suono.");
+                System.err.println("Error starting new music: " + e.getMessage());
             }
         } catch (Exception e) {
+            System.err.println("Unexpected error in updateMusic: " + e.getMessage());
             e.printStackTrace();
-            System.err.println("Errore durante la riproduzione del suono.");
         }
     }
     private boolean isVisible(int worldX, int worldY, int grandezzaCaselle) {
