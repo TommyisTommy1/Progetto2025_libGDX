@@ -31,7 +31,7 @@ public class App {
 
         Defines.GAME_PANEL.iniziaThreadGioco();  
         
-        Defines.CIRCUSTHEME_PLAYER.start();
+        Defines.BGMUSIC_PLAYER.start();
         
     }
 }

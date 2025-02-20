@@ -41,6 +41,10 @@ public class MP3Player implements Runnable {
         }
     }
 
+    public void changeTrack (int traccia)
+    {
+        loadPlaylist(traccia);
+    }
     @Override
     public void run() {
         while (!stop){

@@ -30,19 +30,9 @@ public class Defines {
     
  
     //COLONNE SONORE
-    public static final MP3Player MP3_PLAYER1 = new MP3Player(0);
-    public static final Thread CIRCUSTHEME_PLAYER = new Thread(MP3_PLAYER1);
-    public static final MP3Player MP3_PLAYER = new MP3Player(1);
-    public static final Thread COMBATTHEME_PLAYER = new Thread(MP3_PLAYER);
-    public static final MP3Player MP3_PLAYER2 = new MP3Player(2);
-    public static final Thread DARKTHEME_PLAYER = new Thread(MP3_PLAYER2);
-    public static final MP3Player MP3_PLAYER3 = new MP3Player(3);
-    public static final Thread HOSTILETHEME_PLAYER = new Thread(MP3_PLAYER3);
-    public static final MP3Player MP3_PLAYER4 = new MP3Player(4);
-    public static final Thread WINTERTHEME_PLAYER = new Thread(MP3_PLAYER4);
+    public static final MP3Player MP3_PLAYER_SETTER = new MP3Player(0);
+    public static Thread BGMUSIC_PLAYER = new Thread(MP3_PLAYER_SETTER);
 
-    public static final MP3Player[] PLAYERS = new MP3Player[]{MP3_PLAYER1, MP3_PLAYER, MP3_PLAYER2, MP3_PLAYER3, MP3_PLAYER4};
-    public static final Thread TRACCE[] = new Thread[]{DARKTHEME_PLAYER, CIRCUSTHEME_PLAYER, DARKTHEME_PLAYER, HOSTILETHEME_PLAYER, WINTERTHEME_PLAYER};
     //DIALOGHI
     public static final DialogMngr mngrDialog = new DialogMngr();
 

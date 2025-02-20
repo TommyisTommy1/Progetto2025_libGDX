@@ -18,7 +18,8 @@ public class TileManager {
     public int[][] n;
     public int misurax, misuray;
     Casella[] uscita, spawn;
-    int mappa = -1;
+    private int[] mappe = {1, 2};
+    private int currentMappa = -1;
     boolean flag = false;
 
     public TileManager() {
@@ -83,7 +84,6 @@ public class TileManager {
         tile[7].image = loadTileImage("top_right.png"); tile[7].collision = true;
         tile[8].image = loadTileImage("bottom_left.png"); tile[8].collision = true;
         tile[9].image = loadTileImage("bottom_right.png"); tile[9].collision = true;
-        tile[10].image = loadTileImage("acqua.png"); tile[10].collision = true;
         tile[11].image = loadTileImage("mattons.png"); tile[11].collision = false;
     }
 
@@ -97,10 +97,10 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g) {
-        if (mappa == -1) {
+        if (currentMappa == -1) {
             loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
             Defines.GAME_PANEL.setBackground(Color.black);
-            mappa = 2;
+            currentMappa = 2;
         }
         
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
@@ -136,30 +136,54 @@ public class TileManager {
     }
 
     private void cambiaMappa(int uscitaIndex) {
-        switch (mappa) {
+        for (int i = 0; i < mappe.length; i++) {
+            if (currentMappa == mappe[i]) {
+                System.out.println("OK");
+                break;
+            } else if (currentMappa != mappe[i] && i == mappe.length - 1) {
+                System.out.println("ERRORE");
+            }
+        }
+        switch (currentMappa) {
             case 1:
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
-                mappa = 2;
+                currentMappa = 2;
                 break;
             case 2:
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
-                mappa = 1;
+                currentMappa = 1;
                 break;
         }
-        for (int i = 0; i < Defines.TRACCE.length; i++) 
-        {
-            Defines.PLAYERS[i].stopPlayer();
-        }
-        Defines.TRACCE[mappa].start();
+        updateMusic();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length) {
             Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getCol());
             Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getRow());
         }
     }
     
-
+    public void updateMusic () {
+        try{
+            if (Defines.BGMUSIC_PLAYER.isAlive())
+            {
+                Defines.MP3_PLAYER_SETTER.stopPlayer();
+                Defines.BGMUSIC_PLAYER.interrupt();
+                try {
+                    Defines.BGMUSIC_PLAYER.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Defines.MP3_PLAYER_SETTER.changeTrack(currentMappa - 1);
+            Defines.BGMUSIC_PLAYER = new Thread(Defines.MP3_PLAYER_SETTER);
+            Defines.BGMUSIC_PLAYER.start();
+            System.out.println("Musica cambiata");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Errore durante la riproduzione del suono.");
+        }
+    }
     private boolean isVisible(int worldX, int worldY, int grandezzaCaselle) {
         return worldX + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
                worldX - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
