@@ -36,7 +36,6 @@ public class DialogMngr {
     public HashMap<String, Dialog> getDialogs() {
         return dialogs;
     }
-    public boolean hasDialogs() {
-        return !dialogs.isEmpty();
-    }
+
+    
 }

@@ -15,13 +15,14 @@ public class App {
         Defines.MAINFRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Defines.MAINFRAME.setResizable(false);
         Defines.MAINFRAME.setUndecorated(true);
+        Defines.MAINFRAME.setIconImage(Defines.ICONIMG.getImage());
 
         Defines.MAINFRAME.add(Defines.GAME_PANEL);
-        Defines.MAINFRAME.setIconImage(Defines.ICONIMG.getImage());
+        
 
         Defines.CONTENT_PANEL.add(Defines.GAME_PANEL, BorderLayout.CENTER);
         Defines.CONTENT_PANEL.setBorder(new LineBorder(Color.black, 10));
-        // DA SPIEGARE
+
         Defines.MAINFRAME.setContentPane(Defines.CONTENT_PANEL);
         Defines.MAINFRAME.pack();
 

@@ -21,7 +21,7 @@ public class TileManager {
     boolean flag = false;
 
     public TileManager() {
-        tile = new Tile[10];
+        tile = new Tile[100];
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
@@ -78,6 +78,11 @@ public class TileManager {
         tile[3].image = loadTileImage("water_top.png"); tile[3].collision = true;
         tile[4].image = loadTileImage("water_top_right.png"); tile[4].collision = true;
         tile[5].image = loadTileImage("stonebrick.png"); tile[5].collision = true;
+        tile[6].image = loadTileImage("top_left.png"); tile[6].collision = true;
+        tile[7].image = loadTileImage("top_right.png"); tile[7].collision = true;
+        tile[8].image = loadTileImage("bottom_left.png"); tile[8].collision = true;
+        tile[9].image = loadTileImage("bottom_right.png"); tile[9].collision = true;
+        tile[10].image = loadTileImage("acqua.png"); tile[10].collision = true;
     }
 
     private BufferedImage loadTileImage(String percorso) {

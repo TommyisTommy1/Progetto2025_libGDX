@@ -52,7 +52,7 @@ public class Defines {
     
 
     
-    public static final int FPS = 60;
+    public static final int FPS = 120;
 
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
     public static final Player PLAYER = new Player(GamePanel.keyH);
