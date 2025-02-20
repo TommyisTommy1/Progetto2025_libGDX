@@ -31,7 +31,6 @@ public class App {
 
         Defines.GAME_PANEL.iniziaThreadGioco();  
         
-        Defines.BGMUSIC_PLAYER.start();
         
     }
 }

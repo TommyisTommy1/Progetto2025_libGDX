@@ -12,9 +12,9 @@ public class MP3Player implements Runnable {
     private String[] tracce = new String[5];
 
     public MP3Player(int traccia) {
-        tracce[0] = "circusTheme.mp3";
-        tracce[1] = "combatTheme.mp3";
-        tracce[2] = "darkTheme.mp3";
+        tracce[1] = "circusTheme.mp3";
+        tracce[2] = "combatTheme.mp3";
+        tracce[0] = "darkTheme.mp3";
         tracce[3] = "hostileTheme.mp3";
         tracce[4] = "winterTheme.mp3";
         System.out.println("Loading: " + tracce[traccia]);
@@ -63,10 +63,12 @@ public class MP3Player implements Runnable {
         }
     }
 
-    public void stopPlayer() {
-        if (player != null) {
+    public void stopPlayer(boolean stop) {
+        if (stop) {
             stop = true;
             player.close();
+        } else {
+            stop = false;
         }
     }
 

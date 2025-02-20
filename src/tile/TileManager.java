@@ -98,9 +98,8 @@ public class TileManager {
 
     public void draw(Graphics2D g) {
         if (currentMappa == -1) {
-            loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
-            Defines.GAME_PANEL.setBackground(Color.black);
-            currentMappa = 2;
+            currentMappa = 0;
+            cambiaMappa(currentMappa);
         }
         
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
@@ -136,24 +135,24 @@ public class TileManager {
     }
 
     private void cambiaMappa(int uscitaIndex) {
-        for (int i = 0; i < mappe.length; i++) {
-            if (currentMappa == mappe[i]) {
-                System.out.println("OK");
-                break;
-            } else if (currentMappa != mappe[i] && i == mappe.length - 1) {
-                System.out.println("ERRORE");
-            }
+        
+        
+        
+        if (currentMappa == mappe[mappe.length - 1]) {
+            currentMappa = mappe[0];
+        } else {
+            currentMappa++;
         }
+        System.out.println("Mappa  " + currentMappa);
+
         switch (currentMappa) {
             case 1:
-                loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
+                loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
-                currentMappa = 2;
                 break;
             case 2:
-                loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
+                loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
-                currentMappa = 1;
                 break;
         }
         updateMusic();
@@ -164,10 +163,11 @@ public class TileManager {
     }
     
     public void updateMusic () {
+
         try{
             if (Defines.BGMUSIC_PLAYER.isAlive())
             {
-                Defines.MP3_PLAYER_SETTER.stopPlayer();
+                Defines.MP3_PLAYER_SETTER.stopPlayer(true);
                 Defines.BGMUSIC_PLAYER.interrupt();
                 try {
                     Defines.BGMUSIC_PLAYER.join();
@@ -177,8 +177,14 @@ public class TileManager {
             }
             Defines.MP3_PLAYER_SETTER.changeTrack(currentMappa - 1);
             Defines.BGMUSIC_PLAYER = new Thread(Defines.MP3_PLAYER_SETTER);
-            Defines.BGMUSIC_PLAYER.start();
-            System.out.println("Musica cambiata");
+            try {
+                Defines.MP3_PLAYER_SETTER.stopPlayer(false);
+                Defines.BGMUSIC_PLAYER.start();
+                System.out.println("Musica cambiata");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Errore durante la riproduzione del suono.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Errore durante la riproduzione del suono.");
