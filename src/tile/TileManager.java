@@ -1,5 +1,6 @@
 package tile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -98,6 +99,7 @@ public class TileManager {
     public void draw(Graphics2D g) {
         if (mappa == -1) {
             loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
+            Defines.GAME_PANEL.setBackground(Color.black);
             mappa = 2;
         }
         
@@ -137,10 +139,12 @@ public class TileManager {
         switch (mappa) {
             case 1:
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
+                Defines.GAME_PANEL.setBackground(Color.black);
                 mappa = 2;
                 break;
             case 2:
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
+                Defines.GAME_PANEL.setBackground(Color.gray);
                 mappa = 1;
                 break;
         }
