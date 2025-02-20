@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import Gioco.GamePanel;
 import Gioco.GestioneTasti;
 import utils.Defines;
+import utils.Spritesheet;
 import utils.SpritesheetPlayer;
 
 public class Player extends Entity {
@@ -14,10 +15,13 @@ public class Player extends Entity {
 
     private final int screenX;
     private final int screenY;
-    
+
+    boolean isAlive;
+    boolean isAliveAnimation = false;
+
     SpritesheetPlayer moving;
     SpritesheetPlayer notMoving;
-    
+    Spritesheet dying;
 
     public Player(GestioneTasti g2) {
         gestioneTasti = g2;
@@ -36,7 +40,7 @@ public class Player extends Entity {
     private void setDefaultValues() {
         worldX = Defines.GRANDEZZA_CASELLE * 8;
         worldY = Defines.GRANDEZZA_CASELLE * 5;
-        setSpeed(4, 1);
+        isAlive = true;
         setDirezione("su");
         getPlayerImage();
     }
@@ -56,10 +60,10 @@ public class Player extends Entity {
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
         if (this.spriteCounter > wait / delta) {
-            if (spriteNum<n) {
+            if (spriteNum < n) {
                 spriteNum++;
-            }else{
-                spriteNum=0;
+            } else {
+                spriteNum = 0;
             }
             this.spriteCounter = 0;
         }
@@ -83,16 +87,17 @@ public class Player extends Entity {
 
     private void getPlayerImage() {
         moving = new SpritesheetPlayer(4, 5, 3, 4, "finn.png");
-        notMoving = new SpritesheetPlayer(2, 0, 2, 1, "finn.png");
+        notMoving = new SpritesheetPlayer(2, 2, 0, 1, "finn.png");
+        dying = new Spritesheet(6, 0, "FinnDeath.png");
     }
 
-    private boolean lontanoDaiBordi(){
-        boolean stato=false;
-        int offset=2;
-        if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol()-2-offset) {  
+    private boolean lontanoDaiBordi() {
+        boolean stato = false;
+        int offset = 2;
+        if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol() - 2 - offset) {
             stato = true;
         }
-        if (getRow() < offset || getRow() > GamePanel.getMaxWorldRow()-2-offset) {  
+        if (getRow() < offset || getRow() > GamePanel.getMaxWorldRow() - 2 - offset) {
             stato = true;
         }
         return stato;
@@ -106,11 +111,21 @@ public class Player extends Entity {
 
         boolean shift = getPremuto("SHIFT");
 
-        if (shift && !lontanoDaiBordi()) {
-            setSpeed(4, 1.1);
-        }else{
-            setSpeed(4,1);
+        boolean k = getPremuto("K");
+
+        if (isAlive && k) {
+            isAlive = false;
         }
+
+        if (!shift) {
+            setSpeed(4, 1);
+        }
+
+        if (shift && !lontanoDaiBordi()) {
+            setSpeed(4, 1.5);
+        }
+            
+        
 
         if (!w && !s && !d && !a) {
             spriteCounter(1, 27);
@@ -121,8 +136,8 @@ public class Player extends Entity {
                 case "su":
                     spostaY("fermoSu", "");
                     return;
-                case "destra": 
-                    spostaX("fermoDestra","");
+                case "destra":
+                    spostaX("fermoDestra", "");
                     return;
                 case "sinistra":
                     spostaX("fermoSinistra", "");
@@ -153,7 +168,7 @@ public class Player extends Entity {
                     setDirezione("su");
                 if (s)
                     setDirezione("giu");
-                    controllaCollisioniY(w, s);
+                controllaCollisioniY(w, s);
                 if (d)
                     setDirezione("destra");
                 if (a)
@@ -186,7 +201,7 @@ public class Player extends Entity {
                 spostaY("giu", "aggiungi");
         }
     }
-    
+
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         switch (getDirezione()) {
@@ -203,26 +218,35 @@ public class Player extends Entity {
                 image = moving.getLeft().getSpriteSheet(spriteNum);
                 break;
             case "fermoDestra":
-                if (spriteNum == 1) image = notMoving.getRight().getSpriteSheet(0);
-                else image = notMoving.getRight().getSpriteSheet(1);
+                if (spriteNum == 1)
+                    image = notMoving.getRight().getSpriteSheet(0);
+                else
+                    image = notMoving.getRight().getSpriteSheet(1);
                 break;
             case "fermoSinistra":
-                if (spriteNum == 1) image = notMoving.getLeft().getSpriteSheet(0);
-                else image = notMoving.getLeft().getSpriteSheet(1);
+                if (spriteNum == 1)
+                    image = notMoving.getLeft().getSpriteSheet(0);
+                else
+                    image = notMoving.getLeft().getSpriteSheet(1);
                 break;
             case "fermoSu":
-                if (spriteNum == 1) image = notMoving.getUp().getSpriteSheet(0);
-                else image = notMoving.getUp().getSpriteSheet(1);
+                if (spriteNum == 1)
+                    image = notMoving.getUp().getSpriteSheet(0);
+                else
+                    image = notMoving.getUp().getSpriteSheet(1);
                 break;
             case "fermoGiu":
-                if (spriteNum == 1) image = notMoving.getDown().getSpriteSheet(0);
-                else image = notMoving.getDown().getSpriteSheet(1);
+                if (spriteNum == 1)
+                    image = notMoving.getDown().getSpriteSheet(0);
+                else
+                    image = notMoving.getDown().getSpriteSheet(1);
                 break;
-            
-                
+
         }
-        g.drawImage(image, screenX-Defines.GRANDEZZA_CASELLE/2, screenY-Defines.GRANDEZZA_CASELLE/2, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
-        //g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,
+                Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
+        // g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y,
+        // areaCollisione.width, areaCollisione.height);
         ;
     }
 }

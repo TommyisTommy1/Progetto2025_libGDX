@@ -7,6 +7,8 @@ public class GestioneTasti implements KeyListener {
 
     private boolean suPremuto, giuPremuto, destraPremuto, sinistraPremuto, interagisci, sprint;
 
+    private boolean kill; //temporaneo
+
     public GestioneTasti() {
     }
 
@@ -29,6 +31,9 @@ public class GestioneTasti implements KeyListener {
                 break;
             case "SHIFT":
                 this.sprint = true;
+                break;
+            case "K":
+                this.kill = true;
                 break;
         }
     }
@@ -53,6 +58,9 @@ public class GestioneTasti implements KeyListener {
             case "SHIFT":
                 this.sprint = false;
                 break;
+            case "K":
+                this.kill = true;
+                break;
         }
     }
 
@@ -72,6 +80,8 @@ public class GestioneTasti implements KeyListener {
                 return this.interagisci;
             case "SHIFT":
                 return this.sprint;
+            case "K":
+                return this.kill;
             default:
                 break;
         }
@@ -102,7 +112,10 @@ public class GestioneTasti implements KeyListener {
                 setPremuto("E");
                 break;
             case KeyEvent.VK_SHIFT:
-                    setPremuto("SHIFT");
+                setPremuto("SHIFT");
+                break;
+            case KeyEvent.VK_K:
+                setPremuto("K");        
                 break;
             default:
                 break;
@@ -130,6 +143,10 @@ public class GestioneTasti implements KeyListener {
                 break;
             case KeyEvent.VK_SHIFT:
                 setRilasciato("SHIFT");
+                System.err.println(getPremuto("SHIFT"));
+                break;
+            case KeyEvent.VK_K:
+                setRilasciato("K");        
                 break;
             default:
                 break;
