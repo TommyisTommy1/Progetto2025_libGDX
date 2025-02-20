@@ -117,12 +117,15 @@ public class Player extends Entity {
             isAlive = false;
         }
 
-        if (!shift) {
-            setSpeed(4, 1);
-        }
+        
 
-        if (shift && !lontanoDaiBordi()) {
-            setSpeed(4, 1.5);
+        if (shift) {
+            if (!lontanoDaiBordi()) {
+                setSpeed(4, 1.5);
+            }else setSpeed(4, 1);
+            
+        }else if (!shift) {
+            setSpeed(4, 1);
         }
             
         
