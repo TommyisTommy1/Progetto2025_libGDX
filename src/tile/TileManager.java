@@ -148,7 +148,7 @@ public class TileManager {
                 mappa = 1;
                 break;
         }
-        
+        Defines.TRACCE[mappa].start();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length) {
             Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getCol());
             Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getRow());
