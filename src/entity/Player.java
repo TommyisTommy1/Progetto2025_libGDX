@@ -9,12 +9,17 @@ import javax.imageio.ImageIO;
 import Gioco.GamePanel;
 import Gioco.GestioneTasti;
 import utils.Defines;
+import utils.SpritesheetPlayer;
 
 public class Player extends Entity {
     private final GestioneTasti gestioneTasti;
 
     private final int screenX;
     private final int screenY;
+    
+    SpritesheetPlayer moving;
+    SpritesheetPlayer notMoving;
+    
 
     public Player(GestioneTasti g2) {
         gestioneTasti = g2;
@@ -36,18 +41,6 @@ public class Player extends Entity {
         setSpeed(4, 1);
         setDirezione("su");
         getPlayerImage();
-    }
-
-    private BufferedImage loadPlayerImage(int x, int y) {
-        String percorso = new String("Finn.png");
-        x=x*32;
-        y=y*32;
-        try {
-            return ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(percorso))).getSubimage(x, y, 32, 32);
-        } catch (IOException e) {
-            System.err.println("Immagine non trovata in: " + percorso);
-            return null;
-        }
     }
 
     public int getScreenX() {
@@ -91,35 +84,12 @@ public class Player extends Entity {
     }
 
     private void getPlayerImage() {
-        fermo[0] = loadPlayerImage(0, 0);
-        fermo[1] = loadPlayerImage(1, 0);
-        fermo[2] = loadPlayerImage(0, 2);
-        fermo[3] = loadPlayerImage(1, 2);
-        fermo[4] = loadPlayerImage(0, 1);
-        fermo[5] = loadPlayerImage(1, 1);
-        fermo[6] = flipImmagine(loadPlayerImage(0, 1));
-        fermo[7] = flipImmagine(loadPlayerImage(1, 1));
-        su[0] = loadPlayerImage(0, 5);
-        su[1] = loadPlayerImage(1, 5);
-        su[2] = loadPlayerImage(2, 5);
-        su[3] = loadPlayerImage(3, 5);
-        giu[0] = loadPlayerImage(0, 3);
-        giu[1] = loadPlayerImage(1, 3);
-        giu[2] = loadPlayerImage(2, 3);
-        giu[3] = loadPlayerImage(3, 3);
-        destra[0] = loadPlayerImage(0, 4);
-        destra[1] = loadPlayerImage(1, 4);
-        destra[2] = loadPlayerImage(2, 4);
-        destra[3] = loadPlayerImage(3, 4);
-        sinistra[0] = flipImmagine(destra[0]);
-        sinistra[1] = flipImmagine(destra[1]);
-        sinistra[2] = flipImmagine(destra[2]);
-        sinistra[3] = flipImmagine(destra[3]);
+        moving = new SpritesheetPlayer(4, 5, 3, 4, "finn.png");
+        notMoving = new SpritesheetPlayer(2, 0, 2, 1, "finn.png");
     }
 
     private boolean lontanoDaiBordi(){
         boolean stato=false;
-        System.out.println(getCol());
         int offset=2;
         if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol()-2-offset) {  
             stato = true;
@@ -196,22 +166,6 @@ public class Player extends Entity {
         }
     }
 
-    public void controllaCollisioni(boolean w, boolean s, boolean a, boolean d) {
-        inCollisione = false;
-        Defines.GAME_PANEL.collisioni.controllaCasella(this);
-        if (!inCollisione) {
-            
-            if (w)
-                spostaY(getDirezione(), "sottrai");
-            if (s)
-                spostaY(getDirezione(), "aggiungi");
-            if (d)
-                spostaX(getDirezione(), "aggiungi");
-            if (a)
-                spostaX(getDirezione(), "sottrai");
-        }
-    }
-
     public void controllaCollisioniX(boolean a, boolean d) {
         inCollisione = false;
         Defines.GAME_PANEL.collisioni.controllaCasella(this);
@@ -234,44 +188,37 @@ public class Player extends Entity {
                 spostaY("giu", "aggiungi");
         }
     }
-    public BufferedImage flipImmagine(BufferedImage image){
-        BufferedImage immagineFlippata = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-        Graphics2D g = immagineFlippata.createGraphics();
-
-        g.drawImage(image, image.getWidth(), 0 , -image.getWidth(), image.getHeight(), null);
-        g.dispose();
-        return immagineFlippata;
-    }
+    
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         switch (getDirezione()) {
             case "su":
-                image = su[spriteNum];
+                image = moving.getUp().getSpriteSheet(spriteNum);
                 break;
             case "giu":
-                image = giu[spriteNum];
+                image = moving.getDown().getSpriteSheet(spriteNum);
                 break;
             case "destra":
-                image = destra[spriteNum];
+                image = moving.getRight().getSpriteSheet(spriteNum);
                 break;
             case "sinistra":
-                image = sinistra[spriteNum];
+                image = moving.getLeft().getSpriteSheet(spriteNum);
                 break;
             case "fermoDestra":
-                if (spriteNum == 1) image = fermo[4];
-                else image = fermo[5];
+                if (spriteNum == 1) image = notMoving.getRight().getSpriteSheet(0);
+                else image = notMoving.getRight().getSpriteSheet(1);
                 break;
             case "fermoSinistra":
-                if (spriteNum == 1) image = flipImmagine(fermo[4]);
-                else image = flipImmagine(fermo[5]);
+                if (spriteNum == 1) image = notMoving.getLeft().getSpriteSheet(0);
+                else image = notMoving.getLeft().getSpriteSheet(1);
                 break;
             case "fermoSu":
-                if (spriteNum == 1) image = fermo[2];
-                else image = fermo[3];
+                if (spriteNum == 1) image = notMoving.getUp().getSpriteSheet(0);
+                else image = notMoving.getUp().getSpriteSheet(1);
                 break;
             case "fermoGiu":
-                if (spriteNum == 1) image = fermo[0];
-                else image = fermo[1];
+                if (spriteNum == 1) image = notMoving.getDown().getSpriteSheet(0);
+                else image = notMoving.getDown().getSpriteSheet(1);
                 break;
             
                 
