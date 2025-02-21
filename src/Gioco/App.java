@@ -9,7 +9,7 @@ import javax.swing.border.LineBorder;
 import utils.Defines;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main (String[] args) throws Exception {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         Defines.MAINFRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
