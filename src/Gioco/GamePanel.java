@@ -1,9 +1,9 @@
 package Gioco;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Color;
 import javax.swing.JPanel;
 import utils.Defines;
 
@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
         Defines.PLAYER.update(); // funzione per aggiornare il player
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
