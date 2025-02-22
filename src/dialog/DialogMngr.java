@@ -1,4 +1,4 @@
-package DialogPkg;
+package dialog;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

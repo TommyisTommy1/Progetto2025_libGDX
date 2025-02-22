@@ -3,13 +3,16 @@ package utils;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import dialog.DialogMngr;
+
 import java.awt.BorderLayout;
 
 import entity.Player;
 import game.GamePanel;
 import mp3player.MP3Player;
 import tile.TileManager;
-import DialogPkg.DialogMngr;
+
 import javax.swing.ImageIcon;
 
 public class Defines {

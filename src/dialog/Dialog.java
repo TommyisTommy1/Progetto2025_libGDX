@@ -1,4 +1,4 @@
-package DialogPkg;
+package dialog;
 
 
 public class Dialog {
