@@ -24,14 +24,6 @@ public class Entity {
         return this.direction;
     }
 
-    public static int getWorldX() {
-        return worldX;
-    }
-
-    public static int getWorldY() {
-        return worldY;
-    }
-
     public void setWorldX(int n) {
         worldX = n;
     }

@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
-import entity.Entity;
 import entity.Player;
 import game.GamePanel;
 import utils.Camera;
@@ -27,7 +26,6 @@ public class TileManager {
     
 
     int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-    
     public TileManager() {
         tile = new Tile[100];
         for (int i = 0; i < tile.length; i++) {
@@ -187,10 +185,10 @@ public class TileManager {
 
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile
         
-        return camera.getCameraWorldX() + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
-            camera.getCameraWorldX() - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
-            camera.getCameraWorldY() + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
-            camera.getCameraWorldY() - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY();
+        return camera.getCameraWorldX() + grandezzaCaselle > Player.getWorldX() - Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldX() - grandezzaCaselle < Player.getWorldX() + Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldY() + grandezzaCaselle > Player.getWorldY() - Defines.PLAYER.getScreenY() &&
+            camera.getCameraWorldY() - grandezzaCaselle < Player.getWorldY() + Defines.PLAYER.getScreenY();
     }
 
 

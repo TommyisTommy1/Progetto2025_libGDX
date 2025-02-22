@@ -1,12 +1,12 @@
 package utils;
 
-import entity.Entity;
+import entity.Player;
 
 public class Camera {
     int x, y;
 
-    int playerWorldX = Entity.getWorldX();
-    int playerWorldY = Entity.getWorldY();
+    int playerWorldX = Player.getWorldX();
+    int playerWorldY = Player.getWorldY();
 
     int playerScreenX = Defines.PLAYER.getScreenX();
     int playerScreenY = Defines.PLAYER.getScreenY();

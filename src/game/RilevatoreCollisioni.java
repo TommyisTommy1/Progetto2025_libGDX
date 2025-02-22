@@ -8,7 +8,7 @@ public class RilevatoreCollisioni {
     Entity entity;
     public RilevatoreCollisioni() {
     }
-
+    
     public void controllaCasella(Entity entity) {
         this.entity = entity;
     

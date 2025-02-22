@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+
+import entity.Nemico;
 import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -67,6 +69,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Defines.TILE_MANAGER.draw(g2);
         Defines.PLAYER.draw(g2);
+
+        Nemico n = new Nemico();
+        n.draw(g2);
 
         g2.dispose();
     }

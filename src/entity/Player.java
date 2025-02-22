@@ -22,7 +22,7 @@ public class Player extends Entity {
     SpritesheetEntity moving;
     SpritesheetEntity notMoving;
     Spritesheet dying;
-
+    
     public Player(GestioneTasti g2) {
         gestioneTasti = g2;
 
@@ -36,10 +36,14 @@ public class Player extends Entity {
         areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         setDefaultValues();
     }
+    public static int getWorldX() {
+        return worldX;
+    }
 
+    public static int getWorldY() {
+        return worldY;
+    }
     private void setDefaultValues() {
-        worldX = Defines.GRANDEZZA_CASELLE * 8;
-        worldY = Defines.GRANDEZZA_CASELLE * 5;
         isAlive = true;
         setDirezione("su");
         getPlayerImage();
