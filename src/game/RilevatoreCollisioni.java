@@ -5,11 +5,12 @@ import entity.Player;
 import utils.Defines;
 
 public class RilevatoreCollisioni {
-
+    Entity entity;
     public RilevatoreCollisioni() {
     }
 
     public void controllaCasella(Entity entity) {
+        this.entity=entity;
 
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int numColonne = GamePanel.getMaxWorldCol() - 1;
@@ -25,9 +26,7 @@ public class RilevatoreCollisioni {
         int entityDestraCol = entityDestraWorldX / grandezzaCaselle;
         int entitySuRow = entitySuWorldY / grandezzaCaselle;
         int entityGiuRow = entityGiuWorldY / grandezzaCaselle;
-
-        int[] tile = new int[2];
-
+        
         int larghezzaMappa = grandezzaCaselle * numColonne;
         int altezzaMappa = grandezzaCaselle * numRighe - 5;
 
@@ -66,38 +65,29 @@ public class RilevatoreCollisioni {
         switch (entity.getDirezione()) {
             case "su":
                 entitySuRow = (entitySuWorldY - speed) / grandezzaCaselle;
-                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
-                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
-                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
-                    entity.inCollisione = true;
+                controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 break;
             case "giu":
                 entityGiuRow = (entityGiuWorldY + speed) / grandezzaCaselle;
-                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
-                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
-                    entity.inCollisione = true;
+                controllaCollisioniCasella(entitySinistraCol, entityGiuRow);
                 break;
             case "sinistra":
                 entitySinistraCol = (entitySinistraWorldX - speed) / grandezzaCaselle;
-                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
-                tile[1] = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
-                    entity.inCollisione = true;
-
+                controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 break;
             case "destra":
                 entityDestraCol = (entityDestraWorldX + speed) / grandezzaCaselle;
-                tile[0] = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
-                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision() || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
-                    entity.inCollisione = true;
+                controllaCollisioniCasella(entityDestraCol, entitySuRow);
                 break;
             default:
                 break;
         }
+    }
+    public void controllaCollisioniCasella(int col, int row){
+        int tile[] = new int[2];
+        tile[0] = Defines.TILE_MANAGER.n[col][row];
+        tile[1] = Defines.TILE_MANAGER.n[col][row];
+        if (Defines.TILE_MANAGER.tile[tile[0]].getCollision() || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
+            entity.inCollisione = true;
     }
 }

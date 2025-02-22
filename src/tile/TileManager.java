@@ -15,15 +15,19 @@ import utils.Camera;
 import utils.Defines;
 
 public class TileManager {
+    private Camera camera;
     public Tile[] tile;
+    private Casella[] uscita, spawn;
     public int[][] n;
     public int misurax, misuray;
-    Casella[] uscita, spawn;
+    
     private int[] mappe = {1, 2};
     private int currentMappa = -1;
     boolean flag = false;
-    private Camera camera;
+    
 
+    int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
+    
     public TileManager() {
         tile = new Tile[100];
         for (int i = 0; i < tile.length; i++) {
@@ -118,7 +122,6 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g) {
-        int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int playerCol = Player.getWorldX() / grandezzaCaselle;
         int playerRow = Player.getWorldY() / grandezzaCaselle;
         boolean e = GamePanel.keyH.getPremuto("E");
@@ -148,7 +151,7 @@ public class TileManager {
                 camera.setCameraCasella(col, row);
                 int tileNum = n[col][row];
                 
-                if (isVisible(camera, grandezzaCaselle)) {
+                if (isVisible(camera)) {
                     g.drawImage(tile[tileNum].image, camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
@@ -182,7 +185,8 @@ public class TileManager {
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
 
-    private boolean isVisible(Camera camera, int grandezzaCaselle) { //controlla se il tile è visibile
+    private boolean isVisible(Camera camera) { //controlla se il tile è visibile
+        
         return camera.getCameraWorldX() + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
             camera.getCameraWorldX() - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
             camera.getCameraWorldY() + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
