@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import entity.Entity;
 import entity.Player;
 import game.GamePanel;
+import utils.Camera;
 import utils.Defines;
 
 public class TileManager {
@@ -21,6 +22,7 @@ public class TileManager {
     private int[] mappe = {1, 2};
     private int currentMappa = -1;
     boolean flag = false;
+    private Camera camera;
 
     public TileManager() {
         tile = new Tile[100];
@@ -141,14 +143,13 @@ public class TileManager {
 
         for (int row = 0; row < misuray; row++) {
             for (int col = 0; col < misurax; col++) {
+
+                camera = new Camera();
+                camera.setCameraCasella(col, row);
                 int tileNum = n[col][row];
-                int worldX = col * grandezzaCaselle; //calcola la posizione del tile nel mondo
-                int worldY = row * grandezzaCaselle;
-                int screenX = worldX - Entity.getWorldX() + Defines.PLAYER.getScreenX();  //calcola la posizione del tile sullo schermo (posizione mondo-posizione player nel mondo+centro dello schermo)
-                int screenY = worldY - Entity.getWorldY() + Defines.PLAYER.getScreenY();
                 
-                if (isVisible(worldX, worldY, grandezzaCaselle)) {
-                    g.drawImage(tile[tileNum].image, screenX, screenY, grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                if (isVisible(camera, grandezzaCaselle)) {
+                    g.drawImage(tile[tileNum].image, camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
         }
@@ -181,11 +182,11 @@ public class TileManager {
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
 
-    private boolean isVisible(int worldX, int worldY, int grandezzaCaselle) { //controlla se il tile è visibile
-        return worldX + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
-               worldX - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
-               worldY + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
-               worldY - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY();
+    private boolean isVisible(Camera camera, int grandezzaCaselle) { //controlla se il tile è visibile
+        return camera.getCameraWorldX() + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldX() - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldY() + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
+            camera.getCameraWorldY() - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY();
     }
 
 
