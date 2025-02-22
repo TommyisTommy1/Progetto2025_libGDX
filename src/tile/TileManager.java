@@ -180,7 +180,19 @@ public class TileManager {
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
-    
+
+    private boolean isVisible(int worldX, int worldY, int grandezzaCaselle) { //controlla se il tile è visibile
+        return worldX + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
+               worldX - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
+               worldY + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
+               worldY - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY();
+    }
+
+
+
+
+
+
     public void updateMusic() {
         System.out.println("Updating music for map: " + currentMappa);
         try {
@@ -222,11 +234,5 @@ public class TileManager {
             System.err.println("Unexpected error in updateMusic: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-    private boolean isVisible(int worldX, int worldY, int grandezzaCaselle) {
-        return worldX + grandezzaCaselle > Entity.getWorldX() - Defines.PLAYER.getScreenX() &&
-               worldX - grandezzaCaselle < Entity.getWorldX() + Defines.PLAYER.getScreenX() &&
-               worldY + grandezzaCaselle > Entity.getWorldY() - Defines.PLAYER.getScreenY() &&
-               worldY - grandezzaCaselle < Entity.getWorldY() + Defines.PLAYER.getScreenY();
     }
 }
