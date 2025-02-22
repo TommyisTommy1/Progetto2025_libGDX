@@ -26,7 +26,7 @@ public class Player extends Entity {
     Spritesheet dying;
     
     public Player(GestioneTasti g2) {
-        gestioneTasti = g2;
+        this.gestioneTasti = g2;
 
         screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE / 2;
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
