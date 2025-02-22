@@ -93,7 +93,7 @@ public class GestioneTasti implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { //gestione tasti premuti
         int code = e.getKeyCode();
         switch (code) {
             case KeyEvent.VK_W:
@@ -123,7 +123,7 @@ public class GestioneTasti implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) { //gestione tasti rilasciati
         int code = e.getKeyCode();
         switch (code) {
             case KeyEvent.VK_W:
