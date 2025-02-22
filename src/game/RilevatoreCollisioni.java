@@ -26,7 +26,7 @@ public class RilevatoreCollisioni {
         int entitySuRow = entitySuWorldY / grandezzaCaselle;
         int entityGiuRow = entityGiuWorldY / grandezzaCaselle;
 
-        int tile1, tile2;
+        int[] tile = new int[2];
 
         int larghezzaMappa = grandezzaCaselle * numColonne;
         int altezzaMappa = grandezzaCaselle * numRighe - 5;
@@ -66,34 +66,34 @@ public class RilevatoreCollisioni {
         switch (entity.getDirezione()) {
             case "su":
                 entitySuRow = (entitySuWorldY - speed) / grandezzaCaselle;
-                tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
-                tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
-                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
+                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
+                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
+                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
                     entity.inCollisione = true;
                 break;
             case "giu":
                 entityGiuRow = (entityGiuWorldY + speed) / grandezzaCaselle;
-                tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
-                tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
+                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
+                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
+                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
                     entity.inCollisione = true;
                 break;
             case "sinistra":
                 entitySinistraCol = (entitySinistraWorldX - speed) / grandezzaCaselle;
-                tile1 = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
-                tile2 = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile1].getCollision()
-                        || Defines.TILE_MANAGER.tile[tile2].getCollision())
+                tile[0] = Defines.TILE_MANAGER.n[entitySinistraCol][entitySuRow];
+                tile[1] = Defines.TILE_MANAGER.n[entitySinistraCol][entityGiuRow];
+                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision()
+                        || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
                     entity.inCollisione = true;
 
                 break;
             case "destra":
                 entityDestraCol = (entityDestraWorldX + speed) / grandezzaCaselle;
-                tile1 = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
-                tile2 = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
-                if (Defines.TILE_MANAGER.tile[tile1].getCollision() || Defines.TILE_MANAGER.tile[tile2].getCollision())
+                tile[0] = Defines.TILE_MANAGER.n[entityDestraCol][entitySuRow];
+                tile[1] = Defines.TILE_MANAGER.n[entityDestraCol][entityGiuRow];
+                if (Defines.TILE_MANAGER.tile[tile[0]].getCollision() || Defines.TILE_MANAGER.tile[tile[1]].getCollision())
                     entity.inCollisione = true;
                 break;
             default:
