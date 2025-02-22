@@ -75,6 +75,13 @@ public class GamePanel extends JPanel implements Runnable {
         return maxWorldCol;
     }
 
+    public void setMaxWorld(int maxWorldCol, int maxWorldRow) {
+        GamePanel.maxWorldCol = maxWorldCol;
+        GamePanel.maxWorldRow = maxWorldRow;
+        this.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
+        this.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldRow;
+    }
+
     public void setMaxWorldCol(int maxWorldCol) {
         GamePanel.maxWorldCol = maxWorldCol;
         this.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;

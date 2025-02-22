@@ -33,40 +33,42 @@ public class TileManager {
     private void loadMap(String mappa, String misure, String uscite, String entrate) {
         try {
             misurax = misuray = 0;
-            uscita = loadCaselle(uscite);
-            spawn = loadCaselle(entrate);
+            uscita = loadCaselle(uscite);   //carica le caselle delle uscite e entrate
+            spawn = loadCaselle(entrate); 
             
-            InputStream is1 = getClass().getResourceAsStream("/res/map/".concat(misure));
-            BufferedReader br1 = new BufferedReader(new InputStreamReader(is1));
-            String[] numbers = br1.readLine().split(" ");
-            misurax = Integer.parseInt(numbers[0]);
+            InputStream is1 = getClass().getResourceAsStream("/res/map/".concat(misure)); 
+            BufferedReader br1 = new BufferedReader(new InputStreamReader(is1)); 
+            String[] numbers = br1.readLine().split(" ");   //legge la prima riga del file e la salva in un array di stringhe
+
+            misurax = Integer.parseInt(numbers[0]); //prende la grandezza della mappa dal file
             misuray = Integer.parseInt(numbers[1]);
             
-            Defines.GAME_PANEL.setMaxWorldCol(misurax);
-            Defines.GAME_PANEL.setMaxWorldRow(misuray);
+            Defines.GAME_PANEL.setMaxWorld(misurax, misuray); //grandezza mappa in colonne e righe
             
-            n = new int[misurax][misuray];
+            n = new int[misurax][misuray]; //crea un array con la grandezza della mappa
             
-            is1 = getClass().getResourceAsStream("/res/map/".concat(mappa));
+            is1 = getClass().getResourceAsStream("/res/map/".concat(mappa)); //carica la mappa
             br1 = new BufferedReader(new InputStreamReader(is1));
             
             for (int row = 0; row < misuray; row++) {
-                numbers = br1.readLine().split(" ");
+                numbers = br1.readLine().split(" "); //legge la riga del file  successiva e la salva in un array di stringhe
                 for (int col = 0; col < misurax; col++) {
-                    n[col][row] = Integer.parseInt(numbers[col]);
+                    n[col][row] = Integer.parseInt(numbers[col]); //salva il tipo di casella nell'array
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Errore nel caricamento della mappa: " + mappa);
         }
     }
 
     private Casella[] loadCaselle(String filePath) throws Exception {
-        InputStream is = getClass().getResourceAsStream("/res/map/".concat(filePath));
+
+        InputStream is = getClass().getResourceAsStream("/res/map/".concat(filePath)); 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String[] numbers = br.readLine().split(" ");
-        
+        String[] numbers = br.readLine().split(" "); //legge la prima riga come prima
+
         Casella[] caselle = new Casella[numbers.length / 2];
+
         for (int i = 0; i < numbers.length; i += 2) {
             caselle[i / 2] = new Casella(Integer.parseInt(numbers[i]), Integer.parseInt(numbers[i + 1]));
         }
@@ -74,7 +76,7 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        tile[0].image = loadTileImage("grass02.png");
+        tile[0].image = loadTileImage("grass02.png"); //abbastanza autoesplicativo
         tile[1].image = loadTileImage("grass01.png");
         tile[2].image = loadTileImage("water_top_left.png"); tile[2].collision = true;
         tile[3].image = loadTileImage("water_top.png"); tile[3].collision = true;
@@ -89,34 +91,50 @@ public class TileManager {
 
     private BufferedImage loadTileImage(String percorso) {
         try {
-            return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso)));
+            return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso))); //restituisce l'immagine richiesta
         } catch (Exception e) {
             System.err.println("Tile non trovato: " + percorso);
             return null;
         }
     }
 
-    public void draw(Graphics2D g) {
-        if (currentMappa == -1) {
-            currentMappa = 0;
-            cambiaMappa(currentMappa);
-            Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE*7);
-            Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE*7);
+    public void setCurrentMap(int map){
+        currentMappa = map; //autoesplicativo
+    }
+
+    public void setPosizionePlayer(int x, int y) {
+        Defines.PLAYER.setWorldX(x*Defines.GRANDEZZA_CASELLE); //autoesplicativo
+        Defines.PLAYER.setWorldY(y*Defines.GRANDEZZA_CASELLE);
+    }
+    
+    public boolean isInUscita(int x, int y, int i) { //controlla se il player è in una casella di uscita
+        boolean flag = false;
+        if (x == uscita[i].getCol() && y == uscita[i].getRow()) {
+            flag = true;
         }
-        
+        return flag;
+    }
+
+    public void draw(Graphics2D g) {
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int playerCol = Player.getWorldX() / grandezzaCaselle;
         int playerRow = Player.getWorldY() / grandezzaCaselle;
         boolean e = GamePanel.keyH.getPremuto("E");
 
+        if (currentMappa == -1) {
+            setCurrentMap(2);
+            cambiaMappa(currentMappa);
+            setPosizionePlayer(7, 7);
+        }
+
         for (int i = 0; i < uscita.length; i++) {
-            if (playerCol == uscita[i].getCol() && playerRow == uscita[i].getRow() && e && !flag) {
+            if (isInUscita(playerCol, playerRow, i) && e && !flag) {
                 cambiaMappa(i);  // Passiamo l'indice dell'uscita usata
                 flag=true;
                 break;
             }
             if (!e && flag==true) {
-                flag=false;
+                flag=false; // Resetta il flag quando il tasto non è premuto
             }
         }
         
@@ -124,22 +142,19 @@ public class TileManager {
         for (int row = 0; row < misuray; row++) {
             for (int col = 0; col < misurax; col++) {
                 int tileNum = n[col][row];
-                int worldX = col * grandezzaCaselle;
+                int worldX = col * grandezzaCaselle; //calcola la posizione del tile nel mondo
                 int worldY = row * grandezzaCaselle;
-                int screenX = worldX - Entity.getWorldX() + Defines.PLAYER.getScreenX();
+                int screenX = worldX - Entity.getWorldX() + Defines.PLAYER.getScreenX();  //calcola la posizione del tile sullo schermo (posizione mondo-posizione player nel mondo+centro dello schermo)
                 int screenY = worldY - Entity.getWorldY() + Defines.PLAYER.getScreenY();
                 
                 if (isVisible(worldX, worldY, grandezzaCaselle)) {
-                    g.drawImage(tile[tileNum].image, screenX, screenY, grandezzaCaselle, grandezzaCaselle, null);
+                    g.drawImage(tile[tileNum].image, screenX, screenY, grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
         }
     }
 
     private void cambiaMappa(int uscitaIndex) {
-        
-        
-        
         if (currentMappa == mappe[mappe.length - 1]) {
             currentMappa = mappe[0];
         } else {
@@ -147,21 +162,23 @@ public class TileManager {
         }
         System.out.println("Mappa  " + currentMappa);
 
-        switch (currentMappa) {
+        switch (currentMappa) { //carica la mappa in base alla mappa attuale
             case 1:
-                loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
-                Defines.GAME_PANEL.setBackground(Color.black);
+                loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt"); 
+                Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
                 break;
             case 2:
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
                 break;
+            default:
+                loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
+                Defines.GAME_PANEL.setBackground(Color.black);
+                break;
         }
         //updateMusic();
-        if (uscitaIndex >= 0 && uscitaIndex < spawn.length) {
-            Defines.PLAYER.setWorldX(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getCol());
-            Defines.PLAYER.setWorldY(Defines.GRANDEZZA_CASELLE * spawn[uscitaIndex].getRow());
-        }
+        if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
+            setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
     
     public void updateMusic() {
