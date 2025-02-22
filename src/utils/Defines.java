@@ -22,12 +22,10 @@ public class Defines {
     public static final int SCREEN_HEIGHT = 720;//(int)toolkit.getScreenSize().getHeight();
     public static final JFrame MAINFRAME = new JFrame("GameScreen");
     public static final ImageIcon ICONIMG = new ImageIcon("src/res/images/icon.png");
-    public static int NUM_COLONNE = 50; // modificabile per cambiare la dimensione della visuale
-    public static int NUM_RIGHE = 50; // si modifica a seconda della prima per avere la risuluzione in 16:9
 
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
-    public static final double SCALA = 2;
+    public static final double SCALA = 3;
 
     public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
     

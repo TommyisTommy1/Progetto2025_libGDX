@@ -88,7 +88,7 @@ public class Player extends Entity {
     private void getPlayerImage() {
         moving = new SpritesheetPlayer(4, 5, 3, 4, "finn.png");
         notMoving = new SpritesheetPlayer(2, 2, 0, 1, "finn.png");
-        dying = new Spritesheet(6, 0, "FinnDeath.png");
+        dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
     }
 
     private boolean lontanoDaiBordi() {

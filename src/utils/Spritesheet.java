@@ -9,16 +9,16 @@ public class Spritesheet {
     private BufferedImage[] image;
     private int num;
 
-    public Spritesheet(int num, int row, String file) {
+    public Spritesheet(int num, int row, String path, String file) {
         this.num = num;
         this.image = new BufferedImage[num];
 
         try {
-            BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(file)));
+            BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream(path.concat(file))); //carica l'immagine 
             for (int index = 0; index < num; index++) {
-                int x = index * 32; // CORRETTO: ogni sprite si trova in una posizione differente sulla spritesheet
+                int x = index * 32;
                 int y = row * 32;
-                image[index] = spriteSheet.getSubimage(x, y, 32, 32);
+                image[index] = spriteSheet.getSubimage(x, y, 32, 32); //divide in immagini piu piccole
             }
         } catch (IOException | NullPointerException e) {
             System.err.println("Immagine non trovata in: " + file);
@@ -34,7 +34,7 @@ public class Spritesheet {
         }
     }
 
-    public void flipImmagine() {
+    public void flipImmagine() { //flippa l'immagine
         for (int index = 0; index < num; index++) {
             int width = image[index].getWidth();
             int height = image[index].getHeight();
