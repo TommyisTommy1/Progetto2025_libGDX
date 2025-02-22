@@ -69,7 +69,7 @@ public class Nemico extends Entity {
         }
         
     }
-
+    
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         return camera.getCameraWorldX() + grandezzaCaselle > worldX - Defines.PLAYER.getScreenX() &&
