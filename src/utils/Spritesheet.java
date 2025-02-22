@@ -14,7 +14,7 @@ public class Spritesheet {
         this.image = new BufferedImage[num];
 
         try {
-            BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream("/res/player/" + file));
+            BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream("/res/player/".concat(file)));
             for (int index = 0; index < num; index++) {
                 int x = index * 32; // CORRETTO: ogni sprite si trova in una posizione differente sulla spritesheet
                 int y = row * 32;

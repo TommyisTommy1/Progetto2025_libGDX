@@ -1,4 +1,4 @@
-package mp3PlayerPkg;
+package mp3player;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import java.io.FileInputStream;

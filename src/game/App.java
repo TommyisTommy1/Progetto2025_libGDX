@@ -1,4 +1,4 @@
-package Gioco;
+package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

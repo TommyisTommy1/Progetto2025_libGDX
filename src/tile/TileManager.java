@@ -8,9 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
-import Gioco.GamePanel;
 import entity.Entity;
 import entity.Player;
+import game.GamePanel;
 import utils.Defines;
 
 public class TileManager {

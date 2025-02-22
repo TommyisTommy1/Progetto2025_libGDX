@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import Gioco.GamePanel;
-import Gioco.GestioneTasti;
+import game.GamePanel;
+import game.GestioneTasti;
 import utils.Defines;
 import utils.Spritesheet;
 import utils.SpritesheetPlayer;
