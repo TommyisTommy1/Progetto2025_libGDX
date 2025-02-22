@@ -59,7 +59,7 @@ public class Player extends Entity {
 
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
-        if (this.spriteCounter > wait / delta) {
+        if (this.spriteCounter > wait / delta * Defines.FPS / 60) {
             if (spriteNum < n) {
                 spriteNum++;
             } else {

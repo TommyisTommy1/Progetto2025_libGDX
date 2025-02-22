@@ -52,7 +52,7 @@ public class Entity {
     }
 
     protected void setSpeed(int speed, double delta) {
-        this.speed = (int) Math.ceil((double) speed * delta);
+        this.speed = (int) Math.ceil((double) speed * delta/(Defines.FPS/60));
         this.delta = delta;
     }
 }
