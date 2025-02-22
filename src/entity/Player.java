@@ -13,6 +13,8 @@ import utils.SpritesheetEntity;
 public class Player extends Entity {
     private final GestioneTasti gestioneTasti;
 
+    protected static int worldX;
+    protected static int worldY;
     private final int screenX;
     private final int screenY;
 
@@ -42,6 +44,21 @@ public class Player extends Entity {
 
     public static int getWorldY() {
         return worldY;
+    }
+    
+    public void setWorldX(int n) {
+        worldX = n;
+    }
+
+    protected int getCol(){
+        return worldX/Defines.GRANDEZZA_CASELLE;
+    }
+    protected int getRow(){
+        return worldY/Defines.GRANDEZZA_CASELLE;
+    }
+
+    public void setWorldY(int n) {
+        worldY = n;
     }
     private void setDefaultValues() {
         isAlive = true;

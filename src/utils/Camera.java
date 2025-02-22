@@ -7,12 +7,18 @@ public class Camera {
 
     int playerWorldX = Player.getWorldX();
     int playerWorldY = Player.getWorldY();
-
     int playerScreenX = Defines.PLAYER.getScreenX();
     int playerScreenY = Defines.PLAYER.getScreenY();
 
     public Camera() {
+        playerWorldX = Player.getWorldX();
+        playerWorldY = Player.getWorldY();
+        playerScreenX = Defines.PLAYER.getScreenX();
+        playerScreenY = Defines.PLAYER.getScreenY();
     }
+
+
+    
     
     public void setCameraCasella(int x, int y) {
         this.x = x;

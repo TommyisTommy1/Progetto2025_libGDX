@@ -4,8 +4,6 @@ import java.awt.Rectangle;
 import utils.Defines;
 
 public class Entity {
-    protected static int worldX;
-    protected static int worldY;
     protected int speed;
     protected double delta;
 
@@ -24,20 +22,7 @@ public class Entity {
         return this.direction;
     }
 
-    public void setWorldX(int n) {
-        worldX = n;
-    }
-
-    protected int getCol(){
-        return worldX/Defines.GRANDEZZA_CASELLE;
-    }
-    protected int getRow(){
-        return worldY/Defines.GRANDEZZA_CASELLE;
-    }
-
-    public void setWorldY(int n) {
-        worldY = n;
-    }
+    
 
     public int getSpeed() {
         return this.speed;

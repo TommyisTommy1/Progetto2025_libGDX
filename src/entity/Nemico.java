@@ -1,7 +1,7 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 import utils.Camera;
 import utils.Defines;
@@ -30,7 +30,14 @@ public class Nemico extends Entity {
         setDirezione("su");
         getNemicoImage();
     }
-        
+    
+    private int getCol() {
+        return worldX/Defines.GRANDEZZA_CASELLE;   
+    }
+    private int getRow() {
+        return worldY/Defines.GRANDEZZA_CASELLE;   
+    }
+
     private void getNemicoImage() {
         
     }
@@ -54,9 +61,11 @@ public class Nemico extends Entity {
     public void draw(Graphics2D g) {
         Camera camera = new Camera();
         camera.setCameraCasella(getCol(), getRow());
-        
+        int screenX = camera.getScreenX();
+        int screenY = camera.getScreenY();
         if (isVisible(camera)) {
-            g.drawRect(camera.getCameraWorldX(), camera.getCameraWorldY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            g.setColor(Color.RED);
+            g.fillRect(screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
         }
         
     }
