@@ -38,6 +38,8 @@ public class Player extends Entity {
         areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         setDefaultValues();
     }
+    
+    // Getters
     public static int getWorldX() {
         return worldX;
     }
@@ -45,25 +47,13 @@ public class Player extends Entity {
     public static int getWorldY() {
         return worldY;
     }
-    
-    public void setWorldX(int n) {
-        worldX = n;
-    }
 
     protected int getCol(){
         return worldX/Defines.GRANDEZZA_CASELLE;
     }
+
     protected int getRow(){
         return worldY/Defines.GRANDEZZA_CASELLE;
-    }
-
-    public void setWorldY(int n) {
-        worldY = n;
-    }
-    private void setDefaultValues() {
-        isAlive = true;
-        setDirezione("su");
-        getPlayerImage();
     }
 
     public int getScreenX() {
@@ -78,6 +68,30 @@ public class Player extends Entity {
         return gestioneTasti.getPremuto(key);
     }
 
+    private void getPlayerImage() {
+        String path = "/res/player/";
+        moving = new SpritesheetEntity(4, 5, 3, 4, path, "finn.png");
+        notMoving = new SpritesheetEntity(2, 2, 0, 1, path, "finn.png");
+        dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
+    }
+
+    // Setters
+
+    public void setWorldX(int n) {
+        worldX = n;
+    }
+
+    public void setWorldY(int n) {
+        worldY = n;
+    }
+
+    private void setDefaultValues() {
+        isAlive = true;
+        setDirezione("su");
+        getPlayerImage();
+    }
+
+    // Tempo di attesa per cambiare sprite
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
         if (this.spriteCounter > wait / delta * Defines.FPS / 60) {
@@ -90,6 +104,7 @@ public class Player extends Entity {
         }
     }
 
+    // Movimento del personaggio
     private void spostaX(String direction, String operazione) {
         setDirezione(direction);
         if (operazione.equals("aggiungi"))
@@ -106,13 +121,7 @@ public class Player extends Entity {
             worldY -= speed;
     }
 
-    private void getPlayerImage() {
-        String path = "/res/player/";
-        moving = new SpritesheetEntity(4, 5, 3, 4, path, "finn.png");
-        notMoving = new SpritesheetEntity(2, 2, 0, 1, path, "finn.png");
-        dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
-    }
-
+    //Verifica se il personaggio è vicino ai bordi della mappa
     private boolean lontanoDaiBordi() {
         boolean stato = false;
         int offset = 2;
@@ -124,7 +133,32 @@ public class Player extends Entity {
         }
         return stato;
     }
+    
+    //Controlla le collisioni del personaggio
+    public void controllaCollisioniX(boolean a, boolean d) {
+        inCollisione = false;
+        Defines.GAME_PANEL.collisioni.controllaCasella(this);
+        if (!inCollisione) {
+            if (d)
+                spostaX("destra", "aggiungi");
+            if (a)
+                spostaX("sinistra", "sottrai");
 
+        }
+    }
+
+    public void controllaCollisioniY(boolean w, boolean s) {
+        inCollisione = false;
+        Defines.GAME_PANEL.collisioni.controllaCasella(this);
+        if (!inCollisione) {
+            if (w)
+                spostaY("su", "sottrai");
+            if (s)
+                spostaY("giu", "aggiungi");
+        }
+    }
+
+    // Aggiorna il personaggio ogni frame
     public void update() {
         boolean w = getPremuto("W");
         boolean s = getPremuto("S");
@@ -225,29 +259,7 @@ public class Player extends Entity {
         }
     }
 
-    public void controllaCollisioniX(boolean a, boolean d) {
-        inCollisione = false;
-        Defines.GAME_PANEL.collisioni.controllaCasella(this);
-        if (!inCollisione) {
-            if (d)
-                spostaX("destra", "aggiungi");
-            if (a)
-                spostaX("sinistra", "sottrai");
-
-        }
-    }
-
-    public void controllaCollisioniY(boolean w, boolean s) {
-        inCollisione = false;
-        Defines.GAME_PANEL.collisioni.controllaCasella(this);
-        if (!inCollisione) {
-            if (w)
-                spostaY("su", "sottrai");
-            if (s)
-                spostaY("giu", "aggiungi");
-        }
-    }
-
+    // Disegna il personaggio
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         if (isAlive) {
