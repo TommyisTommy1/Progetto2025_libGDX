@@ -113,6 +113,7 @@ public class Player extends Entity {
 
         boolean k = getPremuto("K");
         boolean e = getPremuto("E");
+
         if (isAlive && k) {
             isAlive = false;
             isAliveAnimation=false;
@@ -132,9 +133,6 @@ public class Player extends Entity {
             
         }
 
-        if (isAliveAnimation) {
-            
-        }
         
         if (isAlive) {
             if (shift) {
@@ -167,37 +165,41 @@ public class Player extends Entity {
                         return;
                 }
             }
-    
-            if (w || s || d || a) {
-                spriteCounter(3, 8);
-                if (a && d) {
-                    setDirezione("fermoGiu");
-                    if (w)
-                        setDirezione("su");
-                    if (s)
-                        setDirezione("giu");
-                    controllaCollisioniY(w, s);
-                } else if (w && s) {
-                    setDirezione("fermoGiu");
-                    if (d)
-                        setDirezione("destra");
-                    if (a)
-                        setDirezione("sinistra");
-                    controllaCollisioniX(a, d);
-                } else {
-                    if (w)
-                        setDirezione("su");
-                    if (s)
-                        setDirezione("giu");
-                    controllaCollisioniY(w, s);
-                    if (d)
-                        setDirezione("destra");
-                    if (a)
-                        setDirezione("sinistra");
-                    // CONTROLLA COLLISIONI
-                    controllaCollisioniX(a, d);
+            try {
+                if (w || s || d || a) {
+                    spriteCounter(3, 8);
+                    if (a && d) {
+                        setDirezione("fermoGiu");
+                        if (w)
+                            setDirezione("su");
+                        if (s)
+                            setDirezione("giu");
+                        controllaCollisioniY(w, s);
+                    } else if (w && s) {
+                        setDirezione("fermoGiu");
+                        if (d)
+                            setDirezione("destra");
+                        if (a)
+                            setDirezione("sinistra");
+                        controllaCollisioniX(a, d);
+                    } else {
+                        if (w)
+                            setDirezione("su");
+                        if (s)
+                            setDirezione("giu");
+                        controllaCollisioniY(w, s);
+                        if (d)
+                            setDirezione("destra");
+                        if (a)
+                            setDirezione("sinistra");
+                        // CONTROLLA COLLISIONI
+                        controllaCollisioniX(a, d);
+                    }
                 }
+            } catch (Exception e2) {
+                System.err.println("Errore: personaggio fuori dalla mappa");
             }
+            
         }
     }
 

@@ -25,7 +25,7 @@ public class Defines {
 
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
-    public static final double SCALA = 3;
+    public static final double SCALA = 2;
 
     public static final int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
     
