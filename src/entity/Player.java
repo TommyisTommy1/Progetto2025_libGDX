@@ -8,7 +8,7 @@ import game.GamePanel;
 import game.GestioneTasti;
 import utils.Defines;
 import utils.Spritesheet;
-import utils.SpritesheetPlayer;
+import utils.SpritesheetEntity;
 
 public class Player extends Entity {
     private final GestioneTasti gestioneTasti;
@@ -19,8 +19,8 @@ public class Player extends Entity {
     boolean isAlive;
     boolean isAliveAnimation = false;
 
-    SpritesheetPlayer moving;
-    SpritesheetPlayer notMoving;
+    SpritesheetEntity moving;
+    SpritesheetEntity notMoving;
     Spritesheet dying;
 
     public Player(GestioneTasti g2) {
@@ -86,8 +86,9 @@ public class Player extends Entity {
     }
 
     private void getPlayerImage() {
-        moving = new SpritesheetPlayer(4, 5, 3, 4, "finn.png");
-        notMoving = new SpritesheetPlayer(2, 2, 0, 1, "finn.png");
+        String path = "/res/player/";
+        moving = new SpritesheetEntity(4, 5, 3, 4, path, "finn.png");
+        notMoving = new SpritesheetEntity(2, 2, 0, 1, path, "finn.png");
         dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
     }
 

@@ -42,9 +42,6 @@ public class Defines {
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
 
-    
-
-    
     public static final int FPS = 120; //validi solo multipli di 60, non sotto i 60
 
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
