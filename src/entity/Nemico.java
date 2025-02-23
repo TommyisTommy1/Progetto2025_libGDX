@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import utils.Camera;
 import utils.Defines;
@@ -23,6 +24,13 @@ public class Nemico extends Entity {
         setDefaultValues();
     }
 
+    protected int getCol(){
+        return worldX/Defines.GRANDEZZA_CASELLE;
+    }
+    protected int getRow(){
+        return worldY/Defines.GRANDEZZA_CASELLE;
+    }
+
     private void setDefaultValues() {
         worldX = 3 * Defines.GRANDEZZA_CASELLE;
         worldY = 3 * Defines.GRANDEZZA_CASELLE;
@@ -30,14 +38,7 @@ public class Nemico extends Entity {
         setDirezione("su");
         getNemicoImage();
     }
-    
-    private int getCol() {
-        return worldX/Defines.GRANDEZZA_CASELLE;   
-    }
-    private int getRow() {
-        return worldY/Defines.GRANDEZZA_CASELLE;   
-    }
-
+        
     private void getNemicoImage() {
         
     }
@@ -61,15 +62,14 @@ public class Nemico extends Entity {
     public void draw(Graphics2D g) {
         Camera camera = new Camera();
         camera.setCameraCasella(getCol(), getRow());
-        int screenX = camera.getScreenX();
-        int screenY = camera.getScreenY();
+        
         if (isVisible(camera)) {
             g.setColor(Color.RED);
-            g.fillRect(screenX, screenY, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            g.fillRect(camera.getScreenX(), camera.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
         }
         
     }
-    
+
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile
         int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         return camera.getCameraWorldX() + grandezzaCaselle > worldX - Defines.PLAYER.getScreenX() &&
