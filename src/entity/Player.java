@@ -13,8 +13,8 @@ import utils.SpritesheetEntity;
 public class Player extends Entity {
     private final GestioneTasti gestioneTasti;
 
-    protected static int worldX;
-    protected static int worldY;
+    private int worldX;
+    private int worldY;
     private int screenX;
     private int screenY;
 
@@ -38,11 +38,11 @@ public class Player extends Entity {
     
     // Getters
 
-    public static int getWorldX() {
+    public int getWorldX() {
         return worldX;
     }
 
-    public static int getWorldY() {
+    public int getWorldY() {
         return worldY;
     }
 

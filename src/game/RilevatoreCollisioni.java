@@ -1,57 +1,83 @@
 package game;
 
 import entity.Entity;
-import entity.Player;
 import utils.Defines;
 
 public class RilevatoreCollisioni {
-    Entity entity;
-    public RilevatoreCollisioni() {
+    
+    private Entity entity;
+
+    private int grandezzaCaselle = Defines.GRANDEZZA_CASELLE, numColonne, numRighe;
+
+    private int speed;
+
+    private int larghezzaMappa, altezzaMappa;
+    
+    private int getSpeed() {
+        return speed;
     }
+
+    private void setSpeed(int speed) {
+        this.speed=speed;
+    }
+
+    private void setDefaultValues() {
+        numColonne = GamePanel.getMaxWorldCol() - 1;
+        numRighe = GamePanel.getMaxWorldRow() - 1;
+        larghezzaMappa = grandezzaCaselle * numColonne;
+        altezzaMappa = grandezzaCaselle * numRighe - 5;
+    }
+
+    //  Costruttore
+    public RilevatoreCollisioni() {
+        setDefaultValues();
+    }
+
+    //  Metodi
     
     public void controllaCasella(Entity entity) {
         this.entity = entity;
-    
-        int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        int numColonne = GamePanel.getMaxWorldCol() - 1;
-        int numRighe = GamePanel.getMaxWorldRow() - 1;
-        int speed = entity.getSpeed();
+
+        int playerWorldX = Defines.PLAYER.getWorldX();
+        int playerWorldY = Defines.PLAYER.getWorldY();
+
+        setDefaultValues();
+
+        setSpeed(entity.getSpeed());
         
-        int entityDestraWorldX = Player.getWorldX() + entity.areaCollisione.x + entity.areaCollisione.width;
-        int entitySinistraWorldX = Player.getWorldX() + entity.areaCollisione.x;
-        int entitySuWorldY = Player.getWorldY() + entity.areaCollisione.y;
-        int entityGiuWorldY = Player.getWorldY() + entity.areaCollisione.y + entity.areaCollisione.height;
+        int entityDestraWorldX = playerWorldX + entity.areaCollisione.x + entity.areaCollisione.width;
+        int entitySinistraWorldX = playerWorldX + entity.areaCollisione.x;
+        int entitySuWorldY = playerWorldY + entity.areaCollisione.y;
+        int entityGiuWorldY = playerWorldY + entity.areaCollisione.y + entity.areaCollisione.height;
     
         int entitySinistraCol = entitySinistraWorldX / grandezzaCaselle;
         int entityDestraCol = entityDestraWorldX / grandezzaCaselle;
         int entitySuRow = entitySuWorldY / grandezzaCaselle;
         int entityGiuRow = entityGiuWorldY / grandezzaCaselle;
     
-        int larghezzaMappa = grandezzaCaselle * numColonne;
-        int altezzaMappa = grandezzaCaselle * numRighe - 5;
     
-        if (Player.getWorldX() <= 0 || Player.getWorldX() >= larghezzaMappa) {
+        if (fuoriDaiBordiX(playerWorldX)) {
             switch (entity.getDirezione()) {
                 case "sinistra":
-                    if (Player.getWorldX() <= 0)
+                    if (playerWorldX <= 0)
                         entity.inCollisione = true;
                     break;
                 case "destra":
-                    if (Player.getWorldX() >= larghezzaMappa)
+                    if (playerWorldX >= larghezzaMappa)
                         entity.inCollisione = true;
                     break;
                 default:
                     break;
             }
         }
-        if (Player.getWorldY() < 0 || Player.getWorldY() > altezzaMappa) {
+        if (fuoriDaiBordiY(playerWorldY)) {
             switch (entity.getDirezione()) {
                 case "su":
-                    if (Player.getWorldY() < 0)
+                    if (playerWorldY < 0)
                         entity.inCollisione = true;
                     break;
                 case "giu":
-                    if (Player.getWorldY() > altezzaMappa)
+                    if (playerWorldY > altezzaMappa)
                         entity.inCollisione = true;
                     break;
                 default:
@@ -61,22 +87,22 @@ public class RilevatoreCollisioni {
     
         switch (entity.getDirezione()) {
             case "su":
-                entitySuRow = (entitySuWorldY - speed) / grandezzaCaselle;
+                entitySuRow = (entitySuWorldY - getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 controllaCollisioniCasella(entityDestraCol, entitySuRow);
                 break;
             case "giu":
-                entityGiuRow = (entityGiuWorldY + speed) / grandezzaCaselle;
+                entityGiuRow = (entityGiuWorldY + getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entityGiuRow);
                 controllaCollisioniCasella(entityDestraCol, entityGiuRow);
                 break;
             case "sinistra":
-                entitySinistraCol = (entitySinistraWorldX - speed) / grandezzaCaselle;
+                entitySinistraCol = (entitySinistraWorldX - getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 controllaCollisioniCasella(entitySinistraCol, entityGiuRow);
                 break;
             case "destra":
-                entityDestraCol = (entityDestraWorldX + speed) / grandezzaCaselle;
+                entityDestraCol = (entityDestraWorldX + getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entityDestraCol, entitySuRow);
                 controllaCollisioniCasella(entityDestraCol, entityGiuRow);
                 break;
@@ -84,10 +110,18 @@ public class RilevatoreCollisioni {
                 break;
         }
     }
-    public void controllaCollisioniCasella(int col, int row){
+    private void controllaCollisioniCasella(int col, int row){
         int tile;
         tile = Defines.TILE_MANAGER.n[col][row];
         if (Defines.TILE_MANAGER.tile[tile].getCollision())
             entity.inCollisione = true;
+    }
+
+    private boolean fuoriDaiBordiX(int x) {
+        return x <= 0 || x >= larghezzaMappa;
+    }
+    
+    private boolean fuoriDaiBordiY(int y) {
+        return y <= 0 || y >= altezzaMappa;
     }
 }
