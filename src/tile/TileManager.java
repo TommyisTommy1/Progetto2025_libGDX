@@ -1,5 +1,6 @@
 package tile;
 
+import game.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -7,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-
-import game.GamePanel;
 import utils.Camera;
 import utils.Defines;
 
@@ -178,7 +177,7 @@ public class TileManager {
                 Defines.GAME_PANEL.setBackground(Color.black);
                 break;
         }
-        //updateMusic();
+        updateMusic();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
