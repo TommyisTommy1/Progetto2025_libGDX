@@ -13,8 +13,10 @@ import utils.SpritesheetEntity;
 public class Player extends Entity {
     private final GestioneTasti gestioneTasti;
 
-    private final int screenX;
-    private final int screenY;
+    protected static int worldX;
+    protected static int worldY;
+    private int screenX;
+    private int screenY;
 
     boolean isAlive;
     boolean isAliveAnimation = false;
@@ -23,19 +25,19 @@ public class Player extends Entity {
     SpritesheetEntity notMoving;
     Spritesheet dying;
     
+    //Costruttore
+
     public Player(GestioneTasti g2) {
         gestioneTasti = g2;
 
         screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE / 2;
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
 
-        areaCollisione = new Rectangle();
-        areaCollisione.x = 10;
-        areaCollisione.y = 20;
-        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
-        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         setDefaultValues();
     }
+    
+    // Getters
+
     public static int getWorldX() {
         return worldX;
     }
@@ -43,10 +45,9 @@ public class Player extends Entity {
     public static int getWorldY() {
         return worldY;
     }
-    private void setDefaultValues() {
-        isAlive = true;
-        setDirezione("su");
-        getPlayerImage();
+
+    public void setWorldX(int n) {
+        worldX = n;
     }
 
     public int getScreenX() {
@@ -57,10 +58,45 @@ public class Player extends Entity {
         return this.screenY;
     }
 
+    protected int getCol(){
+        return worldX/Defines.GRANDEZZA_CASELLE;
+    }
+
+    protected int getRow(){
+        return worldY/Defines.GRANDEZZA_CASELLE;
+    }
+
+    private void getPlayerImage() {
+        String path = "/res/player/";
+        moving = new SpritesheetEntity(4, 5, 3, 4, path, "finn.png");
+        notMoving = new SpritesheetEntity(2, 2, 0, 1, path, "finn.png");
+        dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
+    }
+    
+    // Setters
+
     private boolean getPremuto(String key) {
         return gestioneTasti.getPremuto(key);
     }
 
+    public void setWorldY(int n) {
+        worldY = n;
+    }
+    
+
+    private void setDefaultValues() {
+        isAlive = true;
+        setDirezione("su");
+        getPlayerImage();
+        areaCollisione = new Rectangle();
+        areaCollisione.x = 10;
+        areaCollisione.y = 20;
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
+    }
+
+   
+    // Tempo di attesa per cambiare sprite
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
         if (this.spriteCounter > wait / delta * Defines.FPS / 60) {
@@ -73,6 +109,20 @@ public class Player extends Entity {
         }
     }
 
+    //Verifica se il personaggio è vicino ai bordi
+    private boolean lontanoDaiBordi() {
+        boolean stato = false;
+        int offset = 2;
+        if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol() - 2 - offset) {
+            stato = true;
+        }
+        if (getRow() < offset || getRow() > GamePanel.getMaxWorldRow() - 2 - offset) {
+            stato = true;
+        }
+        return stato;
+    }
+    
+    // Movimento del personaggio
     private void spostaX(String direction, String operazione) {
         setDirezione(direction);
         if (operazione.equals("aggiungi"))
@@ -89,25 +139,7 @@ public class Player extends Entity {
             worldY -= speed;
     }
 
-    private void getPlayerImage() {
-        String path = "/res/player/";
-        moving = new SpritesheetEntity(4, 5, 3, 4, path, "finn.png");
-        notMoving = new SpritesheetEntity(2, 2, 0, 1, path, "finn.png");
-        dying = new Spritesheet(6, 0, "/res/player/","FinnDeath.png");
-    }
-
-    private boolean lontanoDaiBordi() {
-        boolean stato = false;
-        int offset = 2;
-        if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol() - 2 - offset) {
-            stato = true;
-        }
-        if (getRow() < offset || getRow() > GamePanel.getMaxWorldRow() - 2 - offset) {
-            stato = true;
-        }
-        return stato;
-    }
-
+    //Aggiornamento del personaggio
     public void update() {
         boolean w = getPremuto("W");
         boolean s = getPremuto("S");
@@ -208,6 +240,8 @@ public class Player extends Entity {
         }
     }
 
+    //Controlla le collisioni del personaggio
+    
     public void controllaCollisioniX(boolean a, boolean d) {
         inCollisione = false;
         Defines.GAME_PANEL.collisioni.controllaCasella(this);
@@ -231,6 +265,8 @@ public class Player extends Entity {
         }
     }
 
+    
+    //Disegno del personaggio
     public void draw(Graphics2D g) {
         BufferedImage image = null;
         if (isAlive) {
@@ -282,4 +318,5 @@ public class Player extends Entity {
         // areaCollisione.width, areaCollisione.height);
         ;
     }
+
 }
