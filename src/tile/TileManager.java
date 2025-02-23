@@ -179,6 +179,7 @@ public class TileManager {
                 break;
         }
         updateMusic();
+        //updateShader();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
@@ -223,4 +224,29 @@ public class TileManager {
             e.printStackTrace();
         }
     }
+    /* 
+    public static void updateShader ()
+    {
+        if (Defines.SHADER_Thread.isAlive() && Defines.SHADERS != null) 
+        {
+            try {
+                Defines.SHADER_Thread.interrupt();
+                Defines.SHADER_Thread.join(50);
+            } catch (Exception e) {
+                System.err.println("Error stopping shader thread: " + e.getMessage());
+            }
+        }
+        String[] mapShader = new String[]{"none", "src/res/shaders/sw.png"};
+        Defines.SHADERS = new Shaders(Defines.GAME_PANEL, mapShader[currentMappa - 1]);
+        Defines.SHADER_Thread = new Thread(Defines.SHADERS);
+        try {
+            Defines.SHADER_Thread.start();
+            System.out.println("Shader changed successfully");
+            System.out.println("Shader path: " + mapShader[currentMappa - 1]);
+        } catch (Exception e) {
+            System.err.println("Error starting new shader: " + e.getMessage());
+        }
+        Defines.MAINFRAME.add(Defines.GAME_PANEL);
+    }
+    */
 }

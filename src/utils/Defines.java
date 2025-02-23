@@ -32,8 +32,6 @@ public class Defines {
 
     //DIALOGHI
     public static final DialogMngr mngrDialog = new DialogMngr();
-
-
     // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
     public static final GamePanel GAME_PANEL = new GamePanel();
     public static final JPanel CONTENT_PANEL = new JPanel(new BorderLayout());
@@ -43,4 +41,9 @@ public class Defines {
     public static final Thread THREAD_GIOCO = new Thread(GAME_PANEL);
     public static final Player PLAYER = new Player(GamePanel.keyH);
     public static final TileManager TILE_MANAGER = new TileManager();
+
+    // SHADERS
+    public static Shaders SHADERS = new Shaders(GAME_PANEL, "none");
+    public static Thread SHADER_Thread = new Thread(SHADERS);
+    
 }
