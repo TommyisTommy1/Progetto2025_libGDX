@@ -45,4 +45,29 @@ public class Spritesheet {
             image[index] = immagineFlippata;
         }
     }
+
+    public void overlayImmagine(BufferedImage overlay) { //sovrappone l'immagine
+        for (int index = 0; index < num; index++) {
+            int width = image[index].getWidth();
+            int height = image[index].getHeight();
+            BufferedImage immagineSovrapposta = new BufferedImage(width, height, image[index].getType());
+            Graphics2D g = immagineSovrapposta.createGraphics();
+            g.drawImage(image[index], 0, 0, null);
+            g.drawImage(overlay, 0, 0, null);
+            g.dispose();
+            image[index] = immagineSovrapposta;
+        }
+    }
+    public void overlayImmagine(Spritesheet overlay) { //sovrappone l'immagine
+        for (int index = 0; index < num; index++) {
+            int width = image[index].getWidth();
+            int height = image[index].getHeight();
+            BufferedImage immagineSovrapposta = new BufferedImage(width, height, image[index].getType());
+            Graphics2D g = immagineSovrapposta.createGraphics();
+            g.drawImage(image[index], 0, 0, null);
+            g.drawImage(overlay.getSpriteSheet(index), 0, 0, null);
+            g.dispose();
+            image[index] = immagineSovrapposta;
+        }
+    }
 }

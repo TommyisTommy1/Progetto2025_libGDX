@@ -1,8 +1,15 @@
 package utils;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.Buffer;
+
+import javax.imageio.ImageIO;
+
 public class SpritesheetEntity{
     Spritesheet up, down, right, left;
     String path;
+    Spritesheet image;
 
     public SpritesheetEntity(int num, int up, int down, int right, int left, String path, String file){
         this.path = path;
@@ -17,7 +24,11 @@ public class SpritesheetEntity{
         this.down = new Spritesheet(num , down, path, file);
         this.right = new Spritesheet(num, right, path, file);
         this.left = new Spritesheet(num, right, path, file);
+
+        //image = this.up;
+        
         this.left.flipImmagine();
+        //this.left.overlayImmagine(image);
     }
 
     public Spritesheet getUp() {
