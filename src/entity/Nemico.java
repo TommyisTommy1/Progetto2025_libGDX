@@ -33,6 +33,7 @@ public class Nemico extends Entity {
     private void setDefaultValues() {
         worldX = 3 * Defines.GRANDEZZA_CASELLE;
         worldY = 3 * Defines.GRANDEZZA_CASELLE;
+        setSpeed(1, 1);
         isAlive = true;
         setDirezione("su");
         getNemicoImage();
@@ -61,7 +62,6 @@ public class Nemico extends Entity {
     public void draw(Graphics2D g) {
         Camera camera = new Camera();
         camera.setCameraCasella(getCol(), getRow());
-        
         if (isVisible(camera)) {
             g.setColor(Color.RED);
             g.fillRect(camera.getScreenX(), camera.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
