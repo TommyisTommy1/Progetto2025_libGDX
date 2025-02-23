@@ -11,8 +11,11 @@ import javax.imageio.ImageIO;
 import mp3player.MP3Player;
 import utils.Camera;
 import utils.Defines;
+import utils.Spritesheet;
 
 public class TileManager {
+
+    Spritesheet sheet;
 
     private Camera camera;
     public Tile[] tile;
@@ -80,6 +83,7 @@ public class TileManager {
     }
 
     private void getTileImage() {
+        //sheet = new Spritesheet(1, 0, "/res/tile/", "grass_erbacce.png"); DA AGGIUSTARE MISURE IMMAGINI
         tile[0].image = loadTileImage("grass_erbacce.png"); //abbastanza autoesplicativo
         tile[1].image = loadTileImage("grass_erbacce.png");
         tile[2].image = loadTileImage("water_top_left.png"); tile[2].collision = true;
