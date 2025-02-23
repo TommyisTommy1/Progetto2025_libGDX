@@ -1,10 +1,5 @@
 package utils;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.Buffer;
-
-import javax.imageio.ImageIO;
 
 public class SpritesheetEntity{
     Spritesheet up, down, right, left;
