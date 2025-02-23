@@ -15,7 +15,7 @@ import utils.Spritesheet;
 
 public class TileManager {
 
-    Spritesheet sheet;
+    Spritesheet tileset;
 
     private Camera camera;
     public Tile[] tile;
