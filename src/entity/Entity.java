@@ -3,26 +3,27 @@ package entity;
 import java.awt.Rectangle;
 import utils.Defines;
 
-public class Entity {
-    protected int speed;
-    protected double delta;
+public abstract class Entity {
 
-    protected int spriteCounter = 0;
-    protected int spriteNum = 1;
-    public Rectangle areaCollisione;
-    public boolean inCollisione = false;
+    protected int speed; // velocità
+    protected double delta; // moltiplicatore di velocità
 
-    private String direction;
+    protected int spriteCounter = 0; 
+    protected int spriteNum = 1; // frame attuale
+    public Rectangle areaCollisione; // area di collisione
+    public boolean inCollisione = false; // se è in collisione
 
-    protected void setDirezione(String d) {
+    private String direction; // direzione
+
+    public Entity() {
+    }
+    protected void setDirezione(String d) { 
         this.direction = d;
     }
 
     public String getDirezione() {
         return this.direction;
     }
-
-    
 
     public int getSpeed() {
         return this.speed;

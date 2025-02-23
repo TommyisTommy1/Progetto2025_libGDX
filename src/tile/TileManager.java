@@ -8,12 +8,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
-import entity.Player;
 import game.GamePanel;
 import utils.Camera;
 import utils.Defines;
 
 public class TileManager {
+
     private Camera camera;
     public Tile[] tile;
     private Casella[] uscita, spawn;
@@ -107,8 +107,8 @@ public class TileManager {
     }
 
     public void setPosizionePlayer(int x, int y) {
-        Defines.PLAYER.setWorldX(x*Defines.GRANDEZZA_CASELLE); //autoesplicativo
-        Defines.PLAYER.setWorldY(y*Defines.GRANDEZZA_CASELLE);
+        Defines.PLAYER.setWorldX(x*grandezzaCaselle); //autoesplicativo
+        Defines.PLAYER.setWorldY(y*grandezzaCaselle);
     }
     
     public boolean isInUscita(int x, int y, int i) { //controlla se il player è in una casella di uscita
@@ -120,8 +120,8 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g) {
-        int playerCol = Player.getWorldX() / grandezzaCaselle;
-        int playerRow = Player.getWorldY() / grandezzaCaselle;
+        int playerCol = Defines.PLAYER.getWorldX() / grandezzaCaselle;
+        int playerRow = Defines.PLAYER.getWorldY() / grandezzaCaselle;
         boolean e = GamePanel.keyH.getPremuto("E");
 
         if (currentMappa == -1) {
@@ -145,8 +145,8 @@ public class TileManager {
         for (int row = 0; row < misuray; row++) {
             for (int col = 0; col < misurax; col++) {
 
-                camera = new Camera();
-                camera.setCameraCasella(col, row);
+                camera = new Camera(); // crea una nuova telecamera
+                camera.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
                 int tileNum = n[col][row];
                 
                 if (isVisible(camera)) {
@@ -185,10 +185,10 @@ public class TileManager {
 
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile
         
-        return camera.getCameraWorldX() + grandezzaCaselle > Player.getWorldX() - Defines.PLAYER.getScreenX() &&
-            camera.getCameraWorldX() - grandezzaCaselle < Player.getWorldX() + Defines.PLAYER.getScreenX() &&
-            camera.getCameraWorldY() + grandezzaCaselle > Player.getWorldY() - Defines.PLAYER.getScreenY() &&
-            camera.getCameraWorldY() - grandezzaCaselle < Player.getWorldY() + Defines.PLAYER.getScreenY();
+        return camera.getCameraWorldX() + grandezzaCaselle > Defines.PLAYER.getWorldX() - Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldX() - grandezzaCaselle < Defines.PLAYER.getWorldX() + Defines.PLAYER.getScreenX() &&
+            camera.getCameraWorldY() + grandezzaCaselle > Defines.PLAYER.getWorldY() - Defines.PLAYER.getScreenY() &&
+            camera.getCameraWorldY() - grandezzaCaselle < Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY();
     }
 
 
