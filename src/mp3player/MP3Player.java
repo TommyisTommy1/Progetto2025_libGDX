@@ -6,11 +6,10 @@ import java.io.File;
 public class MP3Player implements Runnable {
     private AdvancedPlayer player;
     private File audio;
-    private boolean stop = false;
     private String relativePath = "src/res/audio";
     private File folder = new File(relativePath);
     private String[] tracce = new String[5];
-
+    private FileInputStream inputStream;
     public MP3Player(int traccia) {
         tracce[1] = "circusTheme.mp3";
         tracce[2] = "combatTheme.mp3";
@@ -39,6 +38,12 @@ public class MP3Player implements Runnable {
                 System.out.println("Skipping: " + file.getName());
             }
         }
+        try {
+            inputStream = new FileInputStream(audio);
+        } catch (Exception e) {
+            System.out.println("Error loading: " + audio.getName());
+            e.printStackTrace();
+        }  
     }
 
     public void changeTrack (int traccia)
@@ -47,29 +52,28 @@ public class MP3Player implements Runnable {
     }
     @Override
     public void run() {
-        while (!stop){
             if (folder.listFiles().length == 0) {
                 System.out.println("No MP3 files found in: " + folder.getAbsolutePath());
                 return;
             }
 
-            try (FileInputStream fileInputStream = new FileInputStream(audio)) {
-                player = new AdvancedPlayer(fileInputStream);
+            try {
+                player = new AdvancedPlayer(inputStream);
                 System.out.println("Playing: " + audio.getName());
                 player.play();
             } catch (Exception e) {
                 System.out.println("Error playing: " + audio.getName());
+                e.printStackTrace();
             }
-        }
     }
 
-    public void stopPlayer(boolean stop) {
-        if (stop) {
-            stop = true;
+    public void stopPlayer() {
+            try {
+                inputStream.close();
+            } catch (Exception e) {
+                System.out.println("Error closing: " + audio.getName());
+            }
             player.close();
-        } else {
-            stop = false;
-        }
     }
 
     /*

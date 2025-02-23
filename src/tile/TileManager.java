@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
+import mp3player.MP3Player;
 import utils.Camera;
 import utils.Defines;
 
@@ -19,8 +20,8 @@ public class TileManager {
     public int[][] n;
     public int misurax, misuray;
     
-    private int[] mappe = {1, 2};
-    private int currentMappa = -1;
+    private static int[] mappe = {1, 2};
+    private static int currentMappa = -1;
     boolean flag = false;
     
 
@@ -195,38 +196,23 @@ public class TileManager {
 
 
 
-    public void updateMusic() {
+    public static void updateMusic() {
         System.out.println("Updating music for map: " + currentMappa);
         try {
             if (Defines.BGMUSIC_PLAYER != null && Defines.BGMUSIC_PLAYER.isAlive()) {
-                System.out.println("Stopping previous music");
-                try {
-                    Defines.MP3_PLAYER_SETTER.stopPlayer(true);
-                } catch (Exception e) {
-                    System.err.println("Error stopping player: " + e.getMessage());
-                }
+                Defines.MP3_PLAYER_SETTER.stopPlayer();
                 Defines.BGMUSIC_PLAYER.interrupt();
                 try {
-                    Defines.BGMUSIC_PLAYER.join(250); // Wait for up to 1 second
+                    Defines.BGMUSIC_PLAYER.join(250);
                 } catch (InterruptedException e) {
                     System.err.println("Interrupted while waiting for thread to join: " + e.getMessage());
                 }
             }
-    
-            System.out.println("Changing track to: " + (currentMappa - 1));
-            try {
-                Defines.MP3_PLAYER_SETTER.changeTrack(currentMappa - 1);
-            } catch (Exception e) {
-                System.err.println("Error changing track: " + e.getMessage());
-                return; // Exit the method if we can't change the track
-            }
-    
-            System.out.println("Creating new music thread");
+
+            Defines.MP3_PLAYER_SETTER = new MP3Player(currentMappa - 1);
             Defines.BGMUSIC_PLAYER = new Thread(Defines.MP3_PLAYER_SETTER);
-    
-            System.out.println("Starting new music");
+            
             try {
-                Defines.MP3_PLAYER_SETTER.stopPlayer(false);
                 Defines.BGMUSIC_PLAYER.start();
                 System.out.println("Music changed successfully");
             } catch (Exception e) {

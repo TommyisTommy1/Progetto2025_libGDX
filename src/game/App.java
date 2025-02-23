@@ -2,12 +2,10 @@ package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import utils.Defines;
-
 public class App {
     public static void main (String[] args) throws Exception {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -28,7 +26,7 @@ public class App {
 
         Defines.MAINFRAME.setLocationRelativeTo(null);
         Defines.MAINFRAME.setVisible(true);
-
+        
         Defines.GAME_PANEL.iniziaThreadGioco();  
         
         

@@ -1,19 +1,15 @@
 package utils;
 
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import dialog.DialogMngr;
-
-import java.awt.BorderLayout;
-
 import entity.Player;
 import game.GamePanel;
+import java.awt.BorderLayout;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import mp3player.MP3Player;
 import tile.TileManager;
-
-import javax.swing.ImageIcon;
 
 public class Defines {
     public static final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -31,7 +27,7 @@ public class Defines {
     
  
     //COLONNE SONORE
-    public static final MP3Player MP3_PLAYER_SETTER = new MP3Player(0);
+    public static MP3Player MP3_PLAYER_SETTER = new MP3Player(0);
     public static Thread BGMUSIC_PLAYER = new Thread(MP3_PLAYER_SETTER);
 
     //DIALOGHI
