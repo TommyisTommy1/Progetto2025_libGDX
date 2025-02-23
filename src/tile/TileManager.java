@@ -80,8 +80,8 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        tile[0].image = loadTileImage("grass02.png"); //abbastanza autoesplicativo
-        tile[1].image = loadTileImage("grass01.png");
+        tile[0].image = loadTileImage("grass_erbacce.png"); //abbastanza autoesplicativo
+        tile[1].image = loadTileImage("grass_erbacce.png");
         tile[2].image = loadTileImage("water_top_left.png"); tile[2].collision = true;
         tile[3].image = loadTileImage("water_top.png"); tile[3].collision = true;
         tile[4].image = loadTileImage("water_top_right.png"); tile[4].collision = true;
