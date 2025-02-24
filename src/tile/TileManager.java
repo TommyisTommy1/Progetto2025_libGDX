@@ -20,6 +20,7 @@ public class TileManager {
     
     private static int[] mappe = {1, 2};
     private static int currentMappa = -1;
+    public static boolean ambienteAperto;
     boolean flag = false;
     
     int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
@@ -49,6 +50,7 @@ public class TileManager {
     //Cambia posizione player
 
     public void setPosizionePlayer(int x, int y) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         Defines.PLAYER.setWorldX(x*grandezzaCaselle); //autoesplicativo
         Defines.PLAYER.setWorldY(y*grandezzaCaselle);
     }
@@ -82,6 +84,7 @@ public class TileManager {
     //Selezione mappe
 
     private void cambiaMappa(int uscitaIndex) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         if (currentMappa == mappe[mappe.length - 1]) { //Se la mappa è quella finale allora torni alla prima mappa
             currentMappa = mappe[0];
         } else {
@@ -93,14 +96,22 @@ public class TileManager {
             case 1 -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt"); 
                 Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
+                ambienteAperto=false;
+                Defines.SCALA=4;
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             case 2 -> {
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
+                ambienteAperto=false;
+                Defines.SCALA=2;
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             default -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
+                ambienteAperto=false;
+                Defines.SCALA=4;
             }
         }
         //carica la mappa in base alla mappa attuale
@@ -147,6 +158,7 @@ public class TileManager {
     //Metodo per stampare la mappa
 
     public void draw(Graphics2D g) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         int playerCol = Defines.PLAYER.getWorldX() / grandezzaCaselle;
         int playerRow = Defines.PLAYER.getWorldY() / grandezzaCaselle;
         boolean e = GamePanel.keyH.getPremuto("E");
@@ -175,7 +187,13 @@ public class TileManager {
                 Defines.CAMERA.update(); // crea una nuova telecamera
                 Defines.CAMERA.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
                 int tileNum = n[col][row];
-                
+                /*if (ambienteAperto) {
+                    g.drawImage(tileset.getTile(tileNum), col*grandezzaCaselle, row*grandezzaCaselle, grandezzaCaselle, grandezzaCaselle, null);
+                }else{
+                    if (isVisible(Defines.CAMERA)) {
+                        g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                    }
+                }*/
                 if (isVisible(Defines.CAMERA)) {
                     g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }

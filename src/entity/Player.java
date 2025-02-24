@@ -5,6 +5,7 @@ import game.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import tile.TileManager;
 import utils.Defines;
 import utils.Spritesheet;
 import utils.SpritesheetEntity;
@@ -140,6 +141,8 @@ public class Player extends Entity {
 
     //Aggiornamento del personaggio
     public void update() {
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
         boolean w = getPremuto("W");
         boolean s = getPremuto("S");
         boolean d = getPremuto("D");
@@ -185,20 +188,25 @@ public class Player extends Entity {
             if (!w && !s && !d && !a) {
                 spriteCounter(1, 27);
                 switch (getDirezione()) {
-                    case "giu":
+                    case "giu" -> {
                         spostaY("fermoGiu", "");
                         return;
-                    case "su":
+                    }
+                    case "su" -> {
                         spostaY("fermoSu", "");
                         return;
-                    case "destra":
+                    }
+                    case "destra" -> {
                         spostaX("fermoDestra", "");
                         return;
-                    case "sinistra":
+                    }
+                    case "sinistra" -> {
                         spostaX("fermoSinistra", "");
                         return;
-                    default:
+                    }
+                    default -> {
                         return;
+                    }
                 }
             }
             try {
@@ -270,53 +278,52 @@ public class Player extends Entity {
         BufferedImage image = null;
         if (isAlive) {
             switch (getDirezione()) {
-                case "su":
-                    image = moving.getUp().getSpriteSheet(spriteNum);
-                    break;
-                case "giu":
-                    image = moving.getDown().getSpriteSheet(spriteNum);
-                    break;
-                case "destra":
-                    image = moving.getRight().getSpriteSheet(spriteNum);
-                    break;
-                case "sinistra":
-                    image = moving.getLeft().getSpriteSheet(spriteNum);
-                    break;
-                case "fermoDestra":
+                case "su" -> image = moving.getUp().getSpriteSheet(spriteNum);
+                case "giu" -> image = moving.getDown().getSpriteSheet(spriteNum);
+                case "destra" -> image = moving.getRight().getSpriteSheet(spriteNum);
+                case "sinistra" -> image = moving.getLeft().getSpriteSheet(spriteNum);
+                case "fermoDestra" -> {
                     if (spriteNum == 1)
                         image = notMoving.getRight().getSpriteSheet(0);
                     else
                         image = notMoving.getRight().getSpriteSheet(1);
-                    break;
-                case "fermoSinistra":
+                }
+                case "fermoSinistra" -> {
                     if (spriteNum == 1)
                         image = notMoving.getLeft().getSpriteSheet(0);
                     else
                         image = notMoving.getLeft().getSpriteSheet(1);
-                    break;
-                case "fermoSu":
+                }
+                case "fermoSu" -> {
                     if (spriteNum == 1)
                         image = notMoving.getUp().getSpriteSheet(0);
                     else
                         image = notMoving.getUp().getSpriteSheet(1);
-                    break;
-                case "fermoGiu":
+                }
+                case "fermoGiu" -> {
                     if (spriteNum == 1)
                         image = notMoving.getDown().getSpriteSheet(0);
                     else
                         image = notMoving.getDown().getSpriteSheet(1);
-                    break;
+                }
     
             }
         }else{
             image = dying.getSpriteSheet(spriteNum);
         }
+        if(TileManager.ambienteAperto){
+            screenX=worldX;
+            screenY=worldY;
+        }else{
+            screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE / 2;
+            screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
+        }
+            
         Defines.CAMERA.update();
         g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,
                 Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
-        // g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y,
-        // areaCollisione.width, areaCollisione.height);
-        ;
+        g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        
     }
 
 }

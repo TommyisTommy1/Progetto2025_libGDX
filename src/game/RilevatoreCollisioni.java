@@ -7,7 +7,7 @@ public class RilevatoreCollisioni {
     
     private Entity entity;
 
-    private int grandezzaCaselle = Defines.GRANDEZZA_CASELLE, numColonne, numRighe;
+    private int grandezzaCaselle, numColonne, numRighe;
 
     private int speed;
 
@@ -22,20 +22,21 @@ public class RilevatoreCollisioni {
     }
 
     private void setDefaultValues() {
-        numColonne = GamePanel.getMaxWorldCol() - 1;
-        numRighe = GamePanel.getMaxWorldRow() - 1;
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
+        numColonne = GamePanel.getMaxWorldCol();
+        numRighe = GamePanel.getMaxWorldRow();
         larghezzaMappa = grandezzaCaselle * numColonne;
         altezzaMappa = grandezzaCaselle * numRighe - 5;
     }
 
     //  Costruttore
     public RilevatoreCollisioni() {
-        setDefaultValues();
     }
 
     //  Metodi
     
     public void controllaCasella(Entity entity) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         this.entity = entity;
 
         int playerWorldX = Defines.PLAYER.getWorldX();
@@ -110,11 +111,18 @@ public class RilevatoreCollisioni {
             }
         }
     }
-    private void controllaCollisioniCasella(int col, int row){
-        int tile;
-        tile = Defines.TILE_MANAGER.n[col][row];
-        if (Defines.TILE_MANAGER.tileset.getCollision(tile))
+
+    private void controllaCollisioniCasella(int col, int row) {
+        if (col >= 0 && col < numColonne && row >= 0 && row < numRighe) {
+            // Se dentro i limiti controllo la tile
+            int tile = Defines.TILE_MANAGER.n[col][row];
+            if (Defines.TILE_MANAGER.tileset.getCollision(tile)) {
+                entity.inCollisione = true;
+            }
+        } else {
+            // Se fuori dal limite collisione true
             entity.inCollisione = true;
+        }
     }
 
     private boolean fuoriDaiBordiX(int x) {
