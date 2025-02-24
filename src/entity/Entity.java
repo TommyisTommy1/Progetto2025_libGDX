@@ -29,6 +29,10 @@ public abstract class Entity {
         return this.speed;
     }
 
+    public void setSpeed(int speed){
+        this.speed=speed;
+    }
+
     protected void setSpeed(int speed, double delta) {
         this.speed = (int) Math.ceil((double) speed * delta/(Defines.FPS/60));
         this.delta = delta;

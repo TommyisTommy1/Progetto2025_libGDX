@@ -98,6 +98,7 @@ public class TileManager {
                 Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
                 ambienteAperto=false;
                 Defines.SCALA=4;
+                Defines.PLAYER.setSpeed(4);
                 Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             case 2 -> {
@@ -105,6 +106,7 @@ public class TileManager {
                 Defines.GAME_PANEL.setBackground(Color.gray);
                 ambienteAperto=false;
                 Defines.SCALA=2;
+                Defines.PLAYER.setSpeed(2);
                 Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             default -> {
@@ -112,6 +114,7 @@ public class TileManager {
                 Defines.GAME_PANEL.setBackground(Color.black);
                 ambienteAperto=false;
                 Defines.SCALA=4;
+                Defines.PLAYER.setSpeed(4);
             }
         }
         //carica la mappa in base alla mappa attuale
