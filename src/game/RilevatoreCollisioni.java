@@ -58,62 +58,61 @@ public class RilevatoreCollisioni {
     
         if (fuoriDaiBordiX(playerWorldX)) {
             switch (entity.getDirezione()) {
-                case "sinistra":
+                case "sinistra" -> {
                     if (playerWorldX <= 0)
                         entity.inCollisione = true;
-                    break;
-                case "destra":
+                }
+                case "destra" -> {
                     if (playerWorldX >= larghezzaMappa)
                         entity.inCollisione = true;
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         }
         if (fuoriDaiBordiY(playerWorldY)) {
             switch (entity.getDirezione()) {
-                case "su":
+                case "su" -> {
                     if (playerWorldY < 0)
                         entity.inCollisione = true;
-                    break;
-                case "giu":
+                }
+                case "giu" -> {
                     if (playerWorldY > altezzaMappa)
                         entity.inCollisione = true;
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
         }
     
         switch (entity.getDirezione()) {
-            case "su":
+            case "su" -> {
                 entitySuRow = (entitySuWorldY - getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 controllaCollisioniCasella(entityDestraCol, entitySuRow);
-                break;
-            case "giu":
+            }
+            case "giu" -> {
                 entityGiuRow = (entityGiuWorldY + getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entityGiuRow);
                 controllaCollisioniCasella(entityDestraCol, entityGiuRow);
-                break;
-            case "sinistra":
+            }
+            case "sinistra" -> {
                 entitySinistraCol = (entitySinistraWorldX - getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entitySinistraCol, entitySuRow);
                 controllaCollisioniCasella(entitySinistraCol, entityGiuRow);
-                break;
-            case "destra":
+            }
+            case "destra" -> {
                 entityDestraCol = (entityDestraWorldX + getSpeed()) / grandezzaCaselle;
                 controllaCollisioniCasella(entityDestraCol, entitySuRow);
                 controllaCollisioniCasella(entityDestraCol, entityGiuRow);
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
     }
     private void controllaCollisioniCasella(int col, int row){
         int tile;
         tile = Defines.TILE_MANAGER.n[col][row];
-        System.out.println(tile);
         if (Defines.TILE_MANAGER.tileset.getCollision(tile))
             entity.inCollisione = true;
     }

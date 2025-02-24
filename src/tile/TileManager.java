@@ -9,20 +9,16 @@ import java.io.InputStreamReader;
 import mp3player.MP3Player;
 import utils.Camera;
 import utils.Defines;
-import utils.Spritesheet;
 
 public class TileManager {
 
-    Spritesheet path;
-    Spritesheet grass;
     public Tileset tileset;
 
     private Camera camera;
-    public Tile[] tile;
+
     private Casella[] uscita, spawn;
     public int[][] n;
     public int misurax, misuray;
-    private int tileCount=0;
     
     private static int[] mappe = {1, 2};
     private static int currentMappa = -1;
@@ -31,10 +27,6 @@ public class TileManager {
 
     int grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
     public TileManager() {
-        tile = new Tile[100];
-        for (int i = 0; i < tile.length; i++) {
-            tile[i] = new Tile();
-        }
         tileset = new Tileset();
         
     }
@@ -174,19 +166,20 @@ public class TileManager {
         System.out.println("Mappa  " + currentMappa);
 
         switch (currentMappa) { //carica la mappa in base alla mappa attuale
-            case 1:
+            case 1 -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt"); 
                 Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
-                break;
-            case 2:
+            }
+            case 2 -> {
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
-                break;
-            default:
+            }
+            default -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
-                break;
+            }
         }
+        //carica la mappa in base alla mappa attuale
         updateMusic();
         //updateShader();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
