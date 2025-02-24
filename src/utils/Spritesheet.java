@@ -16,8 +16,8 @@ public class Spritesheet {
         try {
             BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream(path.concat(file))); //carica l'immagine 
             for (int index = 0; index < num; index++) {
-                int x = index * 32;
-                int y = row * 32;
+                int x = index * Defines.GRANDEZZA_CASELLE_ORIGINALE;
+                int y = row * Defines.GRANDEZZA_CASELLE_ORIGINALE;
                 image[index] = spriteSheet.getSubimage(x, y, 32, 32); //divide in immagini piu piccole
             }
         } catch (IOException | NullPointerException e) {
@@ -69,5 +69,9 @@ public class Spritesheet {
             g.dispose();
             image[index] = immagineSovrapposta;
         }
+    }
+
+    public int getNum(){
+        return this.num;
     }
 }

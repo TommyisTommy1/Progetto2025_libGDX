@@ -113,7 +113,8 @@ public class RilevatoreCollisioni {
     private void controllaCollisioniCasella(int col, int row){
         int tile;
         tile = Defines.TILE_MANAGER.n[col][row];
-        if (Defines.TILE_MANAGER.tile[tile].getCollision())
+        System.out.println(tile);
+        if (Defines.TILE_MANAGER.tileset.getCollision(tile))
             entity.inCollisione = true;
     }
 

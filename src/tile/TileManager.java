@@ -3,11 +3,9 @@ package tile;
 import game.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import javax.imageio.ImageIO;
 import mp3player.MP3Player;
 import utils.Camera;
 import utils.Defines;
@@ -15,13 +13,16 @@ import utils.Spritesheet;
 
 public class TileManager {
 
-    Spritesheet tileset;
+    Spritesheet path;
+    Spritesheet grass;
+    public Tileset tileset;
 
     private Camera camera;
     public Tile[] tile;
     private Casella[] uscita, spawn;
     public int[][] n;
     public int misurax, misuray;
+    private int tileCount=0;
     
     private static int[] mappe = {1, 2};
     private static int currentMappa = -1;
@@ -34,7 +35,8 @@ public class TileManager {
         for (int i = 0; i < tile.length; i++) {
             tile[i] = new Tile();
         }
-        getTileImage();
+        tileset = new Tileset();
+        
     }
 
     private void loadMap(String mappa, String misure, String uscite, String entrate) {
@@ -82,29 +84,31 @@ public class TileManager {
         return caselle;
     }
 
-    private void getTileImage() {
-        //sheet = new Spritesheet(1, 0, "/res/tile/", "grass_erbacce.png"); DA AGGIUSTARE MISURE IMMAGINI
-        tile[0].image = loadTileImage("grass_erbacce.png"); //abbastanza autoesplicativo
-        tile[1].image = loadTileImage("grass_erbacce.png");
-        tile[2].image = loadTileImage("water_top_left.png"); tile[2].collision = true;
-        tile[3].image = loadTileImage("water_top.png"); tile[3].collision = true;
-        tile[4].image = loadTileImage("water_top_right.png"); tile[4].collision = true;
-        tile[5].image = loadTileImage("stonebrick.png"); tile[5].collision = true;
-        tile[6].image = loadTileImage("top_left.png"); tile[6].collision = true;
-        tile[7].image = loadTileImage("top_right.png"); tile[7].collision = true;
-        tile[8].image = loadTileImage("bottom_left.png"); tile[8].collision = true;
-        tile[9].image = loadTileImage("bottom_right.png"); tile[9].collision = true;
-        tile[11].image = loadTileImage("mattons.png"); tile[11].collision = false;
-    }
+    /*private void getTileImage() {
+        tile[tileCount].image = loadTileImage("stonebrick.png"); tile[tileCount-1].collision = true;
+        tile[tileCount].image = loadTileImage("mattons.png"); tile[tileCount-1].collision = false;
+        path = new Spritesheet(15, 0, "/res/tile/", "path.png");
+        grass = new Spritesheet(10, 0, "/res/tile/", "grass.png");
+        for (int index = 0; index < path.getNum(); index++) {
+            tile[tileCount].image=path.getSpriteSheet(index);
+            tileCount++;
+        }
+        for (int index = 0; index < grass.getNum(); index++) {
+            tile[tileCount].image=grass.getSpriteSheet(index);
+            tileCount++;
+        }
+        
+    }*/
 
-    private BufferedImage loadTileImage(String percorso) {
+    /*private BufferedImage loadTileImage(String percorso) {
         try {
+            tileCount++;
             return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso))); //restituisce l'immagine richiesta
         } catch (Exception e) {
             System.err.println("Tile non trovato: " + percorso);
             return null;
         }
-    }
+    }*/
 
     public void setCurrentMap(int map){
         currentMappa = map; //autoesplicativo
@@ -154,7 +158,8 @@ public class TileManager {
                 int tileNum = n[col][row];
                 
                 if (isVisible(camera)) {
-                    g.drawImage(tile[tileNum].image, camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                    
+                    g.drawImage(tileset.getTile(tileNum), camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
         }
