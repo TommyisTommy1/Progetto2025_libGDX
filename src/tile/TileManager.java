@@ -30,7 +30,6 @@ public class TileManager {
 
     public TileManager() {
         tileset = new Tileset();
-        
     }
 
     //Culling
@@ -85,10 +84,10 @@ public class TileManager {
     //Selezione mappe
 
     private void cambiaMappa(int uscitaIndex) {
-        if (currentMappa == mappe[mappe.length - 1]) {
+        if (currentMappa == mappe[mappe.length - 1]) { //Se la mappa è quella finale allora torni alla prima mappa
             currentMappa = mappe[0];
         } else {
-            currentMappa++;
+            currentMappa++; //Se no vai alla successiva
         }
         System.out.println("Mappa  " + currentMappa);
 
@@ -180,7 +179,6 @@ public class TileManager {
                 int tileNum = n[col][row];
                 
                 if (isVisible(camera)) {
-                    
                     g.drawImage(tileset.getTile(tileNum), camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
