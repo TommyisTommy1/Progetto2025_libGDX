@@ -212,7 +212,9 @@ public class Player extends Entity {
             try {
                 if (w || s || d || a) {
                     spriteCounter(3, 8);
-                    if (a && d) {
+                    if (w && s && a && d){
+                        setDirezione("fermoGiu");
+                    }else if (a && d) {
                         setDirezione("fermoGiu");
                         if (w)
                             setDirezione("su");
@@ -226,7 +228,7 @@ public class Player extends Entity {
                         if (a)
                             setDirezione("sinistra");
                         controllaCollisioniX(a, d);
-                    } else {
+                    }else{
                         if (w)
                             setDirezione("su");
                         if (s)
