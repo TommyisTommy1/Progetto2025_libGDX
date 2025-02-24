@@ -14,8 +14,6 @@ public class TileManager {
 
     public Tileset tileset;
 
-    private Camera camera;
-
     private Casella[] uscita, spawn;
     public int[][] n;
     public int misurax, misuray;
@@ -174,12 +172,12 @@ public class TileManager {
         for (int row = 0; row < misuray; row++) {
             for (int col = 0; col < misurax; col++) {
 
-                camera = new Camera(); // crea una nuova telecamera
-                camera.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
+                Defines.CAMERA.update(); // crea una nuova telecamera
+                Defines.CAMERA.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
                 int tileNum = n[col][row];
                 
-                if (isVisible(camera)) {
-                    g.drawImage(tileset.getTile(tileNum), camera.getScreenX(), camera.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                if (isVisible(Defines.CAMERA)) {
+                    g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
             }
         }

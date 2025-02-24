@@ -2,7 +2,6 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
 import utils.Camera;
 import utils.Defines;
 import utils.Spritesheet;
@@ -60,11 +59,11 @@ public class Nemico extends Entity {
     }
     
     public void draw(Graphics2D g) {
-        Camera camera = new Camera();
-        camera.setCameraCasella(getCol(), getRow());
-        if (isVisible(camera)) {
+        Defines.CAMERA.update();
+        Defines.CAMERA.setCameraCasella(getCol(), getRow());
+        if (isVisible(Defines.CAMERA)) {
             g.setColor(Color.RED);
-            g.fillRect(camera.getScreenX(), camera.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            g.fillRect(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
         }
         
     }

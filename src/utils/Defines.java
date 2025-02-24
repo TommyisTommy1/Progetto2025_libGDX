@@ -46,4 +46,5 @@ public class Defines {
     public static Shaders SHADERS = new Shaders(GAME_PANEL, "none");
     public static Thread SHADER_Thread = new Thread(SHADERS);
     
+    public static Camera CAMERA = new Camera();
 }

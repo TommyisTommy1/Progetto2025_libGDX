@@ -1,12 +1,11 @@
 package game;
 
+import entity.Nemico;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-
-import entity.Nemico;
 import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -101,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     // funzione per aggiornare il player
     public void update() {
         Defines.PLAYER.update(); 
+        Defines.CAMERA.update();
     }
 
     // funzione per ridisegnare il gioco
