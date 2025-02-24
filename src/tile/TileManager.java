@@ -97,7 +97,7 @@ public class TileManager {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt"); 
                 Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
                 ambienteAperto=false;
-                Defines.SCALA=4;
+                Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
                 Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
@@ -113,7 +113,7 @@ public class TileManager {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
                 ambienteAperto=false;
-                Defines.SCALA=4;
+                Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
             }
         }
@@ -190,16 +190,16 @@ public class TileManager {
                 Defines.CAMERA.update(); // crea una nuova telecamera
                 Defines.CAMERA.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
                 int tileNum = n[col][row];
-                /*if (ambienteAperto) {
+                if (ambienteAperto) {
                     g.drawImage(tileset.getTile(tileNum), col*grandezzaCaselle, row*grandezzaCaselle, grandezzaCaselle, grandezzaCaselle, null);
                 }else{
                     if (isVisible(Defines.CAMERA)) {
                         g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                     }
-                }*/
-                if (isVisible(Defines.CAMERA)) {
-                    g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
                 }
+                /*if (isVisible(Defines.CAMERA)) {
+                    g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                }*/
             }
         }
     }

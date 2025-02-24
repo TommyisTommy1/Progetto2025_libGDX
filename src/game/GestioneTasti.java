@@ -96,10 +96,7 @@ public class GestioneTasti implements KeyListener {
             case KeyEvent.VK_D -> setRilasciato("D");
             case KeyEvent.VK_A -> setRilasciato("A");
             case KeyEvent.VK_E -> setRilasciato("E");
-            case KeyEvent.VK_SHIFT -> {
-                setRilasciato("SHIFT");
-                System.err.println(getPremuto("SHIFT"));
-            }
+            case KeyEvent.VK_SHIFT -> setRilasciato("SHIFT");
             case KeyEvent.VK_K -> setRilasciato("K");
             default -> {
             }
