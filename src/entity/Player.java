@@ -1,11 +1,10 @@
 package entity;
 
+import game.GamePanel;
+import game.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
-import game.GamePanel;
-import game.GestioneTasti;
 import utils.Defines;
 import utils.Spritesheet;
 import utils.SpritesheetEntity;
@@ -312,6 +311,7 @@ public class Player extends Entity {
         }else{
             image = dying.getSpriteSheet(spriteNum);
         }
+        Defines.CAMERA.update();
         g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,
                 Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
         // g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y,
