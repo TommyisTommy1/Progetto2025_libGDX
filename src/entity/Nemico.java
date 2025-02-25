@@ -1,16 +1,16 @@
 package entity;
 
+import game.GamePanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import game.GamePanel;
 import tile.TileManager;
 import utils.Camera;
 import utils.Defines;
+import utils.Drawable;
 import utils.Spritesheet;
 import utils.SpritesheetEntity;
 
-public class Nemico extends Entity {
+public class Nemico extends Entity implements Drawable{
     boolean isAlive;
     boolean isAliveAnimation = false;
 
@@ -27,11 +27,49 @@ public class Nemico extends Entity {
         setDefaultValues();
     }
 
-    protected int getCol(){
-        return worldX/Defines.GRANDEZZA_CASELLE;
+    @Override
+    public void draw(Graphics2D g) {
+        Defines.CAMERA.update();
+        Defines.CAMERA.setCameraCasella(getCol(), getRow());
+        if (TileManager.ambienteAperto) {
+            screenX=worldX;
+            screenY=worldY;
+        }else{
+            screenX=Defines.CAMERA.getScreenX();
+            screenY=Defines.CAMERA.getScreenY();
+        }
+        if (TileManager.ambienteAperto) {
+            setDefaultValues();
+            translateTemp(screenX, screenY, g);
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            untranslateTemp(screenX, screenY, g);
+        }else{
+            if (isVisible(Defines.CAMERA)) {
+                g.setColor(Color.RED);
+                translate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
+                g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+                untranslate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
+            }
+        }
     }
-    protected int getRow(){
-        return worldY/Defines.GRANDEZZA_CASELLE;
+
+    public void translate(int x, int y, Graphics2D g){
+        g.translate(x, y);
+    }
+
+    public void untranslate(int x, int y, Graphics2D g){
+        g.translate(-x, -y);
+    }
+
+    public void translateTemp(int x, int y, Graphics2D g){
+        int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+        g.translate(x+temp, y);
+    }
+    
+    public void untranslateTemp(int x, int y, Graphics2D g){
+        int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+        g.translate(-x-temp, -y);
     }
 
     private void setDefaultValues() {
@@ -42,7 +80,15 @@ public class Nemico extends Entity {
         setDirezione("su");
         getNemicoImage();
     }
-        
+
+    protected int getCol(){
+        return worldX/Defines.GRANDEZZA_CASELLE;
+    }
+
+    protected int getRow(){
+        return worldY/Defines.GRANDEZZA_CASELLE;
+    }
+   
     private void getNemicoImage() {
         
     }
@@ -61,31 +107,6 @@ public class Nemico extends Entity {
             worldY += speed;
         if (operazione.equals("sottrai"))
             worldY -= speed;
-    }
-    
-    public void draw(Graphics2D g) {
-        Defines.CAMERA.update();
-        Defines.CAMERA.setCameraCasella(getCol(), getRow());
-        if (TileManager.ambienteAperto) {
-            screenX=worldX;
-            screenY=worldY;
-        }else{
-            screenX=Defines.CAMERA.getScreenX();
-            screenY=Defines.CAMERA.getScreenY();
-        }
-        if (TileManager.ambienteAperto) {
-            setDefaultValues();
-            int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
-            g.translate(screenX+temp, screenY);
-            g.setColor(Color.RED);
-            g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
-            g.translate(-(screenX+temp), -screenY);
-        }else{
-            if (isVisible(Defines.CAMERA)) {
-            g.setColor(Color.RED);
-            g.fillRect(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
-            }
-        }
     }
 
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile

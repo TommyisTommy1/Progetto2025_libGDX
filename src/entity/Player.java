@@ -7,10 +7,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import tile.TileManager;
 import utils.Defines;
+import utils.Drawable;
 import utils.Spritesheet;
 import utils.SpritesheetEntity;
+import utils.Updateable;
 
-public class Player extends Entity {
+public class Player extends Entity implements Drawable, Updateable{
     private final GestioneTasti gestioneTasti;
 
     private int worldX;
@@ -38,6 +40,7 @@ public class Player extends Entity {
     }
 
     //Aggiornamento del personaggio
+    @Override
     public void update() {
         areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
         areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
@@ -49,6 +52,7 @@ public class Player extends Entity {
     }
 
     //Disegno del personaggio
+    @Override
     public void draw(Graphics2D g) {
         setImage();
         setScreenCoord();
@@ -344,35 +348,49 @@ public class Player extends Entity {
         }
     }
 
-    public void translate(int x, int y, Graphics2D g){
+    public void translateTemp(int x, int y, Graphics2D g){
         int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
         g.translate(x+temp, y);
     }
     
-    public void untranslate(int x, int y, Graphics2D g){
+    public void untranslateTemp(int x, int y, Graphics2D g){
         int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
         g.translate(-x-temp, -y);
+    }
+
+    public void translate(int x, int y, Graphics2D g){
+        g.translate(x, y);
+    }
+
+    public void untranslate(int x, int y, Graphics2D g){
+        g.translate(-x, -y);
     }
 
     public void drawPlayer(Graphics2D g){
         if (TileManager.ambienteAperto) {
 
             //STAMPA PLAYER
-            translate(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
+            translateTemp(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
             g.drawImage(image, 0, 0, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
-            untranslate(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
+            untranslateTemp(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
             
             //STAMPA RETTANGOLO COLLISIONI
-            translate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
+            translateTemp(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
             g.drawRect(0 , 0 , areaCollisione.width, areaCollisione.height);
-            untranslate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
+            untranslateTemp(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
 
         }else{
+
             //STAMPA PLAYER
-            g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
+            translate(screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2, g);
+            g.drawImage(image, 0, 0, Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
+            untranslate(screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2, g);
 
             //STAMPA RETTANGOLO COLLISIONI
-            g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+            translate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
+            g.drawRect(0, 0, areaCollisione.width, areaCollisione.height);
+            untranslate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
+            
         }
     }
 }
