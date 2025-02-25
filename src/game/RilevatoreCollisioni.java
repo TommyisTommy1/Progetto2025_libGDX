@@ -49,7 +49,7 @@ public class RilevatoreCollisioni {
         int entityDestraWorldX = playerWorldX + entity.areaCollisione.x + entity.areaCollisione.width;
         int entitySinistraWorldX = playerWorldX + entity.areaCollisione.x;
         int entitySuWorldY = playerWorldY + entity.areaCollisione.y;
-        int entityGiuWorldY = playerWorldY + entity.areaCollisione.y + entity.areaCollisione.height;
+        int entityGiuWorldY = playerWorldY + entity.areaCollisione.y + entity.areaCollisione.height + 5;
     
         int entitySinistraCol = entitySinistraWorldX / grandezzaCaselle;
         int entityDestraCol = entityDestraWorldX / grandezzaCaselle;
