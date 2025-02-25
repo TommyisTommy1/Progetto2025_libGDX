@@ -31,27 +31,7 @@ public class Nemico extends Entity implements Drawable{
     public void draw(Graphics2D g) {
         Defines.CAMERA.update();
         Defines.CAMERA.setCameraCasella(getCol(), getRow());
-        if (TileManager.ambienteAperto) {
-            screenX=worldX;
-            screenY=worldY;
-        }else{
-            screenX=Defines.CAMERA.getScreenX();
-            screenY=Defines.CAMERA.getScreenY();
-        }
-        if (TileManager.ambienteAperto) {
-            setDefaultValues();
-            translateTemp(screenX, screenY, g);
-            g.setColor(Color.RED);
-            g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
-            untranslateTemp(screenX, screenY, g);
-        }else{
-            if (isVisible(Defines.CAMERA)) {
-                g.setColor(Color.RED);
-                translate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
-                g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
-                untranslate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
-            }
-        }
+        drawNemico(g);
     }
 
     public void translate(int x, int y, Graphics2D g){
@@ -117,5 +97,27 @@ public class Nemico extends Entity implements Drawable{
             camera.getCameraWorldY() - grandezzaCaselle < worldY + Defines.PLAYER.getScreenY();
     }
 
-        
+    public void drawNemico(Graphics2D g){
+        if (TileManager.ambienteAperto) {
+            screenX=worldX;
+            screenY=worldY;
+        }else{
+            screenX=Defines.CAMERA.getScreenX();
+            screenY=Defines.CAMERA.getScreenY();
+        }
+        if (TileManager.ambienteAperto) {
+            setDefaultValues();
+            translateTemp(screenX, screenY, g);
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            untranslateTemp(screenX, screenY, g);
+        }else{
+            if (isVisible(Defines.CAMERA)) {
+                g.setColor(Color.RED);
+                translate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
+                g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+                untranslate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), g);
+            }
+        }
+    }   
 }
