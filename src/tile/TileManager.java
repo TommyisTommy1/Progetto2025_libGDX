@@ -99,6 +99,8 @@ public class TileManager {
                 ambienteAperto=true;
                 Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.SCREEN_HEIGHT/GamePanel.getMaxWorldRow()); //L'ultimo numero è il moltiplicatore della telecamera
             }
             case 2 -> {
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
@@ -106,6 +108,7 @@ public class TileManager {
                 ambienteAperto=false;
                 Defines.SCALA=2;
                 Defines.PLAYER.setSpeed(2);
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             default -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
@@ -113,13 +116,9 @@ public class TileManager {
                 ambienteAperto=true;
                 Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
-
-        }
-        if (ambienteAperto) {
-            Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.SCREEN_HEIGHT/GamePanel.getMaxWorldRow()); //L'ultimo numero è il moltiplicatore della telecamera
-        }else{
-            Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
         }
         //carica la mappa in base alla mappa attuale
         updateMusic();

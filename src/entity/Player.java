@@ -326,7 +326,6 @@ public class Player extends Entity {
             
         Defines.CAMERA.update();
         if (TileManager.ambienteAperto) {
-            setDefaultValues();
             int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
             g.translate(screenX+temp- Defines.GRANDEZZA_CASELLE / 2, screenY- Defines.GRANDEZZA_CASELLE / 2);
             g.drawImage(image, 0, 0, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
