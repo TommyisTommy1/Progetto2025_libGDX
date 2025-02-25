@@ -99,7 +99,8 @@ public class TileManager {
                 ambienteAperto=false;
                 Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                //Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.SCREEN_HEIGHT/GamePanel.getMaxWorldRow()); //L'ultimo numero è il moltiplicatore della telecamera
             }
             case 2 -> {
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
@@ -107,7 +108,7 @@ public class TileManager {
                 ambienteAperto=false;
                 Defines.SCALA=2;
                 Defines.PLAYER.setSpeed(2);
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             default -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
@@ -115,6 +116,8 @@ public class TileManager {
                 ambienteAperto=false;
                 Defines.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                //Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
         }
         //carica la mappa in base alla mappa attuale
@@ -191,10 +194,15 @@ public class TileManager {
                 Defines.CAMERA.setCameraCasella(col, row); //setta la posizione dell'oggetto da visualizzare
                 int tileNum = n[col][row];
                 if (ambienteAperto) {
+                    int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+                    g.translate(temp, 0);
                     g.drawImage(tileset.getTile(tileNum), col*grandezzaCaselle, row*grandezzaCaselle, grandezzaCaselle, grandezzaCaselle, null);
+                    g.translate(-temp, 0);
                 }else{
                     if (isVisible(Defines.CAMERA)) {
-                        g.drawImage(tileset.getTile(tileNum), Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                        g.translate(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY());
+                        g.drawImage(tileset.getTile(tileNum), 0, 0, grandezzaCaselle, grandezzaCaselle, null); //disegna il tile enlla posizione calcolata
+                        g.translate(-Defines.CAMERA.getScreenX(), -Defines.CAMERA.getScreenY());
                     }
                 }
                 /*if (isVisible(Defines.CAMERA)) {

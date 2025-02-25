@@ -2,6 +2,9 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import game.GamePanel;
+import tile.TileManager;
 import utils.Camera;
 import utils.Defines;
 import utils.Spritesheet;
@@ -13,6 +16,8 @@ public class Nemico extends Entity {
 
     int worldX;
     int worldY;
+    int screenX;
+    int screenY;
 
     SpritesheetEntity moving;
     SpritesheetEntity notMoving;
@@ -61,11 +66,26 @@ public class Nemico extends Entity {
     public void draw(Graphics2D g) {
         Defines.CAMERA.update();
         Defines.CAMERA.setCameraCasella(getCol(), getRow());
-        if (isVisible(Defines.CAMERA)) {
+        if (TileManager.ambienteAperto) {
+            screenX=worldX;
+            screenY=worldY;
+        }else{
+            screenX=Defines.CAMERA.getScreenX();
+            screenY=Defines.CAMERA.getScreenY();
+        }
+        if (TileManager.ambienteAperto) {
+            setDefaultValues();
+            int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+            g.translate(screenX+temp, screenY);
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            g.translate(-(screenX+temp), -screenY);
+        }else{
+            if (isVisible(Defines.CAMERA)) {
             g.setColor(Color.RED);
             g.fillRect(Defines.CAMERA.getScreenX(), Defines.CAMERA.getScreenY(), Defines.GRANDEZZA_CASELLE, Defines.GRANDEZZA_CASELLE);
+            }
         }
-        
     }
 
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile

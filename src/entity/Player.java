@@ -5,6 +5,9 @@ import game.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.zip.DeflaterOutputStream;
+
+import tile.Tile;
 import tile.TileManager;
 import utils.Defines;
 import utils.Spritesheet;
@@ -322,9 +325,20 @@ public class Player extends Entity {
         }
             
         Defines.CAMERA.update();
-        g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,
-                Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
-        g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        if (TileManager.ambienteAperto) {
+            setDefaultValues();
+            int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+            g.translate(screenX+temp- Defines.GRANDEZZA_CASELLE / 2, screenY- Defines.GRANDEZZA_CASELLE / 2);
+            g.drawImage(image, 0, 0, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
+            g.translate(-(screenX+temp- Defines.GRANDEZZA_CASELLE / 2), -(screenY- Defines.GRANDEZZA_CASELLE / 2));
+            g.translate(screenX+temp+ areaCollisione.x, screenY+ areaCollisione.y);
+            g.drawRect(0 , 0 , areaCollisione.width, areaCollisione.height);
+            g.translate(-(screenX+temp+ areaCollisione.x), -(screenY+ areaCollisione.y));
+        }else{
+            g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
+            g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
+        }
+        
         
     }
 

@@ -14,8 +14,8 @@ public class GamePanel extends JPanel implements Runnable {
     public RilevatoreCollisioni collisioni = new RilevatoreCollisioni();
     private static int maxWorldCol;
     private static int maxWorldRow;
-    private int worldWidth;
-    private int worldHeight;
+    private static int worldWidth;
+    private static int worldHeight;
 
     // Getters
     public static int getMaxWorldCol() {
@@ -26,11 +26,11 @@ public class GamePanel extends JPanel implements Runnable {
         return maxWorldRow;
     }
 
-    public int getWorldWidth() {
+    public static int getWorldWidth() {
         return worldWidth;
     }
 
-    public int getWorldHeight() {
+    public static int getWorldHeight() {
         return worldHeight;
     }
 
