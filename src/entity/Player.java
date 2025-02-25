@@ -36,6 +36,25 @@ public class Player extends Entity {
 
         setDefaultValues();
     }
+
+    //Aggiornamento del personaggio
+    public void update() {
+        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
+        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
+        
+        checkIfKilled();
+        checkIfRevived();
+        checkIfDead();
+        checkIfAlive();
+    }
+
+    //Disegno del personaggio
+    public void draw(Graphics2D g) {
+        setImage();
+        setScreenCoord();
+        Defines.CAMERA.update();
+        drawPlayer(g);
+    }
     
     // Getters
 
@@ -140,41 +159,42 @@ public class Player extends Entity {
             worldY -= speed;
     }
 
-    //Aggiornamento del personaggio
-    public void update() {
-        areaCollisione.width = Defines.GRANDEZZA_CASELLE - 20;
-        areaCollisione.height = Defines.GRANDEZZA_CASELLE - 24;
-        boolean w = getPremuto("W");
-        boolean s = getPremuto("S");
-        boolean d = getPremuto("D");
-        boolean a = getPremuto("A");
-
-        boolean shift = getPremuto("SHIFT");
-
+    public void checkIfKilled(){
         boolean k = getPremuto("K");
-        boolean e = getPremuto("E");
 
         if (isAlive && k) {
             isAlive = false;
             isAliveAnimation=false;
         }
+    }
 
+    public void checkIfRevived(){
+        boolean e = getPremuto("E");
+        
         if (e && !isAlive) {
             spriteCounter(0, 0);
             isAlive=true;
             isAliveAnimation=true;
         }
+    }
 
+    public void checkIfDead(){
         if (!isAlive && !isAliveAnimation) {
             spriteCounter(5, 10);
             if (spriteNum==5) {
                 spriteNum=4;
             }
-            
         }
-
-        
+    }
+    
+    public void checkIfAlive(){
         if (isAlive) {
+            boolean w = getPremuto("W");
+            boolean s = getPremuto("S");
+            boolean d = getPremuto("D");
+            boolean a = getPremuto("A");
+
+            boolean shift = getPremuto("SHIFT");
             if (shift) {
                 if (!lontanoDaiBordi()) {
                     setSpeed(4, 1.5);
@@ -246,7 +266,6 @@ public class Player extends Entity {
             } catch (Exception e2) {
                 System.err.println("Errore: personaggio fuori dalla mappa");
             }
-            
         }
     }
 
@@ -356,12 +375,4 @@ public class Player extends Entity {
             g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
         }
     }
-    //Disegno del personaggio
-    public void draw(Graphics2D g) {
-        setImage();
-        setScreenCoord();
-        Defines.CAMERA.update();
-        drawPlayer(g);
-    }
-
 }
