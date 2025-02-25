@@ -5,9 +5,6 @@ import game.GestioneTasti;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.zip.DeflaterOutputStream;
-
-import tile.Tile;
 import tile.TileManager;
 import utils.Defines;
 import utils.Spritesheet;
@@ -28,6 +25,7 @@ public class Player extends Entity {
     SpritesheetEntity notMoving;
     Spritesheet dying;
     
+    BufferedImage image = null;
     //Costruttore
 
     public Player(GestioneTasti g2) {
@@ -277,10 +275,9 @@ public class Player extends Entity {
         }
     }
 
-    
-    //Disegno del personaggio
-    public void draw(Graphics2D g) {
-        BufferedImage image = null;
+    //CAMBIO IMMAGINE A SECONDA DELLE AZIONI
+
+    public void setImage(){
         if (isAlive) {
             switch (getDirezione()) {
                 case "su" -> image = moving.getUp().getSpriteSheet(spriteNum);
@@ -316,6 +313,9 @@ public class Player extends Entity {
         }else{
             image = dying.getSpriteSheet(spriteNum);
         }
+    }
+
+    public void setScreenCoord(){
         if(TileManager.ambienteAperto){
             screenX=worldX;
             screenY=worldY;
@@ -323,22 +323,45 @@ public class Player extends Entity {
             screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE / 2;
             screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
         }
-            
-        Defines.CAMERA.update();
+    }
+
+    public void translate(int x, int y, Graphics2D g){
+        int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+        g.translate(x+temp, y);
+    }
+    
+    public void untranslate(int x, int y, Graphics2D g){
+        int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
+        g.translate(-x-temp, -y);
+    }
+
+    public void drawPlayer(Graphics2D g){
         if (TileManager.ambienteAperto) {
-            int temp = Defines.SCREEN_WIDTH/2 - GamePanel.getMaxWorldCol()*Defines.GRANDEZZA_CASELLE/2;
-            g.translate(screenX+temp- Defines.GRANDEZZA_CASELLE / 2, screenY- Defines.GRANDEZZA_CASELLE / 2);
+
+            //STAMPA PLAYER
+            translate(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
             g.drawImage(image, 0, 0, Defines.GRANDEZZA_CASELLE*2, Defines.GRANDEZZA_CASELLE*2, null);
-            g.translate(-(screenX+temp- Defines.GRANDEZZA_CASELLE / 2), -(screenY- Defines.GRANDEZZA_CASELLE / 2));
-            g.translate(screenX+temp+ areaCollisione.x, screenY+ areaCollisione.y);
+            untranslate(screenX - Defines.GRANDEZZA_CASELLE / 2,  screenY - Defines.GRANDEZZA_CASELLE / 2, g);
+            
+            //STAMPA RETTANGOLO COLLISIONI
+            translate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
             g.drawRect(0 , 0 , areaCollisione.width, areaCollisione.height);
-            g.translate(-(screenX+temp+ areaCollisione.x), -(screenY+ areaCollisione.y));
+            untranslate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
+
         }else{
+            //STAMPA PLAYER
             g.drawImage(image, screenX - Defines.GRANDEZZA_CASELLE / 2, screenY - Defines.GRANDEZZA_CASELLE / 2,Defines.GRANDEZZA_CASELLE * 2, Defines.GRANDEZZA_CASELLE * 2, null);
+
+            //STAMPA RETTANGOLO COLLISIONI
             g.drawRect(screenX + areaCollisione.x, screenY + areaCollisione.y, areaCollisione.width, areaCollisione.height);
         }
-        
-        
+    }
+    //Disegno del personaggio
+    public void draw(Graphics2D g) {
+        setImage();
+        setScreenCoord();
+        Defines.CAMERA.update();
+        drawPlayer(g);
     }
 
 }
