@@ -376,7 +376,7 @@ public class Player extends Entity implements Drawable, Updateable{
             
             //STAMPA RETTANGOLO COLLISIONI
             translateTemp(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
-            g.drawRect(0 , 0 , areaCollisione.width, areaCollisione.height);
+            //g.drawRect(0 , 0 , areaCollisione.width, areaCollisione.height);
             untranslateTemp(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
 
         }else{
@@ -388,7 +388,7 @@ public class Player extends Entity implements Drawable, Updateable{
 
             //STAMPA RETTANGOLO COLLISIONI
             translate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
-            g.drawRect(0, 0, areaCollisione.width, areaCollisione.height);
+            //g.drawRect(0, 0, areaCollisione.width, areaCollisione.height);
             untranslate(screenX + areaCollisione.x, screenY + areaCollisione.y, g);
             
         }
