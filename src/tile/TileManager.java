@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import mp3player.MP3Player;
 import utils.Camera;
 import utils.Defines;
 
@@ -58,11 +57,11 @@ public class TileManager {
     //Controlla se il player è vicino un uscita
      
     public boolean isInUscita(int x, int y, int i) { //controlla se il player è in una casella di uscita
-        boolean flag = false;
+        boolean isInUscita = false;
         if (x == uscita[i].getCol() && y == uscita[i].getRow()) {
-            flag = true;
+            isInUscita = true;
         }
-        return flag;
+        return isInUscita;
     }
 
     //Legge la mappa dal file di testo
@@ -97,32 +96,30 @@ public class TileManager {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt"); 
                 Defines.GAME_PANEL.setBackground(Color.black); //cambia il colore dello sfondo
                 ambienteAperto=true;
-                Defines.SCALA=3;
+                GamePanel.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*GamePanel.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
                 Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.SCREEN_HEIGHT/GamePanel.getMaxWorldRow()); //L'ultimo numero è il moltiplicatore della telecamera
             }
             case 2 -> {
                 loadMap("map02.txt", "misureMap02.txt", "uscita02.txt", "spawn02.txt");
                 Defines.GAME_PANEL.setBackground(Color.gray);
                 ambienteAperto=false;
-                Defines.SCALA=2;
+                GamePanel.SCALA=3;
                 Defines.PLAYER.setSpeed(2);
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*GamePanel.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
             default -> {
                 loadMap("map01.txt", "misureMap01.txt", "uscita01.txt", "spawn01.txt");
                 Defines.GAME_PANEL.setBackground(Color.black);
                 ambienteAperto=true;
-                Defines.SCALA=3;
+                GamePanel.SCALA=3;
                 Defines.PLAYER.setSpeed(4);
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
-                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * Defines.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE*GamePanel.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+                Defines.GRANDEZZA_CASELLE = (int) Math .ceil(Defines.GRANDEZZA_CASELLE_ORIGINALE * GamePanel.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
             }
         }
         //carica la mappa in base alla mappa attuale
-        updateMusic();
-        //updateShader();
         if (uscitaIndex >= 0 && uscitaIndex < spawn.length)
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
@@ -211,87 +208,4 @@ public class TileManager {
             }
         }
     }
-
-    //Robe di renosto
-
-    public static void updateMusic() {
-        System.out.println("Updating music for map: " + currentMappa);
-        try {
-            if (Defines.BGMUSIC_PLAYER != null && Defines.BGMUSIC_PLAYER.isAlive()) {
-                Defines.MP3_PLAYER_SETTER.stopPlayer();
-                Defines.BGMUSIC_PLAYER.interrupt();
-                try {
-                    Defines.BGMUSIC_PLAYER.join(250);
-                } catch (InterruptedException e) {
-                    System.err.println("Interrupted while waiting for thread to join: " + e.getMessage());
-                }
-            }
-
-            Defines.MP3_PLAYER_SETTER = new MP3Player(currentMappa - 1);
-            Defines.BGMUSIC_PLAYER = new Thread(Defines.MP3_PLAYER_SETTER);
-            
-            try {
-                Defines.BGMUSIC_PLAYER.start();
-                System.out.println("Music changed successfully");
-            } catch (Exception e) {
-                System.err.println("Error starting new music: " + e.getMessage());
-            }
-        } catch (Exception e) {
-            System.err.println("Unexpected error in updateMusic: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
-    /* 
-    public static void updateShader ()
-    {
-        if (Defines.SHADER_Thread.isAlive() && Defines.SHADERS != null) 
-        {
-            try {
-                Defines.SHADER_Thread.interrupt();
-                Defines.SHADER_Thread.join(50);
-            } catch (Exception e) {
-                System.err.println("Error stopping shader thread: " + e.getMessage());
-            }
-        }
-        String[] mapShader = new String[]{"none", "src/res/shaders/sw.png"};
-        Defines.SHADERS = new Shaders(Defines.GAME_PANEL, mapShader[currentMappa - 1]);
-        Defines.SHADER_Thread = new Thread(Defines.SHADERS);
-        try {
-            Defines.SHADER_Thread.start();
-            System.out.println("Shader changed successfully");
-            System.out.println("Shader path: " + mapShader[currentMappa - 1]);
-        } catch (Exception e) {
-            System.err.println("Error starting new shader: " + e.getMessage());
-        }
-        Defines.MAINFRAME.add(Defines.GAME_PANEL);
-    }
-    */
-      /*private void getTileImage() {
-        tile[tileCount].image = loadTileImage("stonebrick.png"); tile[tileCount-1].collision = true;
-        tile[tileCount].image = loadTileImage("mattons.png"); tile[tileCount-1].collision = false;
-        path = new Spritesheet(15, 0, "/res/tile/", "path.png");
-        grass = new Spritesheet(10, 0, "/res/tile/", "grass.png");
-        for (int index = 0; index < path.getNum(); index++) {
-            tile[tileCount].image=path.getSpriteSheet(index);
-            tileCount++;
-        }
-        for (int index = 0; index < grass.getNum(); index++) {
-            tile[tileCount].image=grass.getSpriteSheet(index);
-            tileCount++;
-        }
-        
-    }*/
-
-    /*private BufferedImage loadTileImage(String percorso) {
-        try {
-            tileCount++;
-            return ImageIO.read(getClass().getResourceAsStream("/res/tile/".concat(percorso))); //restituisce l'immagine richiesta
-        } catch (Exception e) {
-            System.err.println("Tile non trovato: " + percorso);
-            return null;
-        }
-    }*/
-
 }

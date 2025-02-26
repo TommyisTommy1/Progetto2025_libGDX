@@ -10,6 +10,8 @@ import utils.Defines;
 
 public class GamePanel extends JPanel implements Runnable {
 
+    public static double SCALA = 4; // moltiplicatore della telecamera
+
     public static GestioneTasti keyH = new GestioneTasti(); // KeyHandler
     public RilevatoreCollisioni collisioni = new RilevatoreCollisioni();
     private static int maxWorldCol;
@@ -38,20 +40,20 @@ public class GamePanel extends JPanel implements Runnable {
     public void setMaxWorld(int maxWorldCol, int maxWorldRow) {
         GamePanel.maxWorldCol = maxWorldCol;
         GamePanel.maxWorldRow = maxWorldRow;
-        this.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
-        this.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldRow;
+        GamePanel.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
+        GamePanel.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldRow;
     }
 
     public void setMaxWorldCol(int maxWorldCol) {
         GamePanel.maxWorldCol = maxWorldCol;
-        this.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
+        GamePanel.worldWidth = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
     }
 
    
 
     public void setMaxWorldRow(int maxWorldRow) {
         GamePanel.maxWorldRow = maxWorldRow;
-        this.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
+        GamePanel.worldHeight = Defines.GRANDEZZA_CASELLE * GamePanel.maxWorldCol;
     }
 
     // Costruttore

@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import mp3player.MP3Player;
 import tile.TileManager;
 
 public class Defines {
@@ -21,15 +20,9 @@ public class Defines {
 
     // VARIABILI GAMEPANEL
     public static final int GRANDEZZA_CASELLE_ORIGINALE = 32;
-    public static double SCALA = 4;
 
-    public static int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * SCALA); //L'ultimo numero è il moltiplicatore della telecamera
+    public static int GRANDEZZA_CASELLE = (int) Math .ceil(GRANDEZZA_CASELLE_ORIGINALE * GamePanel.SCALA); //L'ultimo numero è il moltiplicatore della telecamera
     
- 
-    //COLONNE SONORE
-    public static MP3Player MP3_PLAYER_SETTER = new MP3Player(0);
-    public static Thread BGMUSIC_PLAYER = new Thread(MP3_PLAYER_SETTER);
-
     //DIALOGHI
     public static final DialogMngr mngrDialog = new DialogMngr();
     // VARIABILI PANNELLI (DA SPIEGARE SPARTIX)
@@ -42,9 +35,5 @@ public class Defines {
     public static final Player PLAYER = new Player(GamePanel.keyH);
     public static final TileManager TILE_MANAGER = new TileManager();
 
-    // SHADERS
-    public static Shaders SHADERS = new Shaders(GAME_PANEL, "none");
-    public static Thread SHADER_Thread = new Thread(SHADERS);
-    
     public static Camera CAMERA = new Camera();
 }
