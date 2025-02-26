@@ -35,7 +35,6 @@ public class Player extends Entity implements Drawable, Updateable{
 
         screenX = Defines.SCREEN_WIDTH / 2 - Defines.GRANDEZZA_CASELLE / 2;
         screenY = Defines.SCREEN_HEIGHT / 2 - Defines.GRANDEZZA_CASELLE / 2;
-
         setDefaultValues();
     }
 
@@ -123,7 +122,7 @@ public class Player extends Entity implements Drawable, Updateable{
     // Tempo di attesa per cambiare sprite
     private void spriteCounter(int n, int wait) {
         this.spriteCounter++;
-        if (this.spriteCounter > wait / delta * Defines.FPS / 60) {
+        if (this.spriteCounter > wait * Defines.FPS / 60) {
             if (spriteNum < n) {
                 spriteNum++;
             } else {
@@ -136,7 +135,7 @@ public class Player extends Entity implements Drawable, Updateable{
     //Verifica se il personaggio è vicino ai bordi
     private boolean lontanoDaiBordi() {
         boolean stato = false;
-        int offset = 2;
+        int offset = 1;
         if (getCol() < offset || getCol() > GamePanel.getMaxWorldCol() - 2 - offset) {
             stato = true;
         }
@@ -190,7 +189,13 @@ public class Player extends Entity implements Drawable, Updateable{
             }
         }
     }
-    
+    public boolean inDiagonale(){
+        boolean w = getPremuto("W");
+        boolean s = getPremuto("S");
+        boolean d = getPremuto("D");
+        boolean a = getPremuto("A");
+        return (w && d) || (w && a) || (s && d) || (s && a);
+    }
     public void checkIfAlive(){
         if (isAlive) {
             boolean w = getPremuto("W");
@@ -199,14 +204,16 @@ public class Player extends Entity implements Drawable, Updateable{
             boolean a = getPremuto("A");
 
             boolean shift = getPremuto("SHIFT");
-            if (shift) {
-                if (!lontanoDaiBordi()) {
-                    setSpeed(4, 1.5);
-                }else setSpeed(4, 1);
+            if (shift ) {
                 
-            }else if (!shift) {
-                setSpeed(4, 1);
+                if (!lontanoDaiBordi() && !TileManager.ambienteAperto) {
+                    setSpeed(2, 1.5);
+                }else setSpeed(2, 1);
+                
+            }else if (!shift){
+                setSpeed(2, 1);
             }
+          
                 
             
     

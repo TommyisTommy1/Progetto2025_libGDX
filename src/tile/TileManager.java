@@ -92,7 +92,7 @@ public class TileManager {
             camera.getCameraWorldY() + grandezzaCaselle > Defines.PLAYER.getWorldY() - Defines.PLAYER.getScreenY() &&
             camera.getCameraWorldY() - grandezzaCaselle < Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY();
     }
-
+wwww
     /** 
      * Controlla se la mappa è quella di default
      */
