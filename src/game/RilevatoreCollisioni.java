@@ -26,7 +26,7 @@ public class RilevatoreCollisioni {
         numColonne = GamePanel.getMaxWorldCol();
         numRighe = GamePanel.getMaxWorldRow();
         larghezzaMappa = grandezzaCaselle * numColonne;
-        altezzaMappa = grandezzaCaselle * numRighe - 5;
+        altezzaMappa = grandezzaCaselle * numRighe;
     }
 
     //  Costruttore
@@ -49,7 +49,7 @@ public class RilevatoreCollisioni {
         int entityDestraWorldX = playerWorldX + entity.areaCollisione.x + entity.areaCollisione.width;
         int entitySinistraWorldX = playerWorldX + entity.areaCollisione.x;
         int entitySuWorldY = playerWorldY + entity.areaCollisione.y;
-        int entityGiuWorldY = playerWorldY + entity.areaCollisione.y + entity.areaCollisione.height + 5;
+        int entityGiuWorldY = playerWorldY + entity.areaCollisione.y + entity.areaCollisione.height;
     
         int entitySinistraCol = entitySinistraWorldX / grandezzaCaselle;
         int entityDestraCol = entityDestraWorldX / grandezzaCaselle;

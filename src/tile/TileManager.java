@@ -30,7 +30,60 @@ public class TileManager {
         tileset = new Tileset();
     }
 
-    //Culling
+    /** 
+     * Disegna la mappa
+     * @param g
+     */
+
+     public void draw(Graphics2D g) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
+        int playerCol = Defines.PLAYER.getWorldX() / grandezzaCaselle;
+        int playerRow = Defines.PLAYER.getWorldY() / grandezzaCaselle;
+        boolean e = GamePanel.keyH.getPremuto("E");
+
+        checkIfMappaDefault();
+
+        for (int i = 0; i < uscita.length; i++) {
+            if (isInUscita(playerCol, playerRow, i) && e && !flag) {
+                cambiaMappa(i);  // Passiamo l'indice dell'uscita usata
+                flag=true;
+                break;
+            }
+            if (!e && flag==true) {
+                flag=false; // Resetta il flag quando il tasto non è premuto
+            }
+        }
+        
+        this.drawTiles(g);
+
+    }
+
+    /** 
+     * Setta la mappa attuale
+     * @param map
+     */
+
+     public void setCurrentMap(int map){
+        currentMappa = map; //autoesplicativo
+    }
+
+    /** 
+     * Setta la posizione del player
+     * @param x
+     * @param y
+     */
+
+    public void setPosizionePlayer(int x, int y) {
+        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
+        Defines.PLAYER.setWorldX(x*grandezzaCaselle); //autoesplicativo
+        Defines.PLAYER.setWorldY(y*grandezzaCaselle);
+    }
+
+    /** 
+     * Da in ritorno se la casella è visibile nella telecamera
+     * @param camera
+     * @return boolean
+     */
 
     private boolean isVisible(Camera camera) { //controlla se il tile è visibile
         
@@ -40,49 +93,23 @@ public class TileManager {
             camera.getCameraWorldY() - grandezzaCaselle < Defines.PLAYER.getWorldY() + Defines.PLAYER.getScreenY();
     }
 
-    //Setta la mappa corrente
-
-    public void setCurrentMap(int map){
-        currentMappa = map; //autoesplicativo
-    }
-
-    //Cambia posizione player
-
-    public void setPosizionePlayer(int x, int y) {
-        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        Defines.PLAYER.setWorldX(x*grandezzaCaselle); //autoesplicativo
-        Defines.PLAYER.setWorldY(y*grandezzaCaselle);
-    }
-
-    //Controlla se il player è vicino un uscita
-     
-    public boolean isInUscita(int x, int y, int i) { //controlla se il player è in una casella di uscita
-        boolean isInUscita = false;
-        if (x == uscita[i].getCol() && y == uscita[i].getRow()) {
-            isInUscita = true;
+    /** 
+     * Controlla se la mappa è quella di default
+     */
+    public void checkIfMappaDefault() {
+        if (currentMappa == -1) {
+            setCurrentMap(2);
+            cambiaMappa(currentMappa);
+            setPosizionePlayer(7, 7);
         }
-        return isInUscita;
     }
 
-    //Legge la mappa dal file di testo
+    /** 
+     * Cambia la mappa
+     * @param uscitaIndex
+     */
 
-    private Casella[] loadCaselle(String filePath) throws Exception {
-
-        InputStream is = getClass().getResourceAsStream("/res/map/".concat(filePath)); 
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String[] numbers = br.readLine().split(" "); //legge la prima riga come prima
-
-        Casella[] caselle = new Casella[numbers.length / 2];
-
-        for (int i = 0; i < numbers.length; i += 2) {
-            caselle[i / 2] = new Casella(Integer.parseInt(numbers[i]), Integer.parseInt(numbers[i + 1]));
-        }
-        return caselle;
-    }
-
-    //Selezione mappe
-
-    private void cambiaMappa(int uscitaIndex) {
+     private void cambiaMappa(int uscitaIndex) {
         grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
         if (currentMappa == mappe[mappe.length - 1]) { //Se la mappa è quella finale allora torni alla prima mappa
             currentMappa = mappe[0];
@@ -124,7 +151,13 @@ public class TileManager {
             setPosizionePlayer(spawn[uscitaIndex].getCol(), spawn[uscitaIndex].getRow()); //sposta il player nella posizione di spawn
     }
 
-    //Caricamento mappa
+    /** 
+     * Carica la mappa
+     * @param mappa
+     * @param misure
+     * @param uscite
+     * @param entrate
+     */
 
     private void loadMap(String mappa, String misure, String uscite, String entrate) {
         try {
@@ -156,34 +189,34 @@ public class TileManager {
             System.err.println("Errore nel caricamento della mappa: " + mappa);
         }
     }
-   
 
-    //Metodo per stampare la mappa
+    /** 
+     * Prende in input da un file di testo tutti i tile della mappa
+     * @param filePath
+     * @return Casella[]
+     * @throws Exception
+     */
 
-    public void draw(Graphics2D g) {
-        grandezzaCaselle = Defines.GRANDEZZA_CASELLE;
-        int playerCol = Defines.PLAYER.getWorldX() / grandezzaCaselle;
-        int playerRow = Defines.PLAYER.getWorldY() / grandezzaCaselle;
-        boolean e = GamePanel.keyH.getPremuto("E");
+     private Casella[] loadCaselle(String filePath) throws Exception {
 
-        if (currentMappa == -1) {
-            setCurrentMap(2);
-            cambiaMappa(currentMappa);
-            setPosizionePlayer(7, 7);
+        InputStream is = getClass().getResourceAsStream("/res/map/".concat(filePath)); 
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String[] numbers = br.readLine().split(" "); //legge la prima riga come prima
+
+        Casella[] caselle = new Casella[numbers.length / 2];
+
+        for (int i = 0; i < numbers.length; i += 2) {
+            caselle[i / 2] = new Casella(Integer.parseInt(numbers[i]), Integer.parseInt(numbers[i + 1]));
         }
+        return caselle;
+    }
+    
+    /**
+     * Disegna i tile
+     * @param g
+     */
 
-        for (int i = 0; i < uscita.length; i++) {
-            if (isInUscita(playerCol, playerRow, i) && e && !flag) {
-                cambiaMappa(i);  // Passiamo l'indice dell'uscita usata
-                flag=true;
-                break;
-            }
-            if (!e && flag==true) {
-                flag=false; // Resetta il flag quando il tasto non è premuto
-            }
-        }
-        
-
+     public void drawTiles(Graphics2D g) {
         for (int row = 0; row < misuray; row++) {
             for (int col = 0; col < misurax; col++) {
 
@@ -208,4 +241,27 @@ public class TileManager {
             }
         }
     }
+
+    /** 
+     * Controlla se il player è in una casella di uscita
+     * @param x
+     * @param y
+     * @param i
+     * @return boolean
+     */
+     
+     public boolean isInUscita(int x, int y, int i) { //controlla se il player è in una casella di uscita
+        boolean isInUscita = false;
+         // Debug: Stampa le coordinate del giocatore e delle uscite
+        if (x == uscita[i].getCol() && y == uscita[i].getRow()) {
+            isInUscita = true;
+        }
+        return isInUscita;
+    }
+
+    
+
+    
+   
+    
 }
